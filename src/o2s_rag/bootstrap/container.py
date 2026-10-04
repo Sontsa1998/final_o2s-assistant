@@ -84,7 +84,7 @@ def build_sparse(s: Settings):
         return None
     apply_ssl_policy(s)
     from o2s_rag.adapters.outbound.vectorstore.sparse_bm25 import FastEmbedBM25
-    return FastEmbedBM25(s.sparse_model, s.sparse_language)
+    return FastEmbedBM25(s.sparse_model, s.sparse_language, s.sparse_stopwords_dir)
 
 
 def build_store(s: Settings):

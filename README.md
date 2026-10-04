@@ -303,6 +303,11 @@ docker run -d --name qdrant -p 6333:6333 -v qdrant_data:/qdrant/storage qdrant/q
    appels (ex. `o2s-profile --force` pour régénérer des profils avec le même prompt), ajoutez `--no-cache`.
    Supprimer le fichier vide le cache. La génération des réponses de l'agent n'est jamais mise en cache.
 
+   **BM25 hors-ligne** : la liste de mots vides français utilisée par la recherche hybride est fournie dans
+   `config/bm25/french.txt` (liste Snowball), aucun téléchargement depuis Hugging Face n'est nécessaire.
+   Derrière un proxy d'entreprise qui réécrit les certificats, `SSL_VERIFY=false` dans `.env` désactive la
+   vérification TLS (poste de dev uniquement).
+
 ### 2.5 Discuter avec l'assistant
 
 ```powershell

@@ -43,6 +43,7 @@ class Settings(BaseSettings):
     enable_sparse: bool = True                    # hybride dense + BM25 (fusion RRF)
     sparse_model: str = "Qdrant/bm25"
     sparse_language: str = "french"
+    sparse_stopwords_dir: Path | None = PROJECT_ROOT / "config" / "bm25"   # évite le téléchargement HF
 
     # --- Indexation ---
     docs_dir: Path = PROJECT_ROOT / "docs"
