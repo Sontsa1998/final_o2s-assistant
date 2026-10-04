@@ -41,12 +41,9 @@ def _chunk(nodes, doc_id, crumb):
 
 
 # ------------------------------------------------------------------ catalogue
-EXCLUDED = {"012_test.md", "191_partenaires.md"}
-
-
 def test_every_doc_has_complete_metadata(docs):
-    files = {p.name for p in DOCS.glob("*.md") if p.name.lower() != "readme.md"}
-    assert len(docs) == len(files - EXCLUDED) == 395                  # doc_id uniques, 2 pages vides exclues
+    files = {p.relative_to(DOCS).as_posix() for p in DOCS.glob("**/*.md")}
+    assert len(docs) == len(files) == 395                             # 9 docs d'API + 386 de l'aide en ligne
     ids = set(docs)
     for d in docs.values():
         m = d.metadata
@@ -58,19 +55,25 @@ def test_every_doc_has_complete_metadata(docs):
         assert (m.api_version is not None) == (m.doc_type == "reference_api")
         assert m.summary and m.profile_source in {"llm", "heuristique", "partenaire"}, d.doc_id
         if m.corpus == "aide_en_ligne":
-            assert d.doc_id.startswith("help-") and m.source_format == "help_center" and m.article_number
+            assert d.source_path.startswith("aide_en_ligne/") and d.doc_id.startswith("aide-")
+            assert m.source_format == "markdown"
+            assert m.source_url or m.doc_type in {"fiche_partenaire_agregation", "depannage"}, d.doc_id
 
 
 def test_help_articles_are_cleaned_and_linked(docs):
-    faq = docs["help-076-faq-agregation-dans-o2s"]
+    faq = docs["aide-5864-faq-agregation-dans-o2s"]
     assert faq.metadata.source_url == "https://o2s-help.harvest.fr/faq-agregation/"
-    assert faq.metadata.doc_type == "faq" and faq.metadata.default_theme == "agregation"
+    assert faq.metadata.doc_type == "faq"
     assert "Comment agréger un partenaire financier dans O2S ?" in faq.metadata.outline
-    assert "(https://" not in faq.content and "(#" not in faq.content and "Sommaire" not in faq.content
-    assert "help-141-liste-des-partenaires-lettres-dautorisation" in faq.metadata.links_to
-    assert faq.doc_id in docs["help-141-liste-des-partenaires-lettres-dautorisation"].metadata.linked_from
+    assert "(https://" not in faq.content and "(#" not in faq.content
+    assert "aide-178-liste-des-partenaires-lettres-dautorisation" in faq.metadata.links_to
+    assert faq.doc_id in docs["aide-178-liste-des-partenaires-lettres-dautorisation"].metadata.linked_from
     assert any("Gestion de l’agrégation" in p for p in faq.metadata.ui_paths)
-    sheet = docs["help-233-informations-sur-lagregation-de-123-investment-managers"]
+    immo = docs["aide-3914-immobilier"]                       # procédure retrouvée sous son intertitre
+    assert "Ajout d’un bien immobilier" in immo.metadata.outline
+    assert "Cliquez sur Ajouter un immeuble dans la barre de menus" in immo.content
+    assert immo.content.count("Ajustez si besoin les informations initialement saisies sur le prêt") == 1
+    sheet = docs["aide-agregation-123-investment-managers"]
     m = sheet.metadata
     assert m.partner == "123 Investment Managers" and m.doc_type == "fiche_partenaire_agregation"
     assert m.partner_facts["frequence_agregation"] == "quotidienne"

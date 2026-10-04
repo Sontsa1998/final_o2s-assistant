@@ -1,5 +1,0 @@
-## 226. CONFORMITÉ
-
-Profil d’investisseur - Quels éléments sont restitués dans O2S ? Profil d’investisseur - Quels éléments sont restitués dans O2S ?  Les réponses aux questionnaires du dernier profil d'investisseur établi dans Prisme ne sont pas migrés. Cependant, le résultat du profil investisseur est bien reporté. résultat Avant de réaliser un projet d’investissement dans O2S, vous devez impérativement établir un nouveau profil d’investisseur (https://o2s-help.harvest.fr/informations-scientifiques-sur-le-calcul-du-profil/) pour votre client dans O2S.  Vigilance (https://o2s-help.harvest.fr/vigilance/) (LAB-FT) Vigilance (https://o2s-help.harvest.fr/vigilance/) (LAB-FT) Seul le résultat du dernier questionnaire vigilance réalisé dans Prisme est récupéré ; il inclue : résultat Le niveau de vigilance retenue la date de mise à jour Le niveau de vigilance retenue la date de mise à jour
-
-**Source :** [https://o2s-help.harvest.fr/faq-prisme-o2s-2/](https://o2s-help.harvest.fr/faq-prisme-o2s-2/)

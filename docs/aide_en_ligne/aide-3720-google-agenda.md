@@ -1,0 +1,61 @@
+---
+title: Google Agenda
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/google-agenda/
+products:
+- O2S
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+internal_links:
+- https://o2s-help.harvest.fr/outlook/
+external_links:
+- https://g.co/allowaccess/
+doc_id: aide-3720-google-agenda
+wp_post_id: 3720
+wp_categories:
+- '8'
+wp_statut: publish
+thematique: O2S
+date_modification: '2026-09-16'
+---
+
+## Prérequis
+
+2 méthodes sont possibles afin de synchroniser votre agenda Google avec O2S : la synchronisation directe, et la synchronisation via le logiciel tiers iCalc.
+
+## Synchronisation directe
+
+Il s’agit de synchroniser directement O2S avec Google sans passer par un logiciel tiers et pour cela il vous suffit de disposer d’une adresse email Google (par exemple jean.durand@gmail.com). En plus de l’agenda, vous pouvez également synchroniser vos contacts.
+
+### Paramétrage de la synchronisation
+
+Dans O2S, rendez-vous dans Services > Synchronisation > Google et effectuez les paramétrages ci-dessous : Services > Synchronisation > Google Données de connexion : Données de connexion : renseignez votre adresse email. Cliquez sur le bouton Enregistrer. renseignez votre adresse email. Google a mis en place une politique de sécurité renforcée pour les liens entre ses applications et des logiciels tiers tels qu’O2S. Il faut donc désormais déclarer auprès de Google que vous validez l’échange d’informations avec d’autres programmes. Si, dans O2S, lors de l’enregistrement de votre paramétrage de synchronisation avec Google vous avez le message d’erreur suivant : « La synchronisation avec Google Agenda ne peut pas s’effectuer.
+
+Veuillez vérifier votre login et mot de passe. » alors que vous avez correctement renseigné votre login / mot de passe, alors cela signifie que votre compte entre dans le périmètre de cette politique renforcée. Afin qu’O2S puisse échanger des informations avec votre compte Google, suivez les instructions suivantes : Déconnectez-vous d’O2S. Rendez-vous sur https://g.co/allowaccess , puis suivez les instructions affichées à l’écran. https://g.co/allowaccess Reconnectez-vous à O2S et enregistrez vos paramètres Google. Le message d’erreur ne doit plus s’afficher. Attention : vous devez saisir l’identifiant et le mot de passe avec lequel vous accédez à Harvest Connect ! Si vous accédez à O2S en mode SSO, contactez l’administrateur O2S de votre société.
+
+Paramètres de synchronisation Agenda : Paramètres de synchronisation Agenda : Cochez la case permettant d’activer la synchronisation. Choisissez la fréquence de la synchronisation, ainsi que la date à partir de laquelle la synchronisation doit s’effectuer. Cliquez sur Enregistrer. Une fenêtre vous demande alors d’autoriser la connexion d’O2S à Google Agenda. Cliquez sur J’accepte avant de la refermer si besoin. Précision : si vous n’êtes pas connecté à Gmail lors de ce paramétrage, vous devrez vous identifier auprès de Google, afin de pouvoir accéder à la fenêtre d’autorisation. Cas de plusieurs agendas pour un même compte Google Si vous disposez de plusieurs agendas pour un même compte Google, vous devrez choisir celui qui sera synchronisé avec votre agenda O2S.
+
+Synchroniser Google Agenda correspondant à l’ID et indiquez l’ID de l’agenda qui sera utilisé pour la synchronisation. Cliquez ensuite sur Agendas. Enfin, cliquez sur le nom de votre agenda. Votre ID se trouve sur la page ci-dessous : Cet écran est directement disponible si vous cliquez sur le menu de l’agenda que vous souhaitez synchroniser : Paramètres de synchronisation des contacts : Sélectionnez ici la catégorie des contacts O2S qui intègrera les nouveaux contacts importés depuis Google, et inversement. Si vous avez défini plusieurs groupes Google dans vos contacts, vous pouvez préciser le groupe qui sera synchronisé. Dans Google, les contacts se définissent dans la page ci-dessous. Pour créer des groupes, cliquez sur le lien Nouveau groupe….
+
+## Synchronisation via iCal4OL
+
+Agenda est un serveur CalDAV tout comme O2S. Nous vous conseillons de n’utiliser cette méthode de synchronisation que si vous avez besoin de synchroniser les tâches, en plus des rendez-vous; dans le cas contraire, la synchronisation directe est plus rapide à mettre en œuvre. Il est possible de synchroniser Google Agenda avec O2S, en passant par un client CalDAV (Outlook via le plugin iCal4OL). Le logiciel iCal4OL vous permettra de faire le lien entre O2S et Outlook d’une part et entre Outlook et Google Agenda d’autre part. L’information passera donc de la façon suivante : Dans un sens : O2S > Outlook > Gmail Dans l’autre sens Gmail > Outlook > O2S Dans un sens : O2S > Outlook > Gmail O2S > Outlook > Gmail Dans l’autre sens Gmail > Outlook > O2S Gmail > Outlook > O2S Vous devez donc faire l’acquisition d’iCal4OL et mettre en place la synchronisation entre O2S et Outlook.
+
+Pour ces 2 étapes, consultez la synchronisation Outlook .
+
+## Outlook
+
+doit être ouvert pour que la synchronisation fonctionne. Pour cela lancez iCal4OL Pour cela lancez iCal4OL Positionnez-vous sur l’onglet Quoi, et cliquez sur 2-Sync bidirection-nelle avec Google Agenda. Ensuite cliquez sur Sauvegarder sous… et enregistrez le fichier sous le nom « Google – Outlook » dans le répertoire d’installation d’iCal4OL. Cliquez sur l’onglet 1.Comment. Dans cet écran, indiquez votre adresse email Gmail dans le champ « Email ». Ensuite cliquez sur le bouton D’authentification. ClientLogin (old authentification method) et saisissez votre mot de passe Gmail dans la case « Password ». OK pour revenir à l’écran précédent. Le bouton Test doit maintenant afficher OK ! OK Test OK ! Tâches (Beta) dans l’onglet 1.Comment.
+
+Dans la fenêtre qui s’ouvre, si ce n’est pas déjà fait, cochez les 4 cases ci-dessous. Exécuter la Synchronisation pour valider et revenir sur l’onglet 1.Comment. Sauvegarde Google – outlook.ini. Dans la fenêtre qui s’ouvre, cliquez sur Oui. Ensuite, dans l’espace central, cochez la case Defaut.ini. Pour automatiser la synchronisation, dans la zone « Autostart barre tâches », cochez la case Au démarrage suivant du programme afin d’éviter d’indiquer à chaque démarrage d’iCal4OL vos paramètres de travail. Enfin sélectionnez la fréquence de synchronisation en cliquant sur le bouton de votre choix. Rappel : le bouton Exécuter la synchronisation sert uniquement à déclencher une synchronisation manuelle. Après avoir cliqué sur le bouton de fréquence de synchronisation de votre choix, la fenêtre se ferme et la mise en attente de la synchronisation se déclenche.
+
+Dans la zone de notification (espace situé à gauche de l’horloge dans la barre des tâches), l’icône d’iCal4OL doit désormais être visible. En positionnant la souris dessus, une « infobulle » vous indique dans combien de temps la prochaine synchronisation aura lieu. Important Pour que la synchronisation soit effective, n’oubliez pas de lancer iCal4OL à chaque démarrage d’Outlook. Il existe une option dans iCal4OL permettant de lancer Outlook au démarrage de ce logiciel. Dans l’onglet Options, si ce n’est pas déjà fait, cochez les 2 cases ci-contre : Cliquez sur le bouton Sauvegarder. Il est possible de lancer automatiquement iCal4OL et Outlook au démarrage de Windows.
+
+## Généralités
+
+La synchronisation (ajout, modification et suppression) s’effectue dans les 2 sens sans intervention particulière de votre part. Dans la partie supérieure gauche du module Agenda de O2S, vous disposez d’un lien vous permettant, à tout moment, d’effectuer la synchronisation. Les données échangées. Google Agenda l’heure de début et de fin du rendez-vous, la description du lieu c’est-à-dire la seconde ligne du champ lieu de la fenêtre des rendez-vous d’O2S, les participants autres que le conseiller, la description, l’heure de rappel du rendez-vous. Dans le sens Google Agenda > O2S : Google Agenda > O2S l’heure de début et de fin du rendez-vous, l’emplacement, le rappel, les participants : ceux qui seront identifiés dans O2S avec leur adresse email seront présents dans l’onglet « Participant » et les autres seront présents dans l’onglet « Autres participants ».
+
+Les tâches Lors de la synchronisation, les tâches sont synchronisées mais uniquement par la méthode de synchronisation via iCalc.

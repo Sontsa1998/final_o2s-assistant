@@ -1,0 +1,60 @@
+---
+title: Profil investisseur
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/informations-scientifiques-sur-le-calcul-du-profil/
+products:
+- O2S
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+internal_links:
+- https://o2s-help.harvest.fr/kyc-2/
+- https://o2s-help.harvest.fr/questionnaires-de-profil-dinvestisseur/
+- https://o2s-help.harvest.fr/patrimoine/
+- https://o2s-help.harvest.fr/utiliser-la-signature-electronique/
+- https://o2s-help.harvest.fr/kyc/
+- https://o2s-help.harvest.fr/le-profil-dinvestisseur-dans-o2s-personnalisation-et-contraintes/
+- https://o2s-help.harvest.fr/profil-dinvestisseur-informations-complementaires/
+videos:
+- https://youtu.be/9oplaMqQBiE
+doc_id: aide-235-profil-investisseur
+wp_post_id: 235
+wp_categories:
+- '50'
+- '1'
+wp_statut: publish
+thematique: O2S
+date_modification: '2026-01-07'
+---
+
+### Déterminer le profil investisseur
+
+O2S permet de dresser rapidement un profil complet de votre client en déterminant sa connaissance et son expérience des marchés financiers, son appétence au risque. Cette rubrique vous présente comment déterminer le profil d’investisseur. Rappel Pour que votre client crée ou mette à jour son profil d’investisseur lui-même, vous devez utiliser KYC (ex-MoneyPitch Starter). Les PDF remplissables correspondant à l’ancien questionnaire de profil ne peuvent plus être utilisés. Seul le questionnaire au format Word correspondant au nouveau questionnaire profil d’investisseur mis en place est mis à votre disposition . Il ne peut pas être importé dans O2S pour créer ou mettre à jour son profil d’investisseur.
+
+O2S pour créer ou mettre à jour son profil d’investisseur Questionnaire manuel. A partir de Conformité > Profil d’investisseur d’une fiche contact, cliquez sur Ajouter un nouveau profil, pour accéder au questionnaire. Le questionnaire se compose d’une première série de questions permettant de mesurer la connaissance et l’expérience de votre client sur les marchés et produits financiers : quels produits ont-ils récemment détenus ? A quels modes de gestion ont-ils eu recours ? connaissance et l’expérience de votre client sur les marchés et produits financiers Attention : il est impératif de répondre à chaque question, sinon le bouton Étape suivante ne sera pas accessible. En fonction des réponses données par le client, il sera identifié comme Novice, Informé ou Expérimenté.
+
+De plus, vous visualisez sa connaissance par type de produit : coches vertes (connaissance vérifiée), croix rouges (méconnaissance), ou des croix grises (connaissance non vérifiée). Le menu situé en face de chaque produit vous permet, le cas échéant, de prendre la main et de Marquer directement la connaissance de ce produit comme vérifiée. Déterminez ensuite le profil de risque à travers une deuxième série de questions comportementales consacrées à la détermination de la sensibilité au risque de votre client. Son Profil de risque est alors calculé et établi sur une échelle composée de 5 niveaux : profil de risque détermination de la sensibilité au risque de votre client Sécuritaire, Défensif, Equilibré, Dynamique, Offensif.
+
+Ce profil est ajustable par le client, à la baisse seulement. Un graphe permet de visualiser l’évolution dans le temps d’un placement selon 3 scénarii (Sur performance, Performance espéré et Sous performance) plus un scénario de crise tenant compte du profil du client. Ce graphe permet de faire prendre conscience au client de la corrélation risque / rendement attachée à son profil. Une troisième série de questions est dédiée aux préférences de placement et à la capacité à subir des pertes. Elles visent à exclure des objectifs, déterminer un horizon de placement, identifier la capacité à subir des pertes en fonction des revenus et de la situation patrimoniale des clients. Ces questions servent notamment à assurer la gouvernance produit imposée par MIF2. préférences de placement et à la capacité à subir des pertes Enfin, une quatrième série de questions est consacrée à la détermination de la sensibilité extra-financière de votre client, à travers des questions touchant à des thématiques environnementales, sociales, et incidences négatives détermination de la sensibilité extra-financière de votre client Le questionnaire étant terminé, une dernière page vous permet le cas échéant d’intégrer des commentaires, indiquez la date, le lieu.
+
+La page Profil d’investisseur restitue alors les résultats en termes de connaissance / expérience, profil de risque, préférences de placement et situation financière du client. A chaque rubrique est attachée la partie du questionnaire correspondant. En les survolant avec la souris, un bouton vous permet de les modifier si besoin. modifier Notez que pour certains clients avertis, le lien Connaissance par produit permet d’accéder aux produits de défiscalisation, immobilier, structurés, à effet de levier et boursiers.Est-il possible de modifier les questions du questionnaire profil investisseur ? Les questions du questionnaire profil investisseur ne peuvent pas être modifiées. Pour compléter l’analyse de la situation financière du client vous pouvez également aller vers la page Patrimoine .
+
+Enfin vous pourrez suivre l’historique du Profil investisseur de votre client dans une rubrique dédiée. Il vous reste à faire signer ce profil à votre client : cliquez sur Signer le profil d’investisseur pour accéder à la signature électronique . Définir manuellement le niveau de connaissances et le profil de risque. Déplacez la réglette sur les 2 niveaux correspondant à votre contact. Cochez l’option Le profil d’investisseur a été établi en dehors d’O2S, le cas échéant. Si le client n’a pas souhaité répondre au questionnaire, cochez l’option Le contact ne souhaite pas répondre au questionnaire puis indiquez la date. Définir les préférences extra-financières de votre client.
+
+### Définir les préférences extra-financières de votre client
+
+Les enjeux environnementaux comme le changement climatique, la préservation de la biodiversité mais également les enjeux sociétaux tels que l’égalité homme/femme et le respect des droits humains sont autant de préoccupations majeures de la société actuelle, qui affectent les décisions des épargnants, de plus en plus soucieux de diriger leur épargne vers des entreprises au comportement responsable. O2S applique les directives publiées par l’Autorité européenne des Marchés Financiers (AMF) depuis 2021 afin de contribuer au développement d’une finance garantissant ainsi aux épargnants la qualité durable de leurs placements. Pour aller plus loin Pour aller plus loin Prenez connaissance de la présentation vidéo de l’ESG dans ses grandes lignes, avec notamment les grands thèmes (taxonomie, sfdr, PIA…) qu’elle met en œuvre.
+
+### Questionnaire de profil extra-financier dans O2S
+
+Pour répondre à ces nouvelles directives, le profil d’investisseur intègre d’ores et déjà un questionnaire de détermination de la sensibilité extra-financière de votre client. A noter : vous devez activer cette fonctionnalité dans Services > Personnalisation > Paramétrage > Outil de profilage > Profil d’investisseur extra-financier. Offrant une ergonomie améliorée*, et composé de quelques questions très simples, il vise à à définir les préférences de votre client en matière de finance verte. En premier lieu, votre client peut sélectionner 1, 2 ou les 3 approches en matière de durabilité : Ensuite, il répond aux questions en rapport avec les approches qu’il a sélectionnées : Enfin, son niveau de sensibilité extra-financière est alors déterminé; ces données viennent compléter son profil d’investisseur.
+
+Consultez le tuto vidéo « Déterminer la sensibilité extra-financière de votre client » pour savoir comment accéder au questionnaire et l’utiliser dans O2S.
+
+### Renseigner le questionnaire automatiquement
+
+Outre le renseignement du questionnaire interactif vu ci-dessus, nous vous conseillons de le faire renseigner le profil d’investisseur par votre client directement à l’aide de KYC (ou MoneyPitch s’il en dispose), depuis sa page Conformité > Profil d’investisseur Conformité > Profil d’investisseur S’il ne dispose pas d’accès à MoneyPitch, un accès à KYC sera automatiquement créé pour votre client; après avoir créé son mot de passe, il pourra ensuite renseigner son profil d’investisseur. A sa validation par le client, il vous sera redescendu automatiquement dans O2S, et vous aurez l’occasion de lui créer un accès à MoneyPitch ou MoneyPitch Premium. Pour les mises à jour, vous pourrez ensuite notifier votre client via le menu [icone : menu Burger (3 traits superposés)] > Mettre à jour via MoneyPitch.
+
+Dans MoneyPitch il recevra une notifcation l’invitant à mettre à jour son profil d’investisseur. > Mettre à jour via MoneyPitch Voir aussi… Personnalisation et contraintes Informations sur le calcul du profil d’investisseur Voir aussi…

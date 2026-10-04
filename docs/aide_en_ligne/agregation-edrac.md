@@ -1,0 +1,117 @@
+---
+title: 'Agrégation : EDRAC'
+corpus: aide_en_ligne
+source_format: markdown
+products:
+- O2S
+language: fr
+partner: EDRAC
+partner_facts:
+  code_apporteur: code apporteur est composé de lettres correspondant à votre raison sociale.
+  lettre_autorisation: true
+  produits_agreges:
+  - Afilium Gestion Privée Capi
+  - Afilium Gestion Privée Vie
+  - ALTEGE PLUS CAPITAL
+  - Aprep Multigestion
+  - Assuractif  II (EDRAC)
+  - Assuractions Vie II
+  - Aster Evolution (EDRAC)
+  - Aster Excellence Capitalisation 2 (V2)
+  - Aster Excellence II
+  - Aster Excellence VU (EDRAC)
+  - Aster Liberte Universelle
+  - Aster Préférence (EDRAC)
+  - Aster selection
+  - Atout Garanti
+  - Avenir Noassur emprunteur
+  - Avip Selection Cic Bp
+  - Barclays Gestion de Fortune Vie
+  - BASTIONS PATRIMOINE
+  - BMM Capital Différé
+  - BMM Latitude
+  - BNP Paribas Antin Multiplacements
+  - BNP Paribas Multiplacement Privilège Plus
+  - BNP Paribas Multiplacements (EDRAC)
+  - BNP Paribas Multiplacements 2 (EDRAC)
+  - BNP Paribas Multiplacements Privilege
+  - BNP Paribas Antin Multiplacements Privilège
+  - BNP Parisbas Multiplacements Privilege (EDRAC)
+  - Bond 4 European Mobility
+  - CALIE Life Patrimony 2
+  - Calie Life Patrimony Capitalisation
+  - Cap Secure (Cardif Lux)
+  - Capi Success (EDRAC)
+  - Capi VIP
+  - Capital Euro Epargne
+  - Capitalisation Vie Pus  (Vie Plus)
+  - CARDIF EDITION PREMIUM VIE
+  - Cardif Elite (EDRAC)
+  - Cardif Private Insurance Italia
+  - Carmignac Evolutif
+  - Carmignac Multi Assurance
+  - CDG Evolution Collectif
+  - CIC Banque Privée Privilège Capi
+  - CNP One Vie (CNP)
+  - CNP One Capi (CNP)
+  - CNP One Lib'RT (CNP)
+  - CNP One Lib'RT Capitalisation (CNP)
+  - CNP Patrimoine Capitalisation
+  - CNP Patrimoine Liberté (EDRAC)
+  - Complément Epargne Retraite
+  - Coralis Capitalisation
+  - Coralis Sélection
+  - Crédit Suisse Privilège
+  - Croissance Saint-Honoré
+  - Dediance 1818
+  - Delfea Vie (EDRAC)
+  - Dexactif (EDRAC)
+  - Diade Évolution
+  - Diade Evolution Capitalisation (EDRAC)
+  - DNCA Evolutif Universel
+  - Echiquier Evolution Vie
+  prix_achat_moyen_transmis: true
+  mouvements_agreges: Versement initial, Versement programmé, Rachat total et fermeture, Versement libre complémentaire,
+    Transfert entrant, Transfert sortant, Décès, Rachat partiel et retrait, Arbitrage volontaire, Rachat partiel
+    et retrait programmé
+  poches_gestion_agregees: Gestion sous mandat partiel, Non défini, Gestion conseillée, Gestion pilotée, Gestion
+    sous mandat, Gestion libre
+  frequence_agregation: hebdomadaire
+default_theme: agregation
+audience: assistant
+audiences:
+- assistant
+- conseiller
+doc_type: fiche_partenaire_agregation
+doc_id: aide-agregation-edrac
+wp_post_id: -50
+wp_categories:
+- '-102'
+date_modification: '2025-01-08'
+---
+
+Fiche d'agrégation du partenaire **EDRAC** dans O2S.
+
+#### À savoir
+
+Votre code apporteur est composé de lettres correspondant à votre raison sociale. Assurez-vous d'avoir bien complété et signé la lettre d'autorisation. Tous les mouvements depuis l'ouverture des contrats peuvent être agrégés
+
+#### Produits agrégés
+
+Afilium Gestion Privée Capi, Afilium Gestion Privée Vie, ALTEGE PLUS CAPITAL, Aprep Multigestion, Assuractif  II (EDRAC), Assuractions Vie II, Aster Evolution (EDRAC), Aster Excellence Capitalisation 2 (V2), Aster Excellence II, Aster Excellence VU (EDRAC), Aster Liberte Universelle, Aster Préférence (EDRAC), Aster selection, Atout Garanti, Avenir Noassur emprunteur, Avip Selection Cic Bp, Barclays Gestion de Fortune Vie, BASTIONS PATRIMOINE, BMM Capital Différé, BMM Latitude, BNP Paribas Antin Multiplacements, BNP Paribas Multiplacement Privilège Plus, BNP Paribas Multiplacements (EDRAC), BNP Paribas Multiplacements 2 (EDRAC), BNP Paribas Multiplacements Privilege, BNP Paribas Antin Multiplacements Privilège, BNP Parisbas Multiplacements Privilege (EDRAC), Bond 4 European Mobility, CALIE Life Patrimony 2, Calie Life Patrimony Capitalisation, Cap Secure (Cardif Lux), Capi Success (EDRAC), Capi VIP, Capital Euro Epargne, Capitalisation Vie Pus  (Vie Plus), CARDIF EDITION PREMIUM VIE, Cardif Elite (EDRAC), Cardif Private Insurance Italia, Carmignac Evolutif, Carmignac Multi Assurance, CDG Evolution Collectif, CIC Banque Privée Privilège Capi, CNP One Vie (CNP), CNP One Capi (CNP), CNP One Lib'RT (CNP), CNP One Lib'RT Capitalisation (CNP), CNP Patrimoine Capitalisation, CNP Patrimoine Liberté (EDRAC), Complément Epargne Retraite, Coralis Capitalisation, Coralis Sélection, Crédit Suisse Privilège, Croissance Saint-Honoré, Dediance 1818, Delfea Vie (EDRAC), Dexactif (EDRAC), Diade Évolution, Diade Evolution Capitalisation (EDRAC), DNCA Evolutif Universel, Echiquier Evolution Vie, Echiquier Vie, ENEDIA LUX, Espace Horizon 8 (transfert), Espace Horizon 8 Capitalisation (transfert), Espace Invest 3 pep (transfert), Espace Invest 4, Espace Invest 4 Capitalisation (transfert), Espace Invest 5, Espace Invest 5 Capitalisation (transfert), Espace Lux Capi France, Espace Lux Vie, Espace Transatlantique Vie (EDRAC), Euro Opportunidad Vida, Excellie Premium Vie, EXEL, F.H.P. 1B ACE (transfert), Féderlux Capital Capi V2009, Féderlux Capital Capi V2013, Féderlux Privilège, Fipavie Retraite Garantie, Formule B, Fortis Avenir, FORTUNA Portugal, FREGATE II, Gaipare, Gaipare Selection, GF Croissance, GF Placement 2, Global Invest Evolution France Capitalisation (Allianz Life), Global Invest Evolution France (Allianz Life), Himalia (EDRAC), Himalia Capitalisation, HR Patrimoine Vie, HR Vie, La Capitalisation Privée  (Allianz), LCL Multiselection Capital, Liberty 2 Invest (Cardif Lux), Libre Avenir, Life Asset portfolio  (SwissLife Lux), Life Mobility Evolution 4.2, Life Mobility Evolution Capi V4, Life Mobility Evolution CH, Life Mobility Evolution FR, Life Mobility Evolution Lu, Life Mobility Evolution V4, Life Mobility Evolution v5, Life Mobility FR, Long-cours Capitalisation, Lux International Profilé, Martin Maurel Capi V, Martin Maurel Evolution 3, Martin Maurel Evolution 5, Master Plus Capitalisation (AXA), Master Plus Vie  (AXA), Master Privilege Capitalisation (EDRAC), Meyerbeer Évolution Universel 2, Multi Invest France, Multi Invest Italie, Multi-invest Spain, Multi Plus, Multi plus 2, Multi Plus 2 PEP, Multi Plus 3, Mutli plus 3 Capi, Mutli plus 3I, Multi Plus PEP, Multi-Plus PEP, Multiance 1818, Multicapi Personnes Morales, Multiprestige Capi, Multiprestige Vie, Neuflize OBC Vie, Nortia II (Edrac), Novacapi Actif (EDRAC), Novacapi Prestige, Novactif Capi II (EDRAC), Novavie Actif, Novavie Actif +, Novavie Premium, Novavie Prestige, OBC Vie Multiple, Open Capital, Open Capital 2 (AEP), Open Capital 2, Open Capital Fonds Euro, Open Évolution Luxembourg, Open Harmonie, Open Harmonie Capitalisation, Open Horizon, Open Latitude, Open Latitude Capi, Open Latitude Vie, Open Luxembourg, Open Opportunités, Open Perspectives, Open Perspectives ² (LMP), Open Perspectives Capitalisation, Open Perspectives Capitalisation ² (LMP), Open Prestige (Generali Patrimoine), Open Prestige 2 (Generali Patrimoine), Open Prestige 3 (Generali Patrimoine), Open Prestige Capitalisation (Generali Patrimoine), Open Prestige Capitalisation III (Generali Patrimoine), Open Privilège, Open Stratégies, Open Stratégies 2 (AEP), Open Stratégies 2, Optimum Capitalisation (Natixis Life), Optimum Life (Natixis Life), Orelis Multistratégies Capi, Orelis Multistratégies Vie, Orsay Vie Multi Mesures, Palatine Avenir, Palatine Concerto, Palatine Concerto Capi, Palatine Préférences, Palatine Soprano Capi, Panthea, Patrimoine Saint-Honoré, Patrimoine Sh Capi, Patrimoine Vie Plus  (Vie Plus), Phi, Phi Patrimoine, Pierre de Soleil (EDRAC), Pierre De Soleil 2, Premium Capitalisation (Transferts), Prestige Saint-Honoré 2 (EDRAC), Prestige SH 3 (EDRAC), Prestige SH Capitalisation 2 (EDRAC), Prestige Sh Lux (EDRAC), Prestige SH Lux Capitalisation (EDRAC), Prestigio Evolution, Prestigio Evolution 3, Prestigio Evolution 2, Prevelege, Privilège Saint-Honoré Capi, Privilège Saint-Honoré, Privilège Saint-Honoré Capitalisation IS, Privilège Saint-Honoré Capitalisation IR, Profil Expansion 2, Réflexion 2 (EDRAC), Salam, Sélection Assurance, Sélection Cinto, Selection Mezzodi, Selection R Alliance (EDRAC), Selection R Oxygene, SH Amplitude, Saint-Honoré Evolution Vie Universelle, Saint-Honoré Innovation (CNP), Saint-Honoré Innovation Capitalisation (CNP), Saint-Honoré Innovation Lib'RT, Saint-Honoré Innovation Lib'RT Capitalisation, Saint-Honoré Innovation LUX (CNP Lux), Saint-Honoré Innovation Capi Luxembourg (CNP Lux), Saint-Honoré International (Cardif Lux), Sh Latitude, Saint-Honoré Latitude 2, Saint-Honoré Latitude 3, Saint Honoré Latitude Capi 2, Saint Honoré Latitude Capi 3, Saint-Honoré Perspectives 3, Saint-Honoré Perspectives 5, Saint-Honoré Perspectives Capi 3, Saint-Honoré Platinum, Saint-Honoré Platinium Capitalisation, Saint-Honoré Sérénité, Saint Honore Universel (LMEP), Saint-Honoré Universel 2, Saint-Honoré Universel 3, Saint-Honoré Universel 4, Saint-Honoré Universel 5, Saint-Honoré Universel 7, Saint Honore Universel 7 Lux, Sh Universel 7.2, Sh Universel 8, Sh Universel Capi, Saint-Honoré Universel Capitalisation 2, Saint-Honoré Universel Capitalisation 4, Saint-Honoré Universel Capitalisation 5, Saint-Honoré Universel Capitalisation 7, SH UNIVERSEL CAPI 8, Signature Capi, SLB Expertise, Soge-Partners Personal Invest (Sogelife), Soge-Partners Personal Invest Capi (Sogelife), Soge-Part-P Invest Série CH, Soge-Partners Personal Multisupports (Sogelife), Soge-Part-Pms (Transfert), Soge-Partners Personal Multisupports Capi (Sogelife), Soge-Personal Multi-Support, Soge-Personal Multi-Support Capi, Soprane 1818 Vie Opus, Soprane 1818 Vie Opus 2D, Soprane 1818 Vie Opus 4D, Soprane 1818 Vie Opus 5D, Soprane Multi-Strategies, Spirica Capi Personnes Morales, Spirica Capi Personnes Physiques, Spirica Opportunités, Stratégie Patrimoine (EDRAC), Stratégie Portfolio Monde (EDRAC), Strategie Vie, Suisse Avenir, Super Novaterm Crédit, SwissLife Capi Stratégic Premium (SwissLife), SwissLife Prévoyance Particuliers +, SwissLife Strategic, Swiss Life Strategic Plus, SWISS LIFE STRATEGIC PREMIUM (SwissLife), SwissLife Premium Lux  (SwissLife Lux), SwissLife Premium Lux Capi  (SwissLife Lux), Sycovie 2, Target + Lux, Terre de Vie (EDRAC), TRANSFERT EN COURS - AXA, TRANSFERT EN COURS - CALI, Transfert En Cours - Generali, TRANSFERT EN COURS - GENERALI LUX, TRANSFERT EN COURS - LME, Transfert En Cours - LMP, Transfert En Cours - Sl, Transfert En Cours - Sogelife, Ubs Multi Fonds Vie, UBS Multi Investissement Vie, UBS Multi Investissements Capi (EDRAC), UBS Multi Opportunités Capi (EDRAC), UBS Multi Opportunités Vie, UBS multi Opportunités Vie 2 (EDRAC), Valor Vie 2, Vega Capi, Vendome Optimum Euro (EDRAC), XAELIDIA, Xaelidia 2 ve (transfert)
+
+#### Prix d'achat moyen
+
+Les prix d'achat moyens sont transmis par ce fournisseur.
+
+#### Mouvements agrégés
+
+Versement initial, Versement programmé, Rachat total et fermeture, Versement libre complémentaire, Transfert entrant, Transfert sortant, Décès, Rachat partiel et retrait, Arbitrage volontaire, Rachat partiel et retrait programmé
+
+#### Poches de gestion agrégées
+
+Gestion sous mandat partiel, Non défini, Gestion conseillée, Gestion pilotée, Gestion sous mandat, Gestion libre
+
+#### Fréquence d'agrégation
+
+La fréquence d'agrégation est hebdomadaire

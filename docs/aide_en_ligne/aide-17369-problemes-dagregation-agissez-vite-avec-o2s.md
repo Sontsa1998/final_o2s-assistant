@@ -1,0 +1,25 @@
+---
+title: Problèmes d’agrégation ? Agissez vite avec O2S !
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/problemes-dagregation-agissez-vite-avec-o2s/
+products:
+- O2S
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+doc_id: aide-17369-problemes-dagregation-agissez-vite-avec-o2s
+wp_post_id: 17369
+wp_categories:
+- '1'
+wp_statut: publish
+thematique: O2S
+date_modification: '2026-01-23'
+---
+
+Les situations ou mouvements des contrats d’un dépositaire financier ne sont pas à jour ? Vérifiez d’abord si un incident technique est en cours côté dépositaire.. Dans O2S, cliquez en bas à droite sur (Assistant Aide) puis sur Aide Agrégation > Absence de mise à jour. Renseignez les informations demandées (source, date, code apporteur) et cliquez sur Envoyer. Aide analyse vos données et vous guide instantanément. Et si besoin, vous avez toujours l’Assistance O2S à portée de main. Posez-y aussi toutes vos questions sur les contrats manquants, valorisations ou mouvements erronés. Grâce à l’Assistant Aide, gagnez du temps et résolvez vos soucis d’agrégation en quelques clics ! Posez aussi vos questions sur les contrats et mouvements manquants, les valorisations et mouvements erronés…, Avec l’Assistant Aide, gagnez du temps et résolvez vos problèmes d’agrégation en quelques clics !
+
+### Avec l’Assistant
+
+Gardez un œil sur vos agrégations avec la météo de l’agrégation. météo de l’agrégation météo de l’agrégation Suivez en un coup d’œil l’état de vos agrégations grâce à un tableau simple et efficace. Filtrez rapidement pour détecter Améliorations, Maintenances ou Incidents, et consultez leur statut : Évolution, Interruption, Résolu… Les icônes météo (soleil, nuage…) vous donnent instantanément le niveau d’actualisation des comptes. Avec O2S, restez connecté(e), informé(e) et maître de vos agrégations !

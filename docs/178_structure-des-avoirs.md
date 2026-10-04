@@ -1,5 +1,0 @@
-## 178. Structure des avoirs
-
-Vous pouvez ici connaître l’encours géré d’un client selon plusieurs critères. La page dispose de 3 zones distinctes : une zone en haut à gauche permettant d’utiliser des filtres combinés ou seuls afin d’obtenir une analyse spécifique. Deux listes déroulantes permettent de choisir le type de représentation graphique et l’expression du résultat en pourcentage ou en euros. une zone en haut à gauche permettant d’utiliser des filtres combinés ou seuls afin d’obtenir une analyse spécifique. Deux listes déroulantes permettent de choisir le type de représentation graphique et l’expression du résultat en pourcentage ou en euros. Il suffit ensuite de cliquer sur le bouton Actualiser le graphe . Actualiser le graphe La représentation graphique s’affiche dans la partie inférieure de la fenêtre, accompagnée de sa légende à droite. Lorsque la liste des données est importante, un clic sur les flèches ◄ et ► vous permet de naviguer dans la légende.
-
-**Source :** [https://o2s-help.harvest.fr/structure-des-avoirs/](https://o2s-help.harvest.fr/structure-des-avoirs/)

@@ -1,16 +1,18 @@
-# Catalogue de la base documentaire (docs/) — 397 fichiers, 395 indexés.
+# Catalogue de la base documentaire (docs/) — 395 fichiers indexés.
 #
-#   - 9 documents d'API (corpus `api_technique`) : 6 contrats OpenAPI convertis + 3 guides PDF
-#     « Documentation API O2S » ; metadata curatées ci-dessous (entrées `documents`).
-#   - 388 articles de l'aide en ligne o2s-help.harvest.fr (corpus `aide_en_ligne`), scrapés :
-#     nettoyés et structurés par help_center.py ; leurs metadata viennent de 4 sources :
-#       1. `patterns` ci-dessous (famille de fichiers) ;
-#       2. faits extraits du contenu (URL source, numéro, plan, liens internes, vidéos, chemins de
-#          menus, produits cités, faits des fiches partenaires) ;
-#       3. profil généré `config/document_profiles.yaml` (o2s-profile : résumé, type, thèmes, public,
-#          tâches, questions, mots-clés, synonymes, prérequis) — LLM, ou heuristique à défaut ;
-#       4. entrées curatées `documents` (surcharges manuelles, exclusions).
-#     Deux pages sans contenu (012_test.md, 191_partenaires.md) sont exclues de l'index.
+#   - 9 documents d'API (corpus `api_technique`, `Harvest API - *.md`) : 6 contrats OpenAPI convertis + 3
+#     guides PDF « Documentation API O2S » ; metadata curatées ci-dessous (entrées `documents`).
+#   - 386 documents de l'aide en ligne o2s-help.harvest.fr (corpus `aide_en_ligne`, `docs/aide_en_ligne/`),
+#     GÉNÉRÉS par `o2s-build-docs` depuis l'export WordPress `sources/aide_en_ligne.csv` (help_export.py :
+#     dédoublonnage, intertitres, tableaux) — ne pas les éditer à la main, corriger l'export ou le script :
+#       aide-<post_id>-<slug>.md           213 articles (procédures, présentations, FAQ, tutoriels…)
+#       faq-prisme-<post_id>-<slug>.md     17 sections de la FAQ de migration Prisme → O2S
+#       agregation-<partenaire>.md         149 fiches d'agrégation partenaire (faits extraits)
+#       diagnostic-agregation-<slug>.md    7 fiches de diagnostic d'agrégation (hypothèses, actions, glossaire)
+#     Leurs metadata viennent du frontmatter écrit par o2s-build-docs (titre, URL, produit, type quand il
+#     est certain, liens, vidéos, faits partenaire, identifiants WordPress), complété par le profil
+#     généré `config/document_profiles.yaml` (o2s-profile : résumé, type, thèmes, public, tâches,
+#     questions, mots-clés, synonymes, prérequis) et les `patterns` ci-dessous.
 #
 # Priorité : defaults < patterns < faits extraits < profil généré < documents < frontmatter.
 # Modifier une valeur change l'empreinte du document, qui est réindexé.
@@ -28,17 +30,20 @@ defaults:
 
 # Metadata par famille de fichiers (regex sur le nom ; pour chaque champ, le 1er motif qui le fixe gagne).
 patterns:
-  - pattern: '^\d{3}_informations-sur-lagregation-de-'
+  - pattern: '^agregation-'
     doc_type: fiche_partenaire_agregation
     default_theme: agregation
-    audience: assistant
-    audiences: [assistant, conseiller]
     tags: [o2s, aide-en-ligne, agregation, partenaire]
-  - pattern: '^\d{3}_'
+  - pattern: '^diagnostic-agregation-'
+    doc_type: depannage
+    default_theme: agregation
+    tags: [o2s, aide-en-ligne, agregation, diagnostic]
+  - pattern: '^faq-prisme-'
+    tags: [o2s, aide-en-ligne, prisme, migration]
+  - pattern: '^(aide|agregation|diagnostic-agregation|faq-prisme)-'
     corpus: aide_en_ligne
     api: o2s_app
-    source_format: help_center
-    doc_id_prefix: help-
+    source_format: markdown
     audience: conseiller
     tags: [o2s, aide-en-ligne]
   - pattern: '^Harvest API - '
@@ -196,13 +201,6 @@ documents:
       Spécificités O2S des API Documents et Catégories : tableau de synthèse, métadonnées à fournir
       pour les types « AUTRE » (catégorie GED) et « IDENTITE » (pièce d'identité), exemples JSON.
 
-  # ------------------------------------------------------------------ aide en ligne : surcharges
-  "012_test.md":
-    exclude: true
-    doc_type: brouillon
-  "191_partenaires.md":
-    exclude: true
-    doc_type: brouillon
 
 chapters:
   - {pattern: '^API\s+Contacts\b', resource: contacts}

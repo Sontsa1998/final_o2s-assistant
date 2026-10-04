@@ -1,0 +1,107 @@
+---
+title: Indicateur de risque dans O2S – Le SRI
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/le-sri-dans-o2s/
+products:
+- O2S
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+internal_links:
+- https://o2s-help.harvest.fr/trouver-votre-numero-de-contrat-o2s/
+- https://o2s-help.harvest.fr/faq-projets/
+- https://o2s-help.harvest.fr/du-srri-au-sri-methode-de-calcul/
+external_links:
+- https://www.esma.europa.eu/document/guidelines-methodology-calculation-synthetic-risk-and-reward-indicator-in-key-investor/
+- https://www.esma.europa.eu/sites/default/files/library/jc_2017_49_priips_flow_diagram_risk_reward_rev.pdf/
+- https://www.amf-france.org/fr/espace-epargnants/savoir-bien-investir/cadrer-son-projet/fixer-son-horizon-de-placement/
+doc_id: aide-16911-indicateur-de-risque-dans-o2s-le-sri
+wp_post_id: 16911
+wp_categories:
+- '58'
+- '89'
+- '1'
+- '15'
+wp_statut: publish
+thematique: O2S
+date_modification: '2026-09-11'
+---
+
+## Sommaire
+
+- Le SRI, c’est quoi ?
+- Calcul du SRI des supports
+- Calcul du SRI des comptes et portefeuilles
+- Calcul du SRI des allocations dans les projets
+
+## Le SRI, c’est quoi ?
+
+Le SRI (Summary Risk Indicator) est un indicateur réglementaire issu du règlement PRIIPs, qui a remplacé l’ancien SRRI (UCITS). Il prend en compte la volatilité, la stabilité des actifs, le risque de crédit et la garantie en capital. Il est calculé selon une méthodologie définie par l’ESMA, combinant le risque de marché (MRM) et le risque de crédit (CRM). Le SRI est dynamique et peut évoluer dans le temps selon les conditions de marché.
+
+## Et plus dans le détail ?
+
+Imaginez que vous envisagez d’investir dans un fonds ou un produit financier. Le SRI est comme un indicateur de danger sur une échelle. Plus le chiffre est élevé, plus le niveau de risque associé à cet investissement est élevé. En général, les investissements à haut risque ont le potentiel de générer de plus grands rendements, mais ils comportent également une plus grande probabilité de pertes importantes. Le SRI prend en compte divers facteurs tels que la volatilité des prix, la stabilité des actifs sous-jacents, et d’autres éléments liés au marché financier. Il est généralement représenté par un chiffre ou une échelle, par exemple de 1 à 7, où 1 représente un risque très faible et 7 un risque très élevé.
+
+Ces facteurs évoluant, le SRI peut également évoluer dans le temps. L’idée est d’aider les investisseurs à comprendre rapidement le niveau de risque d’un produit financier, ce qui peut les aider à prendre des décisions plus éclairées en fonction de leur tolérance au risque et de leurs objectifs d’investissement. Cependant, il est important de noter que le SRI est un outil indicatif et que d’autres facteurs doivent également être pris en compte lors de la prise de décision d’investissement. Lorsque vous sélectionnez des fonds, ou dans les fonds constituant un compte ou une allocation, le niveau SRI du fonds est indiqué dans une pastille de couleur :
+
+## À quoi sert-il dans O2S ?
+
+Le SRI dans O2S est un outil central pour évaluer et suivre le risque des projets d’investissement, adapté à la réglementation actuelle et à la gestion multi-supports. Il permet d’aligner les allocations avec le profil de risque du client et d’anticiper les évolutions du marché.
+
+### Calcul du SRI des supports
+
+Chaque support (fonds, produit financier…) affiche un SRI pour vous aider à comprendre rapidement son niveau de risque. Le SRI de chaque support est affiché (données issues du Data Provider ou renseignées lors du référencement). Certains supports (ex : actions individuelles) peuvent ne pas avoir de SRI. Le SRI permet de comparer rapidement le risque entre différents supports. Note Lorsque vous demandez la création d’un support (via Administration > Contribution, si vous y avez accès), renseignez le DIC si celui-ci est disponible. Le support apparaîtra alors dans O2S avec le niveau SRI correspondant à ce DIC. Si vous ne renseignez pas le DIC ou s’il n’était pas connu au moment de la création, veuillez contacter l’Assistance O2S afin qu’elle puisse ajouter le niveau SRI associé au support.
+
+> En savoir plus. > Vous pouvez consulter les recommandations de l’ESMA sur la méthodologie de calcul du SRI .
+
+### Calcul du SRI des comptes et portefeuilles
+
+O2S calcule un SRI global pour l’ensemble de vos placements, afin d’évaluer le risque total de votre portefeuille. O2S agrège les SRI des supports pour calculer un SRI global du portefeuille ou du compte. Cette agrégation peut aboutir à un niveau de risque différent de la simple moyenne des SRI des supports, car O2S applique sa propre méthode de calcul. Le SRI global aide à vérifier la cohérence du portefeuille avec le profil de risque du client. Dans le portefeuille du client, le SRI de chaque compte apparait en cliquant sur l’icône « calculatrice » située en haut de la colonne Risque. Dans les portefeuilles et les comptes, le SRI apparait si vous avez paramétré l’affichage de cette colonne dans Services > Modules > Portefeuille > Composition du tableau du portefeuille et Composition du tableau de compte en cochant l’option Indicateur de risque.
+
+Calcul du risque d’une allocation dans un projet. O2S utilise le SRI pour vérifier si l’allocation correspond au niveau de risque accepté par le client. O2S peut recalculer le SRI d’un projet dans le temps, ce qui peut entraîner un écart avec le niveau de risque initial ou celui des supports individuels. Le calcul du risque projet prend aussi en compte la probabilité de préservation du capital et les anticipations de rendement, paramétrables dans O2S. En pratique, quand vous créez un projet d’investissement pour votre client, vous recueillez le niveau de risque accepté par votre client et ajustez l’ allocation en conséquence. niveau de risque allocation O2S utilise sa propre méthode pour calculer le risque de cette allocation.
+
+Parfois, cela peut entraîner des situations où le niveau de risque calculé par O2S diffère des niveaux de risque des supports individuels. Par exemple, même si des supports sont classés avec un niveau de risque SRI 3, O2S peut calculer un niveau de risque 5. De plus, l’allocation initialement en ligne avec le niveau de risque accepté par le client peut être recalculée à un niveau de risque supérieur par O2S six mois plus tard.
+
+### Comment sont calculés les indicateurs de risque dans O2S ?
+
+Sur quelle réglementation s’appuient-ils ? Cette page vous explique l’approche adoptée dans O2S.
+
+### PRIIPs et le SRI
+
+Le règlement PRIIPs (packaged retail and insurance-based investment products) est venu mettre un terme à l’indicateur de risque développé par la réglementation UCITS. Le SRRI (Synthetic Risk and Reward Indicator) devient donc SRI (Summary Risk Indicator) À la différence de son prédécesseur, le SRI intègre également les notions de garantie en capital et de risque de crédit. On pourrait donc résumer le SRI par une matrice entre un risque de marché (MRM) et un risque de crédit (CRM). Vous pouvez retrouver le diagramme de calcul complet ici : (https ://www.esma.europa.eu/sites/default/files/library/jc_2017_49_priips_flow_diagram_risk_reward_rev.pdf ). Les 4 PRIIPs Ce qu’il faut retenir de la méthode de calcul, c’est ce découpage en 4 grandes catégories d’instruments financiers : Catégorie 1 : il s’agit des produits dérivés, instruments pour lesquels le risque est supérieur au capital engagé ou les instruments pour lesquels les données disponibles sont insuffisantes.
+
+Catégorie 2 : ce sont des instruments pour lesquels le pay off est proportionnel à l’évolution du marché. Typiquement, on y retrouvera une grande majorité des OPCVM Catégorie 3 : instruments pour lesquels il existe une garantie en capital inconditionnel. C’est le cas notamment pour les fonds euros Catégorie 4 : les instruments pour lesquels la performance dépend partiellement d’un autre élément que le marché. Exemple : les produits structurés. En fonction de la catégorie PRIPPs, la méthodologie de calcul diffère. Si on prend la catégorie 1 par exemple, le calcul est très simple, puisque le SRI est automatiquement positionné sur 7. Pour les instruments de catégorie 2, on calculera la VEV (VaR Equivalent Volatility).
+
+Cette VEV déterminera le MRM de l’instrument financier, que ne recouperont avec son CRM (risque de crédit). L’indicateur O2S Côté O2S, nous avons repris la même philosophie que nous avons adaptée à l’utilisation de portefeuilles. Dans un premier temps, la question est de savoir si le portefeuille est composé d’un ou plusieurs instruments financiers ?
+
+### Portefeuille ne contenant qu’un seul instrument financier
+
+Il s’agit du cas le plus simple. Par défaut nous allons reprendre le SRI qui nous est communiqué au travers des fichiers EPT. Si nous ne disposons pas du SRI, nous allons vérifier si nous avons de suffisamment de données pour pouvoir le calculer. Si c’est le cas, alors il sera calculé. Sinon, nous serons dans un cas de PRIIPs catégorie 1 : données insuffisantes. Le SRI sera donc de 7.
+
+### Portefeuille contenant plusieurs instruments financiers
+
+Si le portefeuille contient plusieurs instruments financiers, l’indicateur sera systématiquement calculé. 3 compartiments Pour ce calcul de risque du portefeuille, nous avons donc repris les 4 catégories réglementaires de PRIIPs qui définissent le 1 er compartiment. Néanmoins, il peut arriver que les informations liées à un fonds nous parviennent incomplètes. Il est en effet possible que nous disposions du SRI mais pas des données permettant son calcul, ou que nous ne disposions d’aucune information. Afin de ne pas reclasser tous ces fonds en catégorie 1, nous avons donc ajouté 2 compartiments. Le second compartiment reprend tous les instruments pour lesquels nous disposons du SRI mais pas des informations permettant son calcul.
+
+Le 3 ième compartiment regroupe tous les instruments pour lesquels nous n’avons ni SRI, ni les données nécessaires à son calcul. Un calcul par compartiment Étant donné que la méthode de calcul du SRI diffère pour chacune des catégories du 1 er compartiment, nous allons donc évaluer la VEV de chacune d’entre-elles. Pour le second compartiment (supports pour lesquels la seule donnée exploitable est le SRI), nous allons convertir les SRI en VEV, en utilisant les centres de classe du MRM. Pour un instrument de SRI 5, nous partirons de l’hypothèse que sa VEV est de 25%. Cette solution permet à la fois de pallier à l’absence de CRM pour l’instrument, mais également à ramener tous les instruments sur la même échelle.
+
+Pour le 3 ième compartiment, le SRI sera systématiquement 7. Nous supposerons ici une VEV de 81% (minimum de classe). À noter : certains calculs varient en fonction de la durée de détention recommandée. Pour ce paramètre et lorsque plusieurs durées sont disponibles (exemple : Durée de détention recommander + Date d’échéance de l’instrument financier), nous favorisons systématiquement la plus courte. Le SRI du portefeuille Une fois les VEV mesurés pour chacun des compartiments, nous pourrons ensuite évaluer la VEV du portefeuille comme étant la moyenne pondérée des VEV de chacune des compartiments qui le compose. Les instruments non-PRIIPs et spécifiques Par définition, il n’existe pas de données normalisées, associées aux instruments non-PRIIPs.
+
+Les actions par exemple, n’ont pas de durée de détention associée, de risque de crédit ou encore de DIC. Néanmoins, ces supports peuvent faire partie de vos portefeuilles. C’est pour cela que nous avons décidé de leur ajouter des caractéristiques par défaut. De façon à pouvoir les intégrer dans le calcul de risque de vos portefeuilles. Le cas des actions Lors d’un Q&A, les ESA’s ont indiqué que pour calculer le risque des actions selon la méthode PRIIPs, il était possible de faire abstraction du risque de crédit, puisque leur rendement dépend de l’évolution du marché. Nous avons donc appliqué par défaut, à toutes les actions, un CRM de 1, de manière à ce que le SRI ne soit dépendant que du MRM : Pour ce qui est de la durée de détention recommandée, l’AMF indique dans un communiqué du 19 octobre 2018, que la durée de détention recommandée des placements en action est d’au moins 10 ans (https://www.amf-france.org/fr/espace-epargnants/savoir-bien-investir/cadrer-son-projet/fixer-son-horizon-de-placement ).
+
+Nous avons donc utilisé cette valeur de référence pour l’ensemble des supports action. Enfin, de par leur nature, nous avons rangé les actions dans les PRIIPs de catégorie 2 du 1 er compartiment, car leur rendement dépend de l’évolution du marché. Les fonds en euros À la différence des actions, les fonds euros sont bien des PRIIPs. Cependant, étant donné la diversité des sources d’agrégation il peut arriver qu’un de vos fonds en euro n’ait pas de données PRIIPs associées. Sans action de notre part, le fonds euro serait donc reclassé automatiquement en SRI 7, augmentant ainsi fortement le risque du portefeuille… Pour éviter ce reclassement, nous avons dans ce cas appliqué un traitement par défaut. Sur plus de 600 fonds euros connus par O2S, le SRI moyen ressort à 1.035.
+
+Par conséquent, si le fonds euros ne dispose pas de suffisamment de données, nous allons lui appliquer une SRI de 1. Il sera ensuite reclassé automatiquement dans le 2 ième compartiment (Instruments bénéficiant d’un SRI mais pas des données PRIIPs nécessaires). Et tous les autres ? Pour les autres types de supports, il est difficile d’appliquer des traitements par défaut. Nous nous appuyons donc systématiquement sur les données PRIIPs dont nous disposons. Si vous constatez des incohérences dans la notation de vos supports, n’hésitez pas à revenir vers nous avec les données dont vous disposez. O2S revêt 2 éléments distincts : le calcul du SRI d’une allocation et le calcul du risque projet. Ce calcul prend en compte 2 variables : le paramétrage, et le profil client pour le projet.
+
+Variable 1 – Paramétrage Plusieurs éléments sont à considérer : a- La probabilité de préservation du capital est la mesure qui indique dans quelle mesure un investissement est susceptible de conserver la valeur initiale ou de ne pas subir de pertes importantes sur une période donnée. En d’autres termes, c’est une estimation de la sécurité ou de la stabilité de l’investissement. Une probabilité élevée de préservation du capital signifie qu’il est peu probable que l’investissement subisse des pertes importantes, tandis qu’une probabilité plus faible indique un risque accru de perte de valeur. C’est une mesure importante à prendre en compte lors de la sélection d’investissements, surtout pour ceux qui recherchent une certaine sécurité dans leurs placements.
+
+Dans O2S, la probabilité de préservation du capital se renseigne dans Menu utilisateur > Services > Personnalisation > Paramétrage > Outil de profilage > Profil de risque. Cette mesure permet de calculer la valeur moyenne du risque projet. b – Les anticipations de rendement Les anticipations de rendement sont les prévisions ou les attentes concernant les bénéfices ou les gains potentiels qui pourraient être réalisés sur des investissements. En d’autres termes, il s’agit de l’estimation de la performance financière attendue des placements. Ces anticipations peuvent être basées sur différents facteurs tels que le type d’investissement, les conditions économiques actuelles, les tendances du marché et les objectifs d’investissement personnels.
+
+Il est important pour les investisseurs débutants de comprendre que les anticipations de rendement ne sont pas garanties et peuvent varier en fonction de divers facteurs, y compris les fluctuations du marché. Cependant, avoir une idée des rendements potentiels peut aider les investisseurs à prendre des décisions éclairées en matière d’investissement et à aligner leurs objectifs financiers avec leurs attentes de rendement. Dans O2S, les caractéristiques du projet se renseignent dans Menu utilisateur > Services > Personnalisation > Paramétrage > Outil de profilage > Risque projet > Paramétrer les anticipations de rendement et les contraintes sur les poids des catégories définissant le risque projet.
+
+Les deux colonnes de gauche représentent les rendements minimum et maximum de chaque catégorie : par exemple, pour les actions européennes, nous anticipons un rendement compris entre 4,5% et 6,8% pour l’année en cours. Les colonnes suivantes définissent les contraintes de poids : par exemple, pour une allocation sécuritaire, nous pourrions fixer un poids minimal de 100% pour les fonds en euros, tandis que pour une allocation offensive, nous pourrions établir le poids maximal à 0%. Ces points sont essentiels pour la première variable. Supposons que nous souhaitions élaborer un portefeuille équilibré sur une période de 10 ans, nous nous baserions sur les anticipations de rendement pour déterminer l’allocation la plus rentable, tout en respectant les contraintes telles que les poids minimum et maximum, ainsi que la probabilité de préservation du capital.
+
+Il s’agit d’une optimisation où le moteur d’allocation suggérerait, par exemple, d’allouer 10% aux actions japonaises, 10% aux actions européennes, etc., en fonction des paramètres définis, avec un rendement prévu de x%. Variable 2 – Profil investisseur 5 niveaux de profil de risque sont possibles : Cependant, d’autres paramètres sont à considérer car ils peuvent orienter vers une allocation plus sécuritaire : Par exemple, la capacité à subir des pertes est un élément crucial. Si un investisseur a un profil équilibré mais une capacité à supporter des pertes comprise entre 10% et 25%, l’allocation sera ajustée vers une approche plus défensive. De plus, la durée prévue de l’investissement joue un rôle important dans la décision d’allocation.
+
+Les stratégies peuvent être adaptées en fonction de l’horizon temporel de l’investisseur. L’ âge de l’investisseur est également un facteur déterminant. Si un client a plus de 85 ans, il est généralement recommandé d’opter pour une allocation plus sécuritaire afin de protéger le capital investi. Pour aller plus loin > En savoir plus sur le passage du SRRI au SRI En savoir plus sur le SRI portefeuille et comptes Comment sont calculés les indicateurs de risque dans O2S ?

@@ -1,0 +1,89 @@
+---
+title: 'FAQ migration Prisme vers O2S : Moneypitch'
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/faq-prisme-o2s-2/
+products:
+- Prisme
+- O2S
+language: fr
+default_theme: migration_prisme
+audience: conseiller
+audiences:
+- conseiller
+internal_links:
+- https://o2s-help.harvest.fr/
+- https://o2s-help.harvest.fr/ged-moneypitch/
+- https://o2s-help.harvest.fr/afficher-les-comptes-du-conjoint-du-client-dans-moneypitch/
+- https://o2s-help.harvest.fr/import-des-donnees-moneypitch/
+- https://o2s-help.harvest.fr/differences-de-configurations-entre-nexus-et-moneypitch/
+- https://o2s-help.harvest.fr/kyc-2/
+- https://o2s-help.harvest.fr/utiliser-la-signature-electronique/
+- https://o2s-help.harvest.fr/messagerie-moneypitch/
+doc_type: faq
+doc_id: aide-faq-prisme-10020-faq-migration-prisme-vers-o2s-moneypitch
+wp_post_id: 10020
+wp_categories:
+- '-200'
+wp_statut: publish
+thematique: PRISME
+date_modification: '2024-03-18'
+---
+
+### Que se passe-t-il pour mes clients qui disposaient de Nexus ?
+
+Vos clients Nexus disposeront bientôt de MoneyPitch, le portail patrimonial d'O2S. Nous vous invitons à les contacter avant le début de la migration afin de les avertir de ce changement d'application, et leur notifier qu'ils recevront un mail leur indiquant leur identifiant d'accès à MoneyPitch.
+
+## MoneyPitch
+
+Après avoir créé leur mot de passe, ils pourront ensuite accéder à MoneyPitch. Consultez les actions à effectuer pour préparer le passage de Nexus à MoneyPitch .
+
+### Comment va se passer la facturation lors de la transition de Nexus à MoneyPitch ?
+
+Si par exemple votre migration de Prisme à O2S a lieu durant le mois de mars 2024, la facturation par Manymore (Nexus compris) interviendra à la fin du mois de mars 2024. Le mois suivant, en avril 2024 dans notre exemple, la facturation O2S sera réalisée début avril par Harvest (MoneyPitch compris). La facturation de MoneyPitch commence le 1er jour du mois suivant la migration et s’applique à tous les accès MoneyPitch ouverts (migrés) même s’ils ne sont pas utilisés.
+
+### Pourquoi les documents qui étaient dans la GED Nexus de mon client ne figurent-ils pas dans sa GED MoneyPitch ?
+
+Dans le cas où vos clients Nexus ont été migrés vers MoneyPitch, les documents du client et les vôtres seront présent dans la GED O2S de chaque client. Attention : pour rendre les documents visibles dans la GED MoneyPitch de votre client, vous devez suivre la procédure de copie des documents en copiant les documents concernés dans le dossier "O2S - MoneyPitch".
+
+### Pourquoi les comptes du conjoint, des enfants et des autres relations de mon client ne sont-ils pas visibles dans MoneyPitch ?
+
+Par défaut, la visibilité dans MoneyPitch des comptes du conjoint, des enfants et de toutes autres relations (personnes physiques et morales) est désactivée. Pour les rendre visibles, vous devrez suivre ces étapes simples .
+
+### Comment configurer le MoneyPitch de mon client ?
+
+Dans votre menu utilisateur (situé en haut à droite d’O2S), cliquez sur Services, puis accédez à l’onglet MoneyPitch. Sélectionnez les options que vous souhaitez rendre disponibles à vos clients et configurez-les selon vos besoins. Veuillez noter que les options d’affichage peuvent être personnalisées pour chaque client. Pour ce faire, rendez-vous dans leur dossier, puis allez dans MoneyPitch > Activation > Options d’affichage dans MoneyPitch. menu utilisateur Services MoneyPitch MoneyPitch > Activation > Options d’affichage dans MoneyPitch
+
+### Quelles sont les principales différences de configurations entre
+
+Nexus et MoneyPitch ? Consultez la liste détaillée .
+
+### Puis-je observer l’historique de connexions de mes clients ?
+
+Oui, pour ce faire, rendez-vous dans l’espace MoneyPitch du dossier de votre client puis dans l’onglet Historique de connexion.
+
+### Puis-je personnaliser MoneyPitch pour mes clients (logo /coordonnées de ma société / thème graphique) ?
+
+Pour intégrer votre logo à l'application MoneyPitch, rendez-vous dans Services > Personnalisation > Logos > Logo MoneyPitch. logo Services > Personnalisation > Logos > Logo MoneyPitch Les coordonnées de votre société sont paramétrables : cliquez sur votre menu utilisateur (en cliquant sur votre nom) en haut à droite d’O2S, puis sélectionnez Administration > Nom et coordonnées de l'établissement, puis saisissez les coordonnées dans l'onglet Informations générales (Fiche d'identité). Elles s’affichent dans MoneyPitch au niveau du menu Profil > Contacter mon conseiller. coordonnées de votre société Administration > Nom et coordonnées de l'établissement Informations générales (Fiche d'identité). Pour personnaliser MoneyPitch aux couleurs de votre charte graphique, contactez l’assistance, un devis vous sera remis. personnaliser MoneyPitch aux couleurs de votre charte graphique
+
+### Est-il possible en tant que conseiller de me connecter au MoneyPitch de mon client ?
+
+Oui, vous pouvez vous connecter à la place de votre client à KYC , l’outil d’entrée en relation et de mise à jour des données client. Cependant, il n’est pas possible de vous connecter à MoneyPitch (ou MoneyPitch Premium) à la place de votre client. Mon client peut-il modifier des données dans MoneyPitch ?
+
+### Comment remontent-elles dans O2S ?
+
+Oui, et c’est l’une des forces de MoneyPitch. Votre client peut saisir ses données d'état civil, son patrimoine, et bien plus encore. Lorsqu'il met à jour des informations dans son MoneyPitch, vous recevez une notification en haut à droite d'O2S (icône [icone : cloche noire]). À ce moment, vous avez le contrôle pour choisir quelles données vous souhaitez importer . De plus, vous avez la possibilité de mettre en place des règles pour l'importation automatique des données. Dans O2S, les comptes provenant de MoneyPitch sont facilement identifiables grâce à l’icône [icone : MoneyPitch].
+
+### Comment demander à mon client de mettre à jour ses informations et son profil d'investisseur ?
+
+Dans son dossier, il vous suffit de cliquer sur puis sur Mettre à jour via MoneyPitch, et de cocher les éléments à mettre à jour. Notez que vous pouvez aussi effectuer la demande en cliquant sur le lien Demander la mise à jour des informations client dans sa page MoneyPitch > Activation. Cette mise à jour est aussi possible pour vos clients qui n’ont pas d’accès MoneyPitch : il vous suffit de leur ouvrir un KYC, en vous rendant sur leur page MoneyPitch > Activation, ou en cliquant sur l’option Mettre à jour via KYC.
+
+### Puis-je envoyer une demande de signature électronique à mon client dans MoneyPitch ?
+
+Vous devez envoyer la demande depuis O2S ; votre client recevra un email lui permettant de signer le document. Une fois le document signé, dans O2S vous devez le déposer dans sa GED MoneyPitch si vous souhaitez que votre client puisse le consulter dans son MoneyPitch (Via son menu « Visage » > Mes documents). Mes clients peuvent-ils agréger leurs comptes externes ? Oui, pour cela, dans O2S, accédez à l'espace MoneyPitch de votre client, puis rendez-vous dans Activation > Accès > Activer / Désactiver. Utilisez la liste déroulante pour basculer leur compte MoneyPitch vers MoneyPitch Premium, puis enregistrez les modifications. Ensuite, dans son MoneyPitch, onglet Synthèse, votre client devra simplement cliquer sur Ajouter puis sur Importer automatiquement des comptes.
+
+Il pourra ensuite sélectionner ses établissements bancaires pour les agréger dans son MoneyPitch.
+
+### Comment communiquer avec mon client ?
+
+Les outils de communication sont quelque peu différents de ceux de Nexus/Prisme : dans Moneypitch/O2S, la communication s’effectue via une messagerie . Le suivi des demandes passées effectuées entre Prisme et Nexus n'est pas récupéré dans O2S et MoneyPitch. Votre client ne retrouvera pas non plus dans son MoneyPitch les rendez-vous à venir, ni les évènements récents.

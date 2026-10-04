@@ -1,5 +1,0 @@
-## 101. Tutos – Arbitrages et portefeuilles modèles
-
-Les portefeuilles modèles sur mesure. Vous pouvez créer des portefeuilles modèles prêts à l’emploi, constitués de supports personnalisés, que vous utilisez ensuite dans vos transactions et projets. Apprenez à réaliser ces portefeuilles modèles.   [Vidéo: https://www.youtube.com/embed/EmtVAQTclJE?feature=oembed]  Arbitrer un compte Oradéa Vie dans O2S. Vous arbitrez des comptes Oradéa vie détenus par vos clients. Réalisez ces arbitrages, faites-les signer à vos clients et transmettez-les à Oradéa Vie, directement depuis O2S.   [Vidéo: https://www.youtube.com/embed/he9GXnI-h_s?feature=oembed]  Arbitrer un PER Oradéa Vie dans O2S. Réalisez des arbitrages sur les PER Oradéa Vie, faites-les signer à vos clients et transmettez-les à Oradéa Vie, directement depuis O2S.   [Vidéo: https://www.youtube.com/embed/gsPVxts-kNk?feature=oembed]  Voir tous les autres tutos …. tous les autres tutos
-
-**Source :** [https://o2s-help.harvest.fr/arbitrages-et-portefeuilles-modeles/](https://o2s-help.harvest.fr/arbitrages-et-portefeuilles-modeles/)

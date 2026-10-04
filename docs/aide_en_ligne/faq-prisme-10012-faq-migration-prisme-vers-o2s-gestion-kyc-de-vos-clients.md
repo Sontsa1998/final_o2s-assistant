@@ -1,0 +1,55 @@
+---
+title: 'FAQ migration Prisme vers O2S : Gestion KYC de vos clients'
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/faq-prisme-o2s-2/
+products:
+- Prisme
+- O2S
+language: fr
+default_theme: migration_prisme
+audience: conseiller
+audiences:
+- conseiller
+internal_links:
+- https://o2s-help.harvest.fr/de-prisme-a-o2s-les-donnees-migrees-2/
+doc_type: faq
+doc_id: aide-faq-prisme-10012-faq-migration-prisme-vers-o2s-gestion-kyc-de-vos-clients
+wp_post_id: 10012
+wp_categories:
+- '-200'
+wp_statut: publish
+thematique: PRISME
+date_modification: '2024-03-18'
+---
+
+### Quelles sont précisément les données
+
+Client de Prismes qui peuvent être rapatriées ? Les données suivantes seront migrées : contacts relations conseillers comptes agrégés comptes manuels GED (dont documents réglementaires, projets d'investissement) Rendez-vous et comptes-rendus de rendez-vous Patrimoine Budget Comment sont récupérées les informations de Mesure de protection dans O2S ? La mesure de protection des clients Prisme est reprise dans le champ Capacité juridique d'O2S, selon les modalités suivantes : Comment sont récupérées les informations de Mesure de protection dans O2S ? Capacité juridique Absence de mesure de protection dans le dossier client Prisme Dans ce cas, dans O2S : La valeur Majeur capable est attribuée automatiquement aux clients âgés de plus de 18 ans; La valeur Mineur non émancipé est attribuée automatiquement aux clients âgés de moins de 18 ans; La valeur Majeur capable est attribuée automatiquement aux clients âgés de plus de 18 ans; Majeur capable La valeur Mineur non émancipé est attribuée automatiquement aux clients âgés de moins de 18 ans; Mineur non émancipé Mesures de protection migrées dans O2S La correspondance entre Prisme et O2S s'établit de la manière suivante :
+
+### Mesure de protection
+
+| Mesure de protection Prisme | Capacité juridique O2S |
+|---|---|
+| Absence | Voir ci-dessus |
+| Tutelle Art. 440 | Majeur protégé sous tutelle |
+| Tutelle sous gestion privée Art 505 | Majeur protégé sous tutelle |
+| Ancienne tutelle d'état Art. 411 | Majeur protégé sous tutelle |
+| Ancienne Tutelle en gérance | Majeur protégé sous tutelle |
+| Curatelle Anc. Art 511 | Majeur protégé sous curatelle |
+| Curatelle Anc. Art 512 | Majeur protégé sous curatelle |
+| Curatelle Art. 440 & suiv. | Majeur protégé sous curatelle |
+| Curatelle Renforcée Art. 472 | Majeur protégé sous curatelle |
+| Sauvegarde de justice Art. 433 & suiv. | Majeur sous sauvegarde justice |
+
+### Majeur protégé sous curatelle
+
+Les six mesures de protections suivantes ne sont pas migrées : Administrateur Ad Hoc Art. 455 et 456 Administration Légale Art. 389 & suiv. Habilitation Familliale Assistance Art.494-1 & suiv. Familliale Représentation Art.494-1 & suiv.
+
+### Mandat de protection
+
+Future Art 477 à 494 Mandat à Effet Posthume Art. 812 & suiv. Toutefois, le champ Capacité juridique est paramétrable dans O2S depuis Services >Personnalisation> paramétrage >contact> capacité juridique.
+
+### Comment récupérer toutes les informations complémentaires que nous avons créées sur les fiches personnes et les contrats pour les extraction et les intégrer dans O2S ?
+
+Toutefois, certaines informations "de base" ont été migrées dans O2S. Consultez la liste exhaustive des données migrées . Pouvons-nous récupérer la totalité des blocs-notes fiche personne et contrat de Prisme A l'heure actuelle, les notes liées aux personnes et aux contrats ne sont pas migrées dans O2S.

@@ -1,0 +1,37 @@
+---
+title: Intencial Apicil
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/intencial-patrimoine/
+products:
+- O2S
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+doc_id: aide-188-intencial-apicil
+wp_post_id: 188
+wp_categories:
+- '73'
+wp_statut: publish
+thematique: O2S
+date_modification: '2026-09-21'
+---
+
+Préambule. Disposez d’une navigation simplifiée et sécurisée entre O2S et l’extranet d’INTENCIAL vous donnant accès aux contrats APICIL Assurances et APICIL Life (Ex : Skandia Life).
+
+### Skandia Life)
+
+Liberalys Vie Performance Absolue Vie Frontière Efficiente PERP Perspective Génération Plus APICIL Proformance Plus Contrats APICIL Life Contrats APICIL Life INTENCIAL Archipel INTENCIAL Gestion Privée II INTENCIAL Horizon Autres contrats Pour chacune de ces 2 entités, après une 1ère et unique authentification, vous pourrez accéder aux comptes d’INTENCIAL Patrimoine (contrats APICIL Assurances et APICIL Life) ou réaliser des transactions sur ces mêmes comptes (proposition d’arbitrage, arbitrage, …) dans l’extranet sans avoir à vous identifier à nouveau. Vous disposez automatiquement de ce nouveau service mais lors de la première utilisation, vous devrez saisir vos codes d’accès APICIL Assurances ou APICIL Life.
+
+Par la suite cette identification ne sera plus nécessaire. Si vous ne pouvez pas accéder au service, vous pouvez contacter l’assistance O2S au 01.55.82.07.08. Si vous ne disposez pas de vos codes d’accès APICIL Assurances ou APICIL Life, nous vous invitons à vous rapprocher de votre interlocuteur INTENCIAL patrimoine.
+
+### Accès au compte et aux transactions
+
+Un accès depuis la liste des comptes dans le portefeuille. Dans O2S, allez dans le module Contacts > Portefeuille du contact afin d’afficher le compte APICIL sur lequel vous souhaitez accéder. Cliquez sur le bouton Réaliser un acte dans la partie droite de la ligne du compte : Dans O2S, allez dans le module Contacts > Portefeuille du contact afin d’afficher le compte APICIL sur lequel vous souhaitez accéder. Si rien ne se passe après avoir cliqué sur l’icône, le bloqueur pop-up de votre navigateur a probablement empêché l’extranet de s’ouvrir. Dans ce cas, cherchez dans le coin supérieur droit de votre navigateur une icône ou un message qui indiquent le blocage. Cliquez dessus et acceptez les popups de manière générale ou créez une exception pour le site Courtage & Systèmes.
+
+S’il s’agit de votre 1er accès à l’extranet depuis O2S ou si votre 1ère connexion date de plus de 6 mois, vos codes d’accès vous sont demandés : Assurances (Dépositaire Groupe APICIL) ou de vos codes d’accès APICIL Life (Dépositaire APICIL life) en fonction des produits concernés. vos codes d’accès APICIL Assurances vos codes d’accès APICIL Life Ensuite, O2S interroge l’extranet pour connaitre la liste des actions qui sont accessibles sur ce compte. Sélectionnez le type d’action que vous souhaitez effectuer. Ensuite vous accédez directement à l’extranet Apicil. Un accès depuis les transactions. APICIL sur lequel vous souhaitez procéder à une transaction. Cliquez sur l’icône : Dans la page qui s’ouvre, cliquez sur l’onglet Transactions puis sur Ajouter.
+
+Suite à cette sélection, O2S interroge l’extranet d’APICIL pour connaitre la liste des transactions qui sont accessibles sur ce compte. O2S affichera la liste des actes de gestion permis sur l’extranet d’APICIL. Ceux auxquels vous n’avez pas accès sur ce compte seront affichés grisés et non cliquables. Suite à cette sélection, vous basculez automatiquement sur le même compte chez Cosy. Il ne vous reste plus alors qu’à effectuer votre transaction et à la valider. L’information qu’une transaction a été initiée dans l’extranet est disponible dans O2S : Si vous disposez de plusieurs logins Intencial…. Intencial, vous devez utiliser celui qui vous permet habituellement de visualiser le contrat sur l’extranet Intencial.
+
+Si vous souhaitez accéder à ce contrat, vous pouvez cliquer sur cet icône, une nouvelle authentification vous sera proposée : Vous devez alors utiliser le login qui vous permet habituellement de visualiser ce contrat sur l’extranet Intencial.

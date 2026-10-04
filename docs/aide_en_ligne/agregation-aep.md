@@ -1,0 +1,113 @@
+---
+title: 'Agrégation : AEP'
+corpus: aide_en_ligne
+source_format: markdown
+products:
+- O2S
+language: fr
+partner: AEP
+partner_facts:
+  lettre_autorisation: false
+  produits_agreges:
+  - JP Morgan Vie
+  - GF Croissance
+  - BPC Vie Multisupport
+  - Cardif Multi Plus B213
+  - Affilium Gestion Privée Capi 2
+  - Afilium Gestion Privée Capi (AEP)
+  - Afilium Gestion Privée Capi 3 (AEP)
+  - Afilium Gestion Privée Vie (AEP)
+  - Afilium Gestion Privée Vie 3 (AEP)
+  - Alegria
+  - Alti Croissance
+  - Amytis Sélect
+  - Amytis Sélect Capi
+  - Antin
+  - APREP Multi Actifs
+  - APREP Multi Actifs Capi
+  - Arpevolia
+  - Baobab Expansion
+  - BNP Paribas Antin Multiplacements
+  - BNP Paribas Multiciel Privilège 2
+  - BNP Paribas Multiplacements 2
+  - BNP Paribas Multiplacements Privilège
+  - Bon De Capitalisation BVMP
+  - Cap 2000
+  - Cap Futur
+  - Cap Prospérité (AEP)
+  - Capi Entreprise
+  - Cardif Capitalisation Euro (AEP)
+  - Cardif Elite (AEP)
+  - Cardif Elite Capitalisation
+  - Cardif Multi Plus
+  - Cardif Multi Plus 2
+  - Cardif Multi Plus 2 PEP
+  - Cardif Multi Plus 3
+  - Cardif Multi Plus 3 Capitalisation
+  - Cardif Multi Plus Capitalisation
+  - Cardif Multi Plus DSK
+  - Cardif Multi Plus PEP
+  - Cardif Multi Select (AEP)
+  - Cardif Multi-plus 3i
+  - Cardif MultiCapi Personnes Morales
+  - Cardif Multimarchés
+  - Cardif Multimarchés Capitalisation PEA
+  - Cardif Multimarchés DSK
+  - Cardif patrimoine Euro
+  - Cardif Référence (AEP)
+  - Carmignac Evolutif (AEP)
+  - Carmignac Evolutif Capitalisation
+  - Composition (AEP)
+  - Composition Capi (AEP)
+  - Croissance Futur
+  - Dexavantages Plus
+  - Dexcapi
+  - Epsivie
+  - FICAP
+  - Finaveo Capi
+  - Fiselect Patrimoine
+  - GF Placement
+  - GF Placement 2
+  - GF Richelieu Capi
+  prix_achat_moyen_transmis: false
+  mouvements_agreges: Versement initial, Versement libre complémentaire, OST avec impact fiscal, Versement programmé,
+    Arbitrage automatique, Décès, Rachat partiel et retrait, Distribution de revenus (coupons, SCPI), Rachat partiel
+    et retrait programmé, Arbitrage volontaire, Autre mouvement, Arbitrage automatique, OST avec impact fiscal,
+    Rachat partiel et retrait, Frais de gestion, Versement initial, Versement programmé, Taxes et prélevements sociaux,
+    Rachat partiel et retrait programmé, Participation aux bénéfices, Arbitrage volontaire, Hors Nomenclature, Transfert
+    entrant, Versement libre complémentaire, Cotisation, Distribution de revenus (coupons, SCPI)
+  frequence_agregation: quotidienne
+default_theme: agregation
+audience: assistant
+audiences:
+- assistant
+- conseiller
+doc_type: fiche_partenaire_agregation
+doc_id: aide-agregation-aep
+wp_post_id: -5
+wp_categories:
+- '-102'
+date_modification: '2025-01-08'
+---
+
+Fiche d'agrégation du partenaire **AEP** dans O2S.
+
+#### À savoir
+
+Les données de AEP sont agrégées depuis l'extranet https://www.portail-aep.fr/k4u//.
+
+#### Produits agrégés
+
+JP Morgan Vie, GF Croissance, BPC Vie Multisupport, Cardif Multi Plus B213, Affilium Gestion Privée Capi 2, Afilium Gestion Privée Capi (AEP), Afilium Gestion Privée Capi 3 (AEP), Afilium Gestion Privée Vie (AEP), Afilium Gestion Privée Vie 3 (AEP), Alegria, Alti Croissance, Amytis Sélect, Amytis Sélect Capi, Antin, APREP Multi Actifs, APREP Multi Actifs Capi, Arpevolia, Baobab Expansion, BNP Paribas Antin Multiplacements, BNP Paribas Multiciel Privilège 2, BNP Paribas Multiplacements 2, BNP Paribas Multiplacements Privilège, Bon De Capitalisation BVMP, Cap 2000, Cap Futur, Cap Prospérité (AEP), Capi Entreprise, Cardif Capitalisation Euro (AEP), Cardif Elite (AEP), Cardif Elite Capitalisation, Cardif Multi Plus, Cardif Multi Plus 2, Cardif Multi Plus 2 PEP, Cardif Multi Plus 3, Cardif Multi Plus 3 Capitalisation, Cardif Multi Plus Capitalisation, Cardif Multi Plus DSK, Cardif Multi Plus PEP, Cardif Multi Select (AEP), Cardif Multi-plus 3i, Cardif MultiCapi Personnes Morales, Cardif Multimarchés, Cardif Multimarchés Capitalisation PEA, Cardif Multimarchés DSK, Cardif patrimoine Euro, Cardif Référence (AEP), Carmignac Evolutif (AEP), Carmignac Evolutif Capitalisation, Composition (AEP), Composition Capi (AEP), Croissance Futur, Dexavantages Plus, Dexcapi, Epsivie, FICAP, Finaveo Capi, Fiselect Patrimoine, GF Placement, GF Placement 2, GF Richelieu Capi, GF Richelieu Croissance, Helisara (AEP), HR Capi, HR Vie, HSBC Excellence, Messine invest capi, Morin Pons Multi Epargne (AEP), Morin Pons Patrimoine Euro PEP (AEP), MP Capital, Multi Avenir, Multi Croissance, Multicapi, Multiprestige Capi, Multiprestige Vie, Multiprestige Vie 2, Multistratégie 3 Capitalisation (AEP), Neuflize OBC Vie by AEP, Nortia Capi (AEP), Nortia Capi, Nortia Capi + (AEP), Novacapi Actif + (AEP), Novacapi Actif II (AEP), Novacapi Premium, Novacapi Prestige (AEP), Novacapi Strategies, Novavie Actif +, Novavie Actif II (AEP), Novavie Premium, Novavie Prestige (AEP), Novavie Strategies, Open Capital (AEP), Open Capital 2 (AEP), Open Latitude Vie (AEP), Open Stratégies (AEP), Open Strategies 2 (AEP), Orelis Multistratégies Capi (AEP), Orelis Multistratégies Diversifié (AEP), Orelis Multistratégies Vie (AEP), P.E.R., Palatine Multicapi, Panthea Capi, PANTHEA VIE, Patrimmo Vie (AEP), Patrimoine (AEP), Patrimoine Absolu, Patrimoine Capi (AEP), Patrimoine Futur, Privaciel 1818 (AEP), BNP Paribas Multiplacements Opportunités, BNP Paribas Multiciel Opportunités, Produit de code 145, E Cardience Capi, Amytis Select 2, Amytis Select Capi 2, HSBC Vie, Cardif Edition Premium Vie, Produit de code 901, Produit de code 906, Produit de code B005, Produit de code B023, Produit de code B024, Produit de code B026, Produit de code B027, Produit de code B029, Produit de code B030, Produit de code B031, Produit de code B032, Produit de code B033, Produit de code B048, Produit de code B051, Produit de code B053, Produit de code B056, Produit de code B057, Produit de code B059, Produit de code B060, Produit de code B076, Produit de code B080, Produit de code B081, Produit de code B082, Produit de code B086, GF Croissance 2, Produit de code B107, Produit de code B119, Cardif Multimarchés Capitalisation, Produit de code B131, Produit de code B141, Produit de code B142, Produit de code B144, Produit de code B154, Produit de code B170, Produit de code B171, Produit de code B174, Produit de code B176, Produit de code B179, Produit de code B181, Produit de code B182, Produit de code B185, Produit de code B196, Produit de code B204, Produit de code B220, Produit de code B226, Produit de code B227, Produit de code B238, Produit de code B239, Produit de code B240, Produit de code B242, Produit de code B247, Produit de code B249, Produit de code B250, Produit de code B252, Produit de code B253, Produit de code B261, Produit de code B265, Produit de code B268, Produit de code B269, Produit de code B276 (AEP), Produit de code B282, E Cardience, Réflexion 3 (AEP), Réflexion 2 (AEP), Retraite Complémentaire (AEP), Retraite Epargne Plus (AEP), Saint Honoré Latitude 2, Sélection Autan Vie (AEP), Sélection Autan Capi (AEP), Serenite & Capitalisation, Soprane 1818 Vie Opus 4.D, SOPRANE 1818 Vie Opus 4D v2, Syco Capi 2, Syco Capi, Sycovie 2, Transatlantique Excellence Vie, Transpatrimoine, Trévolia, UBS Multi Opportunités CAPI, UBS Multi Opportunités Vie, UBS Sélection Vie (AEP), Val Croissance, Val Epargne, Val Placement, Afilium Gestion Privée Capi, Afilium Gestion Privée Vie
+
+#### Prix d'achat moyen
+
+Les prix d'achat moyens ne sont pas transmis par ce fournisseur.
+
+#### Mouvements agrégés
+
+Versement initial, Versement libre complémentaire, OST avec impact fiscal, Versement programmé, Arbitrage automatique, Décès, Rachat partiel et retrait, Distribution de revenus (coupons, SCPI), Rachat partiel et retrait programmé, Arbitrage volontaire, Autre mouvement, Arbitrage automatique, OST avec impact fiscal, Rachat partiel et retrait, Frais de gestion, Versement initial, Versement programmé, Taxes et prélevements sociaux, Rachat partiel et retrait programmé, Participation aux bénéfices, Arbitrage volontaire, Hors Nomenclature, Transfert entrant, Versement libre complémentaire, Cotisation, Distribution de revenus (coupons, SCPI)
+
+#### Fréquence d'agrégation
+
+La fréquence d'agrégation est quotidienne

@@ -1,0 +1,58 @@
+---
+title: Connexion et Déconnexion sur O2S
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/comment-se-deconnecter-do2s/
+products:
+- O2S
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+internal_links:
+- https://o2s-help.harvest.fr/trouver-votre-numero-de-contrat-o2s/
+external_links:
+- https://o2s.harvest.fr/
+- http://connect.harvest.fr/
+- http://ce.office2s.com/
+doc_id: aide-360-connexion-et-deconnexion-sur-o2s
+wp_post_id: 360
+wp_categories:
+- '1'
+- '27'
+wp_statut: publish
+thematique: O2S
+date_modification: '2026-05-29'
+---
+
+1.
+
+## Pourquoi ai-je été déconnecté d’O2S ?
+
+O2S vous déconnecte automatiquement après 30 minutes d’inactivité *. C’est un comportement normal lié à la sécurité de vos données.
+
+### Que faire après une déconnexion automatique ?
+
+Reconnectez-vous normalement via votre URL habituelle. Astuce : Pour éviter la déconnexion, gardez O2S actif en naviguant régulièrement dans l’application. Le simple fait d’actualiser la page (F5) ne suffit pas toujours à maintenir la session. Astuce *cette valeur ne peut pas être modifiée. 2.
+
+## Mes données sont-elles sauvegardées en cas de déconnexion ?
+
+Oui, les dernières saisies effectuées sont automatiquement sauvegardées, même en cas de déconnexion inattendue. Vous ne perdez donc pas vos modifications récentes. 3.
+
+## Puis-je utiliser O2S sur plusieurs onglets ou fenêtres ?
+
+Absolument. Il n’y a aucune limitation à l’utilisation d’O2S sur plusieurs onglets ou fenêtres simultanément dans votre navigateur. Notez que : Les dernières modifications réalisées dans un onglet ou une fenêtre active seront prises en compte si vous effectuez une sauvegarde manuelle. En cas de fermeture ou déconnexion automatique, les informations saisies sont automatiquement sauvegardées. 4.
+
+## Comment fermer ma session O2S ?
+
+Pour vous déconnecter proprement : Cliquez sur votre nom et prénom en haut à droite de la fenêtre O2S. Cliquez sur Déconnexion tout en bas. Vous êtes désormais déconnecté de la plateforme O2S. Important : Si vous fermez simplement l’onglet du navigateur (en cliquant sur la croix ×, par exemple) sans vous déconnecter, votre session reste active pendant 30 minutes. Passé ce délai sans activité de votre part, vous serez invité à vous reconnecter via : https://o2s.harvest.fr/ .
+
+### Personnalisation de la déconnexion
+
+Note : vous pouvez choisir de ne pas être déconnecté en cas de fermeture de votre navigateur; pour ce faire, rendez-vous dans Services > Personnalisation > Connexion / Déconnexion > Déconnexion, puis cliquez sur Non et sur Enregistrer. Vous pouvez aussi choisir de ne pas déconnecter votre session en cas de changement d’adresse IP, dans ce cas, rendez-vous dans Services > Personnalisation > Connexion / Déconnexion > Connexion, puis cliquez sur Ne pas déconnecter la session en cas de changement d’adresse IP et sur Enregistrer.
+
+## Impossible de me connecter à O2S — Que faire ?
+
+Si vous rencontrez des difficultés pour accéder à O2S, suivez cette checklist de résolution : Vérifiez votre URL de connexion : utilisez l’adresse fournie par votre administrateur (ex : connect.harvest.fr , ce.office2s.com ). Videz le cache et les cookies de votre navigateur, puis réessayez. Testez avec un autre navigateur (Chrome, Firefox, Edge). O2S est compatible avec les navigateurs récents. Désactivez temporairement vos extensions de navigateur (bloqueurs de publicité, VPN). Vérifiez votre connexion réseau : essayez d’accéder à un autre site web. Si le problème persiste, contactez l’Assistance O2S en précisant le message d’erreur exact et l’heure de la tentative. Cas particulier — Erreur 418 : Cette erreur provient de votre pare-feu ou proxy d’entreprise (WAF) qui bloque l’accès à O2S.
+
+Transmettez à votre service informatique la liste des domaines à autoriser : Cas particulier — Erreur 418 *.office2s.com *.harvest.fr connect.harvest.fr *.office2s.com *.harvest.fr connect.harvest.fr

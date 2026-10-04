@@ -112,15 +112,44 @@ flowchart TD
 
 ### 1.4 Indexation et metadata
 
-**La base documentaire** (`docs/`) : 397 fichiers, **395 indexés** (2 pages vides exclues).
+**La base documentaire** (`docs/`) : **395 documents indexés**.
 
 | Corpus | Fichiers | Source | `source_format` |
 |---|---|---|---|
-| `api_technique` | 6 contrats OpenAPI (`ref-*`) + 3 guides PDF « Documentation API O2S » (`guide-*`) | conversion .json / PDF | `openapi`, `pdf` |
-| `aide_en_ligne` | 386 articles `help-NNN-*` d'o2s-help.harvest.fr, dont 149 fiches d'agrégation partenaire | scraping | `help_center` |
+| `api_technique` | 6 contrats OpenAPI (`ref-*`) + 3 guides PDF « Documentation API O2S » (`guide-*`), `docs/Harvest API - *.md` | conversion .json / PDF | `openapi`, `pdf` |
+| `aide_en_ligne` | 386 documents `docs/aide_en_ligne/` générés par `o2s-build-docs` depuis l'export WordPress `sources/aide_en_ligne.csv` | export CSV | `markdown` |
 
-Aucun fichier n'a de frontmatter (il serait perdu à la prochaine conversion / au prochain scraping). Les
-metadata de document viennent de 4 sources, par priorité croissante :
+**Base de l'aide en ligne** (`o2s-build-docs`, `adapters/outbound/loaders/help_export.py`) : l'export
+(388 lignes : produit, post_id, titre, lien, date, statut, contenu, catégories, thématique) est reconstruit
+en un fichier Markdown par article, métadonnées en frontmatter YAML :
+
+| Fichiers | Nombre | Contenu |
+|---|---|---|
+| `aide-<post_id>-<slug>.md` | 213 | articles O2S / MoneyPitch / migration Prisme (procédures, présentations, FAQ, tutoriels) |
+| `faq-prisme-<post_id>-<slug>.md` | 17 | sections de la FAQ de migration Prisme → O2S (même page, une section par fichier) |
+| `agregation-<partenaire>.md` | 149 | fiches d'agrégation partenaire (code apporteur, produits, PAM, mouvements, fréquence) |
+| `diagnostic-agregation-<slug>.md` | 7 | fiches de diagnostic (valorisation erronée, mouvements manquants… : hypothèses, actions, glossaire) |
+
+Les 2 lignes vides de l'export (« test », « Partenaires » : « A developper ») sont ignorées. Le contenu de
+l'export est le texte des pages aplati, très bruité ; le générateur :
+- retire les **répétitions** (blocs recopiés 2 à 4 fois pour les versions desktop / mobile, onglets,
+  accordéons) et les **résidus** (mots en gras ré-extraits après chaque bloc) ;
+- reconstruit les **intertitres** à partir des indices de la mise en page aplatie : titre d'onglet
+  (« Budget. Budget Présente… »), titre d'étape suivi d'un bloc répété, intertitre nominal
+  (« Ajout d’un bien immobilier. »), question de FAQ (« Comment … ?. »), plan (« Sommaire … (#ancre) ») ;
+- reconstruit les **tableaux** (lignes TSV aux cellules sans espaces, recollées d'après le texte) ; un
+  tableau « zone | description longue » devient une sous-section par ligne ;
+- écrit le frontmatter : `doc_id`, titre, URL source, produits, thématique, type quand il est certain (FAQ,
+  tutoriel, fiche partenaire, diagnostic, migration), liens internes et externes, vidéos, faits du
+  partenaire, identifiants WordPress (`wp_post_id`, `wp_categories`, `wp_statut`), date de modification.
+
+Résultat : 3,9 → 2,0 millions de caractères, 82 % des chunks rattachés à un intertitre précis, et un
+**contrôle de perte** (tout mot du texte brut doit se retrouver dans le texte nettoyé) consigné dans
+`sources/build_report.json` : 80 mots absents sur 386 documents, essentiellement des traductions
+italiennes / anglaises de la liste Quantalys et des identifiants de vidéos. Pour mettre à jour la base :
+remplacer `sources/aide_en_ligne.csv` par un nouvel export, puis `o2s-build-docs`, `o2s-profile`, `o2s-index`.
+
+Les metadata de document viennent de 4 sources, par priorité croissante :
 
 1. `config/documents.yaml` > `defaults` et `patterns` (famille de fichiers : corpus, format, public…) ;
 2. **faits extraits du contenu** : URL source, numéro d'article, plan, liens internes (résolus en
@@ -145,12 +174,9 @@ l'empreinte du document, qui est donc réindexé.
   (`# API Contacts` > `## 2/ Tableau de synthèse` > `### personne/pieceIdentite`) ;
 - *OpenAPI* (`normalizer.py`) : un endpoint devient une section `### GET /contacts`, un composant
   `### Schéma : Contact`, une question de FAQ `### FAQ : …` ;
-- *Aide en ligne* (`help_center.py`) : le scraping a produit des articles sur une seule ligne, avec chaque
-  passage recopié 2 à 4 fois, des « résidus » de mots en gras, des liens qui coupent les mots, un sommaire
-  répété et des tableaux en TSV. Le parseur recolle les mots, retire doublons et résidus, reconstruit les
-  intertitres (sommaire, questions « … ? », blocs encadrés d'espaces), les paragraphes et les tableaux, et
-  garde chaque fiche d'agrégation en un seul chunk. Résultat : texte réduit à ~71 % (jusqu'à 10 %) sans perte
-  de vocabulaire (couverture médiane 100 %, contrôle : `python -m evaluation.help_cleaning_report`).
+- *Aide en ligne* : déjà nettoyée et structurée par `o2s-build-docs` (voir ci-dessus) ; chargée telle quelle
+  (`markdown`). Chaque fiche d'agrégation reste un seul chunk (intertitres en H4). L'ancien parseur
+  `help_center.py` (`source_format: help_center`) reste disponible pour des pages scrapées une à une.
 
 Contrôle sans LLM ni Qdrant : `o2s-index --dry-run` affiche l'arbre et les metadata déterministes.
 
@@ -272,8 +298,11 @@ docker run -d --name qdrant -p 6333:6333 -v qdrant_data:/qdrant/storage qdrant/q
 
 ### 2.4 Indexer la documentation
 
-1. Les 397 fichiers sont dans `docs/`. Un nouvel article d'aide `NNN_*.md` est pris en charge
-   automatiquement (motif du catalogue) ; un nouveau document d'API se déclare dans `config/documents.yaml`.
+1. Les documents sont dans `docs/`. L'aide en ligne se (re)génère depuis l'export CSV :
+   ```powershell
+   o2s-build-docs             # sources/aide_en_ligne.csv -> docs/aide_en_ligne/ (+ sources/build_report.json)
+   ```
+   Un nouveau document d'API se déclare dans `config/documents.yaml`.
 2. Générez les profils de documents (une fois, puis seulement pour les documents nouveaux ou modifiés) :
    ```powershell
    o2s-profile --dry-run      # nombre de documents et tokens estimés

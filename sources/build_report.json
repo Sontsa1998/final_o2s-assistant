@@ -1,0 +1,175 @@
+{
+  "lignes_export": 388,
+  "fichiers_ecrits": 386,
+  "par_famille": {
+    "article": 213,
+    "faq_prisme": 17,
+    "partenaire": 149,
+    "diagnostic": 7
+  },
+  "lignes_ignorees": [
+    {
+      "post_id": "17241",
+      "titre": "test",
+      "raison": "contenu vide ou page de test"
+    },
+    {
+      "post_id": "93",
+      "titre": "Partenaires",
+      "raison": "contenu vide ou page de test"
+    }
+  ],
+  "fichiers_supprimes": [],
+  "caracteres_bruts": 3873684,
+  "caracteres_nettoyes": 2029125,
+  "controle_perte": {
+    "articles_concernes": 32,
+    "mots_absents": 80,
+    "detail": {
+      "aide-18004-requetes-lessentiel-en-un-coup-dil.md": [
+        "double",
+        "modifier"
+      ],
+      "aide-14979-integrer-les-documents-reglementaires-dans-o2s.md": [
+        "preuves",
+        "remise",
+        "réglementation",
+        "spécifiques"
+      ],
+      "aide-13088-activation-du-sso.md": [
+        "gestion",
+        "questions",
+        "réponses"
+      ],
+      "aide-6573-positionnement-des-comptes-o2s-dans-moneypitch.md": [
+        "financiers",
+        "placements"
+      ],
+      "aide-5061-dcc-document-de-conseil-client.md": [
+        "société"
+      ],
+      "aide-5104-fiches-pedagogiques.md": [
+        "capital",
+        "euro",
+        "fonds",
+        "investissement",
+        "obligations"
+      ],
+      "aide-4586-notifications-comptes.md": [
+        "affichage"
+      ],
+      "aide-3889-tutos-portefeuilles-et-comptes.md": [
+        "effectuez",
+        "souscrivez"
+      ],
+      "aide-3507-faq-administration.md": [
+        "intro",
+        "regard",
+        "viens"
+      ],
+      "aide-452-import-export-du-catalogue-produits.md": [
+        "mise",
+        "oeuvre"
+      ],
+      "aide-454-import-export-du-parametrage-des-frais-et-commissions.md": [
+        "index"
+      ],
+      "aide-148-ateliers-de-parametrage-et-tutos-o2s.md": [
+        "investisseur"
+      ],
+      "aide-263-conformite.md": [
+        "colonnedernière",
+        "documentutiliser",
+        "possiblesattacher",
+        "successifs"
+      ],
+      "aide-244-parametrage-des-emails.md": [
+        "validation"
+      ],
+      "aide-240-utiliser-les-variables-o2s-dans-vos-documents-et-emails.md": [
+        "catégories"
+      ],
+      "aide-229-utiliser-la-signature-electronique.md": [
+        "attaché",
+        "imprime",
+        "imprimer"
+      ],
+      "aide-4063-faq-signature-electronique.md": [
+        "reçois"
+      ],
+      "aide-3534-faq-portefeuille-et-comptes.md": [
+        "constituant",
+        "retrouvez"
+      ],
+      "aide-5065-questionnaire-de-profil-dinvestisseur-format-word.md": [
+        "physiques"
+      ],
+      "aide-3969-informations-scientifiques-sur-le-calcul-du-profil-dinvestis.md": [
+        "produits"
+      ],
+      "aide-206-espace-consommation-et-factures.md": [
+        "certaines",
+        "clients",
+        "comparer",
+        "données",
+        "exemple"
+      ],
+      "aide-194-oradea-vie.md": [
+        "récemment",
+        "toutefois"
+      ],
+      "aide-7180-quantalys-categories-de-fonds-categorie-dei-fondi-fund-categ.md": [
+        "almeno",
+        "britanniche",
+        "canadesi",
+        "commodity",
+        "franchi",
+        "highly",
+        "olandesi",
+        "partly",
+        "svizzeri",
+        "tecnologico"
+      ],
+      "aide-136-mettre-en-place-o2s-dans-votre-structure.md": [
+        "commisssions",
+        "communes",
+        "etablissements"
+      ],
+      "aide-102-comparateur-de-fonds.md": [
+        "informations",
+        "page"
+      ],
+      "aide-11729-conditions-generales-dutilisation-plateforme-wealth-version.md": [
+        "octobre",
+        "version"
+      ],
+      "aide-10075-procedures-de-recuperation-de-donnees-dans-prisme.md": [
+        "procédures",
+        "récupération"
+      ],
+      "aide-9941-preparer-le-passage-de-vos-clients-nexus-a-moneypitch.md": [
+        "list",
+        "moneypitch_fiche_client_final_nd",
+        "passage",
+        "playlist",
+        "plbsdbmcug_kts7xsadavh8mxxukvfk2oe",
+        "préparer",
+        "youtube"
+      ],
+      "aide-9038-agregation-de-prisme-a-o2s-actions-a-mener-pour-chaque-parte.md": [
+        "actions",
+        "mener"
+      ],
+      "aide-8203-les-sessions-customer-success-meeting-csm.md": [
+        "customer",
+        "meeting"
+      ],
+      "aide-8835-decouvrez-kyc-et-moneypitch-le-portail-patrimonial-qui-vous.md": [
+        "initier"
+      ],
+      "aide-8462-gerez-la-conformite-et-la-vigilance.md": [
+        "utilisez"
+      ]
+    }
+  }
+}

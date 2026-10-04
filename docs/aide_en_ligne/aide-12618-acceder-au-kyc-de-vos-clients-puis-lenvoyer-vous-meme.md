@@ -1,0 +1,35 @@
+---
+title: Accéder au KYC de vos clients…puis l’envoyer vous-même
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/acceder-au-kyc-des-contacts/
+products:
+- MoneyPitch
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+doc_id: aide-12618-acceder-au-kyc-de-vos-clients-puis-lenvoyer-vous-meme
+wp_post_id: 12618
+wp_categories:
+- '1'
+wp_statut: publish
+thematique: MONEYPITCH
+date_modification: '2026-09-25'
+---
+
+Renseignez le formulaire KYC (patrimoine, contrats, comptes, fiscalité) pour réduire les erreurs et gagner du temps. Et si nécessaire, envoyez-le directement pour intégrer les données dans O2S..
+
+### Accès au KYC
+
+Après avoir ouvert un KYC pour votre client ou demandé sa mise à jour, vous pouvez y accéder et le pré-remplir : dans l’onglet MoneyPitch > Activation de votre client, le lien Accéder au KYC du contact, vous donne la possibilité de pré-remplir le formulaire KYC de votre client. Si par exemple vous connaissez le patrimoine de votre client, renseignez ses contrats et comptes de façon précise, sélectionnez les modes d’impositions et les informations qui ne sont pas forcément évidentes pour votre client. Au final faites-lui gagner du temps et gagnez-en vous-même aussi en évitant que le client saisisse des informations incorrectes.
+
+## Vous ne disposez pas de lien Accéder au KYC du contact ?
+
+Si vous êtes administrateur, rendez-vous le module d’administration d’O2S. Si vous ne possédez pas ces droits, demandez à votre administrateur.
+
+### Donner l’accès à un profil d’utilisateurs
+
+Dans le module Administration (clic sur votre nom en haut à droite, puis Administration), puis cliquez sur la loupe de l’encart Profils utilisateur. Double-cliquez sur le profil concernant vous ou l’utilisateur concerné. Cliquez sur l’onglet Contact, puis cochez l’option Accès au KYC des contacts. Cliquez sur OK pour valider. Envoi du recueil complété, à la place du client. Rendez-vos dans le module Services puis dans MoneyPitch > Découvrez MoneyPitch pilot, cliquez sur Accéder à MoneyPitch Pilot. Note : vous devez disposer des droits d’administrateur pour pouvoir accéder à MoneyPitch Pilot. Cliquez sur Paramètres KYC à gauche, puis sur Mode Advisor (conseiller). Vérifiez que le bouton switch Pouvoir envoyer le Recueil d’information à la place du client en fin de parcours est bien activé.
+
+Advisor vous permet d’envoyer le recueil complété directement au nom de votre client. Cette fonctionnalité est particulièrement utile pour débloquer des situations où le client n’a pas compris qu’il doit cliquer sur « ENVOYER » pour transmettre les données à O2S.

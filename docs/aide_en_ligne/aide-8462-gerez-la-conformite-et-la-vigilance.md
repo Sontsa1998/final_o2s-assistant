@@ -1,0 +1,156 @@
+---
+title: Gérez la conformité et la vigilance
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/onboarding/etape-06/
+products:
+- O2S
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+internal_links:
+- https://o2s-help.harvest.fr/conformite/
+- https://o2s-help.harvest.fr/vigilance/
+- https://o2s-help.harvest.fr/onboarding/etape-05/
+- https://o2s-help.harvest.fr/onboarding/etape-07/
+external_links:
+- https://www.harvestfidroitacademy.fr/produit/o2s-une-utilisation-au-quotidien/
+doc_id: aide-8462-gerez-la-conformite-et-la-vigilance
+wp_post_id: 8462
+wp_statut: publish
+thematique: O2S
+date_modification: '2026-09-23'
+---
+
+O2S vous permet de gérer au quotidien la mise en conformité de votre client et de ses comptes, en suivant un processus de validation des documents allant jusqu’à la signature du client, et vous permettant ainsi de rendre conformes le client et ses comptes. gérer au quotidien la mise en conformité un processus de validation La fonctionnalité de suivi des documents de conformité vous permet de suivre de façon exhaustive et précise tout le processus de traitement de conformité client depuis la préparation des documents jusqu’à leur signature. tout le processus de traitement de conformité client Vous allez d’abord regrouper les différents documents de conformité. Ces derniers seront ensuite transmis à vos clients, O2S permettant de tracer finement le déroulement du processus.
+
+Grâce à un tableau de bord de gestion, vous connaissez en temps réel l’avancement du processus de suivi des documents de conformité grâce à des états et des indicateurs. En effectuant des actions, vous accomplissez le processus de mise en conformité des documents et des comptes. l’avancement du processus de suivi des documents de conformité Les principes généraux de l’utilisation de la conformité dans O2S sont détaillés dans les pages qui suivent à travers 3 grandes parties : la mise en place de la conformité la gestion de la conformité avec votre client et le monitoring de l’activité « conformité » au niveau du conseiller ou du cabinet la mise en place de la conformité mise en place la gestion de la conformité avec votre client gestion et le monitoring de l’activité « conformité » au niveau du conseiller ou du cabinet monitoring Si vous êtes un conseiller effectuant le suivi de la conformité avec vos clients mais que vous ne participez pas à sa mise en place au sein de votre structure, vous pouvez vous rendre directement à la partie Gestion de la conformité avec votre client.
+
+### Gestion de la conformité avec votre client
+
+Tutoriel vidéo. [Vidéo: https://www.youtube.com/embed/oejfhiJK0XA?feature=oembed] Mise en place de la conformité.
+
+### Gestion des droits
+
+La conformité peut être mise en place en fonction de la structure hiérarchique de votre société afin de définir les acteurs et leurs responsabilités (mise en place, réalisation et supervision). A ce titre, vous devez obligatoirement intégrer la prise en compte de droits spécifiques qui permettront à certains de vos utilisateurs de gérer la conformité. Par défaut, tous les utilisateurs peuvent utiliser la conformité avec leurs clients, mais seuls les profils disposant de certains droits peuvent en paramétrer les options : Le droit de Gestion de la conformité permet de définir les options des documents de conformité et du périmètre de conformité des comptes. Gestion des options de la signature électronique permet de personnaliser les mails qui seront échangés avec le client lors du processus de signature électronique.
+
+### Gestion des options de la signature électronique
+
+Ces 2 droits s’activent, à l’aide de votre menu nominatif en haut à droite d’O2S, en allant dans Services > Administration > Profils utilisateur > Gestion des droits > [Profil] > Onglet Configuration de l’application. Enfin, pour chaque utilisateur, vous pouvez décider si la signature électronique pourra être utilisée comme moyen de signature par le client. Pour ce faire, cliquez sur votre menu nominatif en haut à droite, puis sur Espace abonnement > onglet Utilisateurs, cliquez sur Modifier, puis cochez les cases des utilisateurs auxquels vous souhaitez accorder cette fonctionnalité. Modifier Cliquez ensuite sur Enregistrer. Si vous n’accordez pasz l’accès à la signature électronique à un collaborateur, celui-ci ne pourra mettre en oeuvre que les moyens de signature traditionnels (en main propre, par courrier).
+
+### Paramétrage de la conformité
+
+Dans un premier temps, vous allez définir la liste des documents qui sera mise à la disposition de vos collaborateurs, puis dans un second temps, vous définirez le périmètre du portefeuille qui sera pris en compte (par type de compte). définir la liste des documents qui sera mise à la disposition de vos collaborateurs définirez le périmètre du portefeuille Documents de conformité.
+
+### Documents de conformité
+
+La page Documents de conformité de Services > Personnalisation > Paramétrage > Contact > Conformité a pour objet de gérer les différents types de documents (création, modification et suppression) que vos collaborateurs pourront utiliser dans leur traitement quotidien de la conformité avec leurs clients. Ces derniers pourront ajouter ces types de documents dans leur onglet Contacts > Conformité > Tableau de bord. Pour ajouter ou modifier un type de document, et cliquez sur le bouton de l’action souhaitée, puis dans la fenêtre qui s’ouvre, renseignez les informations suivantes : Libellé par défaut | Indiquez ici un intitulé pour le document. Choisissez une dénomination parlante qui permettra au conseiller de savoir de quel document il s’agit, en un coup d’œil.
+
+C’est ce libellé qui apparaîtra dans la liste de l’action Ajouter un document de conformité dans le tableau de bord de conformité du conseiller. Type | Définissez le type du document. 6 types de documents de conformité sont disponibles dans O2S. Vous devez appliquer à votre document un des types à l’aide de la liste déroulante. Si aucun des types n’est pertinent pour le document que vous voulez produire, vous pouvez sélectionner le type Autre document. Note : vous ne pouvez définir qu’un seul document actif pour les documents de type Document d’entrée en relation, Document de connaissance client et Profil de risque. Cochez ici le(s) type(s) de contacts pour lesquels vous souhaitez rendre utilisable le document dans la conformité.
+
+Note : le document Profil client ne peut être utilisable que pour les personnes physiques. Type de contact | Affichage | Proposé par défaut dans le tableau de bord : le document figurera par défaut dans le tableau de bord de vos collaborateurs;Non proposé par défaut dans le tableau de bord : le document ne sera pas directement visible dans l’encart Conformité des comptes du tableau de bord du conseiller, mais ce dernier pourra l’afficher en cliquant sur le menu Suivi de la relation > Ajouter un document de conformité, puis en le sélectionnant dans la liste déroulante Type. Statut | Actif : le document sera proposé pour une nouvelle action. Inactif : le document ne sera pas proposé. À signer par le client : les actions Signature électronique et Signer à la main seront proposées dans le menu du document dans le tableau Suivi de la relation client.
+
+Ces 2 choix sont proposés selon le statut du document; de plus, la mise en œuvre de la signature électronique par un utilisateur requiert un droit spécifique. Pas de signature : aucune action de signature ne sera proposée au conseiller. Documents associé au compte | Si cette option est cochée, lorsque le document aura le statut A remettre dans le tableau de bord du conseiller, une action Rattacher à un compte sera disponible dans le menu. Le document sera alors présent sous le compte, dans l’encart Conformité des comptes. Durée de validité du document x mois | Permet d’indiquer la durée pendant laquelle le document sera valide, à partir du moment où ce document est signé. Par défaut, les documents de conformité sont triés par ordre de création; cet ordre est repris dans le module Contacts > Conformité > Suivi de la relation client de votre client.
+
+Pour le modifier à votre convenance, sélectionnez un modèle puis cliquez-le et déplacez-le vers le haut ou le bas tout en gardant le doigt enfoncé sur la souris. Une fois le modèle positionné à la place que vous souhaitez lui attribuer, relâchez le bouton de la souris. OK pour valider la création ou modification de type de document.
+
+### Périmètre de la conformité
+
+Conformité a pour objet de préciser les types de comptes des clients qui seront concernés par la conformité. A l’aide de la liste déroulante, sélectionnez en les cochant, les types de comptes à intégrer dans la conformité. Cliquez sur OK, puis sur Enregistrer. Vous pouvez mettre en place des alertes de conformité. Depuis la page Notifications signature électronique de Services > Modules > Accueil et pilotage > Alertes, cochez les statuts pour lesquels vous souhaitez recevoir une notification. alertes de conformité Notifications signature électronique Services > Modules > Accueil et pilotage > Alertes Celles-ci s’affichent dans l’encart Signature électronique du module Accueil. En les cliquant, vous accédez directement au suivi de la signature.
+
+Vous avez également la possibilité de personnaliser les mails qui sont envoyés à vos clients en vue de les inviter à signer, de leur confirmer leur signature et de leur signifier l’annulation d’une demande de signature. Depuis Services > Personnalisation > Paramétrage > Signature électronique, des pages vous permettent de composer et mettre en forme le texte de vos messages. personnaliser les mails Services > Personnalisation > Paramétrage > Signature électronique Conformité comprend un onglet Tableau de bord dédié à la conformité de votre client. A partir de lui vous allez pouvoir faire évoluer la conformité des documents et comptes de votre client à l’aide de différents états et actions tout en suivant l’état d’avancement de celle-ci grâce à des indicateurs visuels.
+
+Au fur et à mesure que vous intégrerez les documents de conformité, l’indicateur global évoluera. Le tableau de bord se compose de 3 encarts : Suivi de la relation client : sont disponibles ici les documents de conformité nécessaire à la mise en conformité. Indicateurs client : cet encart offre un suivi visuel et indique la santé globale de la conformité de votre client, il affiche par ailleurs la répartition d’une part, des documents à jours et de ceux qui sont en cours, et d’autre part, des comptes conformes ou non.
+
+### Conformité des comptes
+
+: pour chaque compte, vous connaissez l’état d’avancement des documents rattachés, et vous pouvez effectuer des actions sur eux, comme marquer le compte comme conforme.
+
+### Conformité des comptes Suivi de la relation client
+
+Cet encart vous permet de réaliser des actions sur les documents de conformité. Les actions diffèrent selon l’état de ces derniers. Des documents sont déjà présents dans le suivi, mais vous pouvez en ajouter d’autres.
+
+## Documents présents par défaut
+
+Par défaut, des documents sont présents dans le suivi de la relation client; il s’agit des documents correspondant à la procédure règlementaire dictée par le statut de Conseiller en investissement Financier (CIF) comme le Document d’entrée en relation, le Document de connaissance client, le Profil de risque, la Lettre de mission et le Rapport de mission. Vous pouvez complétez la procédure proposée par d’autres documents ou au contraire la simplifier en vous rendant dans l’espace Services (cf. Pour connaitre le processus de traitement de la conformité pour ces documents, rendez-vous au paragraphe Processus de traitement de la conformité .
+
+## Nouveau document à intégrer
+
+Pour ajouter nouveau document dans la relation client, cliquez sur l’icône du Suivi de la relation client, enfin dans le menu déroulant qui apparait, plusieurs choix s’offrent à vous : Suivi de la relation client, Ajouter un document de conformité | Dans la fenêtre Ajouter un document de conformité qui s’ouvre, saisissez un libellé permettant d’identifier le document, puis, à l’aide de la liste déroulante, sélectionnez le type du document. Vous pouvez, si le type de document le permet, rattacher directement ce document à un ou plusieurs comptes. Le document apparaît alors dans liste des documents du suivi de la relation client. OK Trier par document puis par date croissante | Un tri est effectué afin de faire figurer les documents de conformité dans l’ordre du paramétrage puis les plus récents en tête de liste.
+
+Accéder au tableau de bord du conjoint | Permet de passer directement sur le tableau de bord de conformité du conjoint. Vous pouvez ainsi visualiser les documents de conformité du conjoint ainsi que leur état. Note : Ce choix n’est disponible que si le client a un conjoint, contact O2S distinct. Afficher / Ne pas marquer le contact comme conforme | Si vous choisissez cette option, le contact sera considéré comme conforme; ce choix est à utiliser dans le cas où, par exemple, vous possédez tous les documents de conformité « papier » signés, et que vous n’avez pas encore pu les scanner afin de les mettre au format PDF. Note : vous avez toujours la possibilité de revenir sur ce choix, en cliquant sur l’option Ne pas marquer ce contact comme conforme.
+
+Masquer les documents signés du conjoint | Permet de faire figurer ou non les documents de conformité signés du conjoint dans le tableau de bord de conformité du client. Vous pouvez ainsi gérer plus facilement la conformité du couple.
+
+### Signer à distance
+
+/ en face à face les documents sélectionnés | Si vous avez sélectionnés des document en les cochant (), vous pouvez signer à distance / en face à face de façon électronique ces documents. Note : Ces choix ne sont disponibles que si vous êtes titulaire du droit d’utilisation de la signature électronique. Ne pas ignorer le contact pour le calcul de la conformité | Permet de na pas prendre en compte le contact dans le calcul de la conformité; les 3 indicateurs globaux disparaissent alors et laissent place à un message vous indiquant que le contact et ses comptes sont ignorés. Note : vous pouvez réintégrer le contact dans le calcul de la conformité, en cliquant sur Ne pas ignorer le contact pour le calcul de la conformité.
+
+### Processus de traitement de la conformité
+
+Suite aux actions que vous allez effectuer dans le menu situé à droite de la ligne représentant chaque document de conformité, ces derniers vont voir leur état évoluer. A chaque état, vous disposez d’actions spécifiques. Les différents états successifs et actions disponibles sont les suivants : Suite aux actions que vous allez effectuer dans le menu À initier À remettre Remis Signature en cours Signature en cours expirée Problème technique sur la signature en cours Refus de signature Signature annulée Signé à la main Signé électroniquement À initierÀ initier À remettreÀ remettre RemisRemis Signature en coursSignature en cours Signature en cours expiréeSignature en cours expirée Problème technique sur la signature en cours Refus de signatureRefus de signature Signature annuléeSignature annulée Signé à la mainSigné à la main Signé électroniquementSigné électroniquement Tous les documents que vous rattachez au suivi de la relation client sont visibles dans les pages GED – O2S- Conformité et Suivi du module Contact.
+
+De même, à chaque fois que l’état d’un document de conformité change, une nouvelle entrée est créée dans le suivi du client. L’action Signer à distance va permettre aux signataires de signer électroniquement le document à distance en quelques clics, dans un processus sécurisé. Il est important de vous assurer (à la fois pour le client et les éventuels autres signataires devant signer le document) dans le module Contacts > Dossier > Coordonnées que d’une part, le numéro de portable retenu au niveau de Mobile pour la signature @ est correct et que d’autre part, l’ adresse mail de votre client (et des autres signataires) est bien renseignée et correcte, sans quoi votre client ne recevra pas l’email l’invitant à signer le document, ni le code lui permettant de valider sa signature.
+
+L’email d’invitation est envoyé à partir de l’adresse mail de l’utilisateur connecté au moment de l’envoi de la demande de signature. De la même façon, le document signé par le client mentionnera le nom, prénom et société de l’utilisateur connecté à l’initiative de la demande. Si votre client est une personne morale ou bien un majeur protégé, assurez-vous que vous avez bien spécifié qui était le représentant légal afin que ce dernier reçoive le document à signer en représentation de la personne morale ou du majeur protégé. Tout d’abord, chaque signataire reçoit un mail contenant un lien l’invitant à signer le document : En cliquant sur ce lien, le signataire accède à une page web sécurisée lui permettant de visualiser le document dans sa totalité en utilisant la barre de défilement verticale.
+
+Dans la partie inférieure de la page figure une barre d’outils offrant différentes options de visualisation du document. Le signataire doit alors cliquer sur Signer puis, dans la fenêtre qui s’ouvre, il peut signer le document ou bien refuser de le faire en cliquant sur le bouton associé : Signer S’il le refuse, une fenêtre s’ouvre et il peut en quelques mots expliquer le motif de son refus, puis confirmer. Dans le tableau de bord de conformité de ce client, le document de conformité prend l’état Refus de signature. En positionnant le curseur de la souris sur l’icône la motivation du refus apparaît. S’il le signe, il doit cocher la mention prouvant qu’il a bien lu le document et qu’il accepte sans réserve les conditions, puis dans la fenêtre Signature, il doit cliquer sur Recevoir mon code de signature.
+
+Un code lui est envoyé par sms sur son smartphone. Il doit saisir ce code dans la partie inférieure de la fenêtre web puis cliquer sur Signer. Le signataire reçoit alors un mail avec le document signé en pièce jointe dès que tous les signataires ont signé S’il le refuse, une fenêtre s’ouvre et il peut en quelques mots expliquer le motif de son refus, puis confirmer. Note sur la compatibilité des navigateurs avec la signature électronique La page web permettant au client de signer les documents de conformité utilise la technologie eDoc. Celle-ci est compatible avec les navigateurs suivants : Sur PC (et Mac) : Chrome Firefox Safari Internet Explorer 11 et Edge Sur mobile (smartphones et tablettes) : Chrome Safari Internet Explorer et Edge Note sur la compatibilité des navigateurs avec la signature électronique Document non conforme : Aucune action n’a encore été effectuée sur le document alors qu’il est obligatoire ou bien le document est trop ancien.
+
+Attente de signature du client. Un problème est survenu lors de la mise en conformité : Soit un problème technique est apparu pendant le processus de signature électronique. Soit le signataire a refusé de signer. La demande de signature a été annulée par un conseiller. Vous avez la possibilité de relancer une signature ou de démarrer un nouveau document. Le document est conforme : Le document a été signé. Le document n’entre plus en compte dans la conformité : Il est soit inactif, soit il a été remplacé par un même type document de conformité plus récent. 3 indicateurs visuels vous permettent en clin d’œil de voir l’état d’avancement de la conformité de votre client. Indicateur global Indicateur global Indicateur global Ce logo vous indique l’état global de la conformité de votre client.
+
+Il peut revêtir différents aspects et indiquer la date de fin de conformité* : L’ensemble des documents du tableau de suivi et l’ensemble des comptes du client ont un indicateur de conformité vert ou gris. Dans tous les autres cas. * Cette date ne s’affiche que si l’indicateur est et si au moins un document a une durée de validité paramétrée. Le suivi des documents offre une représentation graphique, au sein des documents de conformité*, de la répartition entre ceux qui sont à jour (secteur le plus foncé), ceux qui sont en cours de conformité et ceux qui ne sont pas encore conformes (secteur le plus clair). * tous les documents de conformité autres que ceux ayant un indicateur. Le suivi des comptes offre une représentation graphique, au sein des comptes du client, de la répartition entre ceux qui sont à jour (secteur le plus foncé)* et ceux qui ne sont pas encore conformes (secteur le plus clair) dans le périmètre des comptes du client. *Comptes marqués comme conformes et comptes associés à au moins un document de type Lettre de missio n et à un document Rapport de mission.
+
+Cet encart permet de connaître le détail de la conformité de chacun des comptes du client. Compte conforme (suite au calcul de la conformité par O2S) Compte conforme (forcé conforme manuellement) Compte non conforme : aucun document de type lettre de mission n’est rattaché au compte; aucun document de type rapport de mission n’est rattaché au compte; un des documents rattéché à une pastille noire, rouge ou orange Actions possibles. Permet de recalculer la conformité du compte. Vous devrez attacher les documents nécessaires signés aux documents de conformités du compte afin que le compte soit conforme. Permet de recalculer la conformité du compte. Sur les documents Sur les documents En fonction de l’état de conformité des comptes, différentes actions peuvent être réalisées sur les documents de conformité rattachés à ces derniers; ces actions sont décrites dans la partie Processus de traitement de la conformité de ce document.
+
+Vous disposez notamment de l’action Rattacher à un compte, qui vous donne la possibilité de rattacher le document aux comptes de votre client. Il suffit de cliquer sur la liste déroulante Compte puis de cocher le(s) compte(s) de rattachement, puis de valider en cliquant sur OK.
+
+### Pilotage de la conformité
+
+Pilotage, O2S vous offre un panorama de la conformité dans votre structure. Dans l’encart Conformité, comprenant 3 graphiques, vous disposez en temps réel de la part des clients et comptes conformes, ainsi que de la répartition entre les documents non conformes, en cours de conformité et conformes. Cet encart, disponible uniquement si vous disposez du droit Gestion de la conformité, peut figurer dans le module Accueil. Organisation et cochez la case Conformité dans la colonne Accueil, puis cliquez sur l’icône Enregistrer. disponible uniquement si vous disposez du droit Gestion de la conformité Accueil Services > Modules > Accueil et pilotage > Organisation Conformité Enregistrer C ontacts conformes.
+
+C En cliquant sur l’icône, vous accédez à la fenêtre Conformité des contacts comprenant 4 colonnes : la liste des contacts, un indicateur visuel de leur conformité, la date de mise en conformité, ainsi qu’une colonne Actions permettant de réaliser des actions sur chacun des contacts. Vous pouvez également effectuer des actions par lot sur plusieurs contacts en les cochant (). Cette colonne affiche un logo pouvant revêtir 3 aspects : Le contact est conforme : tous ses documents de conformité sont signés et conformes. Le contact n’est pas conforme : au moins un document n’est pas conforme Le contact n’est pas conforme : Le contact a été marqué comme conforme : le collaborateur a marqué le client comme conforme car il détient tous les documents de conformité « papier » signés prouvant la conformité du client Le contact a été marqué comme conforme : Colonne Fin de conformité Colonne Fin de conformité Cette colonne indique la date à laquelle le contact ne sera plus conforme.
+
+Conformité, l’indicateur visuel passe alors à. Cette action n’est possible que si vous avez préalablement utilisé l’action Marquer le client comme conforme. Vous devrez alors ajouter tous les documents signés nécessaires aux différents documents de conformité afin que le contact soit conforme. Cette action permet d’exclure le contact du calcul de la conformité de votre structure.
+
+### Traitement par lot
+
+Dans la partie supérieure droite de la fenêtre, un menu vous permet d’effectuer des traitements par lot, c’est-à-dire d’appliquer une action à plusieurs contacts. traitements par lot Attacher le DCC renseigné | Insère le Document de Connaissance Client rempli dans le document de conformité de chaque contact. Une option (à cocher) vous permet d’inclure les documents du conjoint. Forcer les contacts sélectionnés comme conformes | Dans la colonne Conformité, l’indicateur visuel passe alors à.
+
+### Ignorer le contact pour le calcul de la conformité
+
+Pour effectuer une action par lots sur plusieurs contacts Dans la colonne Client, cochez les contacts sur lesquels vous voulez effectuer une action. Cliquez sur le menu Sélectionnez (en la cliquant) l’action que vous souhaitez réaliser.
+
+## Filtrage
+
+Afin d’affiner la liste des comptes à afficher, le bouton Filtrer donne la possibilité de réaliser un filtrage des comptes sur 2 critères : Filtrer par conseiller (ou plusieurs conseillers en les cochant), par conformité ou non; Traitement unitaire. Vous pouvez effectuer un tri sur les 3 premières colonnes : cliquez sur l’en-tête de colonne afin de trier les éléments dans l’ordre. Cliquez-la une seconde fois, afin de classer les éléments dans l’ordre inverse. N° de compte Colonne N° de compte Ici figure le numéro et le libellé du compte devant être mis en conformité. Conformité, l’indicateur visuel revient alors à son état initial.
+
+### Ne pas marquer le compte comme conforme
+
+Dans la partie supérieure droite de la fenêtre, un menu 3 points vous permet d’effectuer des traitements par lot, c’est-à-dire d’appliquer une action à plusieurs comptes en les cochant (). traitements par lot Vous devrez alors ajouter tous les documents signés nécessaires aux différents documents de conformité afin que les comptes soient conformes. Cette fenêtre offre une vue consolidée de l’activité de mise en conformité à l’échelle de votre structure ou bien d’un ou plusieurs conseillers. Vous pouvez développer l’arborescence à gauche en cliquant sur les signes. Vous pouvez effectuer un tri sur toutes les colonnes (sauf Actions) : cliquez sur l’en-tête de colonne afin de trier les éléments dans l’ordre.
+
+## Regrouper par
+
+Vous pouvez moduler le type d’affichage de la vue à l’aide la liste déroulante Regrouper par; vous disposez d’une vue « Compte / Conformité » montrant l’état d’avancement de la conformité au niveau de chaque contact, et d’une vue « Conseiller ». Vous pouvez ainsi reproduire la hiérarchie de votre société.
+
+## Filtrage des documents de conformité
+
+Vous pouvez effectuer un filtrage approfondi grâce à l’utilisation de 6 critères différents.
+
+## Indicateurs visuels
+
+À tout moment, en un clin d’œil, vous pouvez connaitre l’état de la mise en conformité d’un document ou d’un produit ou d’un client grâce à la pastille de couleur qui figure dans la colonne « Conformité ». Le statut apparait aussi, dans une colonne dédiée, ainsi que la date du statut, la date de fin de conformité.
+
+## Actions
+
+Ce menu vous permet d’accéder au tableau de bord conformité du contact concerné par le document, le compte ou le conseiller pour lequel vous avez cliqué sur l’icône. tableau de bord conformité du contact Traitement par lot. Afficher tout | Affiche les documents cachés (suite à leur passage en conformité). Marque tous les documents cochés comme conforme. Imprimer | Imprime le document Imprimer | Imprime le document Imprimer | Remettre en main propre | Permet de finaliser la mise ne conformité en transférant le document en main propre au contact Remettre en main propre | Envoyer par emailing | Envoie par email chaque document à son contact respectif.
+
+## Requêtes sur les critères de conformité
+
+Depuis le module Requêtes, vous pouvez lancer des recherches Contacts (onglet Contact 2/2) en prenant comme critère un pourcentage de complétude. Respectez la réglementation en matière de lutte contre le blanchiment et le financement du terrorisme (LCB-FT). Pour ce faire, contrôlez le risque client, le risque de chacune de ses opérations, le niveau de vigilance de votre client et mettez en place des alertes sur les mouvements financiers adaptées à chacun d’eux. Conformité va faciliter votre devoir de cartographie client et répondre à vos obligations professionnelles.
+
+## Contacts > Conformité Pour en savoir plus sur la vigilancePour en savoir plus sur la vigilance Vous souhaitez vous former sur O2S ?
+
+Participez à une classe virtuelle de 3h30 pour savoir exploiter les fonctionnalités d’O2S liées à la connaissance client, son épargne financière, l’usage des requêtes et le parcours projet d’O2S. En tant que détenteur de la solution, vous bénéficiez du tarif préférentiel de 140€. Objectifs Parfaire au quotidien le processus KYC, connaissance client, identification du profil de risque, objectifs, pour réaliser des propositions commerciales adaptées Assurer la conformité de la relation client en s’appuyant sur O2S : valider et tracer les documents requis, renseigner la cartographie, assure le suivi client Tirer profit de la vision complète des avoirs financiers des clients qu’offre l’agrégation Savoir construire et exploiter les requêtes En savoir plus Étape précédente Étape suivante

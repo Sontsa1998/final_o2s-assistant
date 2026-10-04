@@ -1,0 +1,54 @@
+---
+title: L’ESG pour prendre en compte des critères extra-financiers dans les projets d’investissement
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/lesg-pour-prendre-en-compte-des-criteres-extra-financiers-dans-les-projets-dinvestissement/
+products:
+- O2S
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+doc_id: aide-10339-lesg-pour-prendre-en-compte-des-criteres-extra-financiers-da
+wp_post_id: 10339
+wp_categories:
+- '50'
+- '58'
+wp_statut: publish
+thematique: O2S
+date_modification: '2026-09-11'
+---
+
+Présentation. Lorsque vous réalisez un projet d’investissement pour votre client, vous devez obligatoirement prendre en compte le profil investisseur que votre client renseigne lui-même dans son MoneyPitch ou KYC, afin que le projet soit en adéquation avec ce profil. projet d’investissement profil investisseur Auparavant, le profil investisseur se basait sur les connaissances et expériences des produits financiers par votre client, et par la mesure de l’appétence de ces derniers au risque. Depuis quelques années, des critères « extra-financiers » peuvent désormais être pris en compte, ce sont les critères dits ESG : Environnement, Social et Gouvernance. D’une part, cette sensibilité extra-financière de votre client peut être mesurée grâce à un questionnaire dédié, et d’autre part, lors du choix de l’allocation pour un projet, vous pouvez sélectionner des fonds en accord avec la sensibilité extra-financière de votre client. sensibilité extra-financière de votre client peut être mesurée grâce à un questionnaire dédié choix de l’allocation pour un projet fonds en accord avec la sensibilité extra-financière Intéresser votre client aux thématiques ESG.
+
+Votre client ne sait pas forcément ce que sont les thématiques ESG; pour le sensibiliser et l’accompagner, vous pouvez lui expliquer que l’objectif est de générer un impact financier tout en contribuant positivement à des enjeux sociaux et environnementaux. Concrètement, quand il veut réaliser un projet d’investissement, l’ESG permet de prendre en considérations dans l’allocation financière ses valeurs éthiques sur les questions environnementales (empreinte carbone, respect de la biodiversité, eau, déchets…), sociales (droits du travail, lutte contre les discriminations,…) et de gouvernance (lutte contre la corruption, rémunération et féminisation des chefs d’entreprise,…). Pour intégrer ces thématiques ESG dans les opérations financières, un label ISR (Investissement Socialement Responsable), créé en 2016 par le Ministère de l’Economie et des Finances, est attribué aux fonds investissant dans des entreprises ayant des pratiques responsables en matière environnementale, sociale et de gouvernance.
+
+Les fonds ISR peuvent exclure les entreprises impliquées dans des industries controversées telles que le tabac ou les armes, favoriser les entreprises qui adoptent des pratiques durables ou socialement responsables, ou encore exercer une influence active sur les entreprises pour qu’elles améliorent leurs performances ESG. label ISR fonds ISR Ainsi, en choisissant des fonds ayant reçu le label ISR, votre client a la certitude de ne pas financer des entreprises qui exploitent du charbon, des hydrocarbures non conventionnels ou qui lancent des projets d’exploration, d’exploitation, de raffinage d’hydrocarbures (pétrole et gaz),… Une offre de fonds « verts » encore peu fournie. A l’heure actuelle, l’offre de fonds labellisés reste faible.
+
+Ainsi, dans le but d’avoir une allocation diversifiée, il n’est pas recommandé de constituer une allocation constituée uniquement de fonds labellisés. En effet, la diversification est un facteur clé du risque : moins un portefeuille est diversifié, plus il y a de risque. Il est également possible d’investir dans des fonds ESG dans un PEA, un compte-titre, un PER ou encore un PEE. Des scores ESG parfois illusoires. Les scores ESG des entreprises peuvent induire en erreur. Alors que les meilleures notes devraient refléter un engagement fort envers la réduction des émissions de CO2, les entreprises avec des scores ESG plus bas se montrent souvent plus vertueuses. Les entreprises familiales, en particulier celles dirigées par des membres de la famille, sont les moins polluantes en raison de leur attention accrue à l’environnement et de leur vision à long terme.
+
+Ceci explique donc pourquoi des fonds investissant dans des entreprises considérées comme polluantes peuvent tout de même figurer dans l’allocation d’un projet. Il est donc recommandé de demander à votre client de vous contacter afin d’établir son profil investisseur et ses préférences ESG avec vous afin que vous puissiez leur conseiller un investissement aligné sur leurs valeurs éthiques. > Pour en savoir plus sur les critères ES G (v i d é o). L’ESG dans O2S. Avant toute chose, vous devez paramétrer comment vous souhaitez intégrer la prise en compte de l’ESG dans les projets d’investissement. Pour rappel, dans O2S vous disposez d’une part du profil d’investisseur renseigné par ou avec votre client, ce profil contient une partie dédiée aux questions ESG, et d’autre part, lorsque vous créez un projet d’investissement pour votre client, vous pouvez adapter les caractéristiques du projet sur les thématiques ESG. profil d’investisseur projet d’investissement Paramétrage.
+
+Dans Services > Personnalisation > Paramétrage > Projet, vous pouvez : Services > Personnalisation > Paramétrage > Projet Activer les préférences extra-financières dans le parcours projet : en cochant cette option, vous activez la dimension ESG dans les projets.
+
+### Inclure ou exclure les critères
+
+ESG dans le calcul du contrôle d’adéquation * en cochant la case dédiée; si vous excluez les critères ESG, le calcul de l’adéquation du projet de votre client portera uniquement sur ses connaissances/expériences et sur son profil de risque; néanmoins, les préférences ESG resteront visibles dans le projet. Choisir le mode de calcul du contrôle d’adéquation * : cochez la case « Considérer les critères extra-financiers comme cumulatifs » si vous exigez que les 3 critères ESG soient en adéquation avec le profil de sensibilité extra-financière de votre client, décochez-la si vous estimez que l’adéquation d’au moins un des 3 critères est suffisante pour que le projet soit déclaré comme étant en adéquation avec le profil extra-financier de votre client.
+
+Notez que cette option vous donne la possibilité d’impacter l’adéquation du projet avec le profil de votre client. Paramétrer la durabilité * : Les données EET de chaque support sont automatiquement transmises par les sociétés de gestion dans le catalogue Produits (Services > Personnalisation > Catalogue produits > Durabilité > Paramétrer la durabilité). Si besoin, vous pouvez modifier ces données en cochant les cases puis en indiquant les valeurs à retenir. Notez que vous devez renseigner les données EET des titres vifs et des fonds euros, car elles ne sont pas transmises par les sociétés de gestion. *Comme vous l’avez constaté, plusieurs options de paramétrage vous permettent d’influer sur l’adéquation des projets de votre client avec sa sensibilité extra-financière et ainsi de répondre à la demande de votre client.
+
+Le choix d’inclure la dimension ESG dans le calcul de l’adéquation, et du type de calcul de son contrôle sont laissés à votre appréciation; cependant vous devez impérativement veiller à ce que le projet du client soit en adéquation, au final. Le régulateur a prévu que les seuils des critères puissent être abaissés; nous vous invitons à contacter votre association professionnelle pour connaître sa position sur le degré d’application de la réglementation ESG à adopter dans vos conseils et préconisations. *Comme vous l’avez constaté, plusieurs options de paramétrage vous permettent d’influer sur l’adéquation des projets de votre client avec sa sensibilité extra-financière et ainsi de répondre à la demande de votre client.
+
+### Questionnaire profil (focus sur partie ESG)
+
+A travers quelques questions très simples, le questionnaire vise à à définir les préférences de votre client en matière de finance verte. Renseigner ces préférences n’est pas obligatoire. Quel impact si le client souhaite préciser ses préférences en matière de durabilité ? Si le client souhaite préciser ses préférences en matière de durabilité, cela peut rendre le processus de sélection des investissements plus complexe en raison de la relative rareté des fonds ISR et de la diversité des options disponibles. Cependant, en travaillant en étroite collaboration avec le client et en effectuant une analyse approfondie des fonds disponibles, il est possible de trouver une allocation d’actifs qui répond à la fois aux objectifs financiers et aux valeurs éthiques du client.
+
+## Quel impact si le client souhaite préciser ses préférences en matière de durabilité ?
+
+En premier lieu, votre client peut sélectionner 1, 2 ou les 3 approches en matière de durabilité : Ensuite, il répond aux questions en rapport avec les approches qu’il a sélectionnées : Enfin, son niveau de sensibilité extra-financière est alors déterminé. Ces données viennent compléter son profil d’investisseur :
+
+### Projet d’investissement
+
+Lorsque vous créez un projet, dans les caractéristiques du projet, vous retrouvez le niveau des références extra-financières issues du profil d’investisseur du client. caractéristiques du projet En cas de besoin, dans Autres informations, vous pouvez réviser les préférences extra-financière du client pour le projet après avoir coché les cases. Pour être conforme avec la réglementation, vous avez la possibilité de justifier vos éventuelles révisions en rédigeant un commentaire; celui-ci pourra être intégré dans les éditions, via une option au moment d’éditer la déclaration d’adéquation. Dans l’étape du Choix des allocations, les supports que vous sélectionnez manuellement tiennent compte des paramétrages effectués dans la durabilité.
+
+Vérifiez ensuite l’ adéquation du projet avec le profil investisseur du client, notamment sa sensibilité extra-financière. Dans le rapport d’adéquation, vous retrouvez, pour chacun des critères ESG, le seuil minimum requis pour l’adéquation du projet. rapport d’adéquation

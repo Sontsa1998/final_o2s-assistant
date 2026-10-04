@@ -1,0 +1,112 @@
+---
+title: 'Agrégation : Generali Patrimoine'
+corpus: aide_en_ligne
+source_format: markdown
+products:
+- O2S
+language: fr
+partner: Generali Patrimoine
+partner_facts:
+  lettre_autorisation: false
+  produits_agreges:
+  - APREI Retraite
+  - Actif Retraite Indépendant
+  - AE Evolution (CD)
+  - AE Evolution Capitalisation
+  - AFDP Privilège
+  - AFDP Privilège Capitalisation
+  - AFDP Privilège Capitalisation PEA
+  - AGAP B 112
+  - Agap B 113
+  - ALTAPROFITS Capitalisation
+  - Altaprofits PEP
+  - Altaprofits Vie (Generali Patrimoine)
+  - American Express Diversification
+  - American Express Evolution
+  - American Express Sélection (Generali Patrimoine)
+  - Anapurna (Generali Patrimoine)
+  - Assurance-vie Chabrières (Generali Patrimoine)
+  - Assurance-vie HARVEST Formation 2 GENERALI
+  - ASTER Sélection (CD)
+  - Aster Sélection (VE)
+  - Aster Sélection Capitalisation
+  - Barclays Multisupports Plus
+  - Barclays Prestige Vie Multisports
+  - Barclays Privilège Vie Multisupports
+  - Barclays Retraite Individuelle
+  - Barclays Retraite Madelin
+  - Binck Vie
+  - Bon Epargne N°1
+  - Bon Epargne N°3
+  - Boursorama Vie (Generali Patrimoine)
+  - BRIO Pierre Revenus
+  - BRIO Pierre Revenus 2
+  - Caméléon
+  - Caméléon 2
+  - CAP DB
+  - Capinvest (Generali Patrimoine)
+  - Capinvest 2007 (Generali Patrimoine)
+  - Capinvest PEA (Generali Patrimoine)
+  - Capital Euro Epargne (Generali Patrimoine)
+  - Capital Euro Epargne Bourse
+  - Capitalisation
+  - CAR Multi SICAV v2
+  - CAR Multi SICAV v3
+  - CAR SCPI v1
+  - Cholet Dupont Filiation Capi
+  - Cholet Dupont Filiation Vie
+  - Cocktail Expansion 2
+  - Cocktail Expansion 2 Capitalisation
+  - Cocktail Expansion 2 PEP
+  - Cocktail Expansion Capitalisation
+  - Cocktail Plan
+  - Compte Actif Retraite
+  - Compte Actif Retraite SCPI
+  - Compte Actif Retraite SCPI Rocher Pierre
+  - Compte Double Détente
+  - Compte double garantie
+  - Compte Embleme Retraite
+  - Compte Epargne Performance
+  - Compte Investissement Libre
+  - Continentale Multi-Investissements
+  prix_achat_moyen_transmis: true
+  mouvements_agreges: Versement programmé, Rachat partiel et retrait programmé, Arbitrage volontaire, Participation
+    aux bénéfices, Décès, Taxes et prélevements sociaux, Prime ou bonus de fidélité, Remboursement de prime, Hors
+    Nomenclature, Renonciation, Rachat total et fermeture, Versement initial, Versement libre complémentaire, Transfert
+    sortant, Distribution de revenus (coupons, SCPI), Cotisation, Arbitrage automatique, Sans effet, Frais de gestion,
+    OST sans impact fiscal, Rachat partiel et retrait
+  frequence_agregation: hebdomadaire
+default_theme: agregation
+audience: assistant
+audiences:
+- assistant
+- conseiller
+doc_type: fiche_partenaire_agregation
+doc_id: aide-agregation-generali-patrimoine
+wp_post_id: -74
+wp_categories:
+- '-102'
+date_modification: '2025-01-08'
+---
+
+Fiche d'agrégation du partenaire **Generali Patrimoine** dans O2S.
+
+#### À savoir
+
+Afin que votre demande d'agrégation puisse etre validée et fonctionnelle, vous devez souscrire auprès de Generali un abonnement à la mise à disposition de fichiers d'agrégation sur l'extranet Nomineo. La fréquence d'agrégation dans O2S (quotidienne, hebdomadaire ou mensuelle) dépendra de votre choix lors de la souscription de cet abonnement. Vous devez saisir vos identifiants d'agrégation, à ne pas confondre avec les identifiants de consultation du site Nomineo. Tous les mouvements depuis l'ouverture des contrats peuvent être agrégés Les données de Generali Patrimoine sont agrégées depuis l'extranet https://www.nomineo.net/.
+
+#### Produits agrégés
+
+APREI Retraite, Actif Retraite Indépendant, AE Evolution (CD), AE Evolution Capitalisation, AFDP Privilège, AFDP Privilège Capitalisation, AFDP Privilège Capitalisation PEA, AGAP B 112, Agap B 113, ALTAPROFITS Capitalisation, Altaprofits PEP, Altaprofits Vie (Generali Patrimoine), American Express Diversification, American Express Evolution, American Express Sélection (Generali Patrimoine), Anapurna (Generali Patrimoine), Assurance-vie Chabrières (Generali Patrimoine), Assurance-vie HARVEST Formation 2 GENERALI, ASTER Sélection (CD), Aster Sélection (VE), Aster Sélection Capitalisation, Barclays Multisupports Plus, Barclays Prestige Vie Multisports, Barclays Privilège Vie Multisupports, Barclays Retraite Individuelle, Barclays Retraite Madelin, Binck Vie, Bon Epargne N°1, Bon Epargne N°3, Boursorama Vie (Generali Patrimoine), BRIO Pierre Revenus, BRIO Pierre Revenus 2, Caméléon, Caméléon 2, CAP DB, Capinvest (Generali Patrimoine), Capinvest 2007 (Generali Patrimoine), Capinvest PEA (Generali Patrimoine), Capital Euro Epargne (Generali Patrimoine), Capital Euro Epargne Bourse, Capitalisation, CAR Multi SICAV v2, CAR Multi SICAV v3, CAR SCPI v1, Cholet Dupont Filiation Capi, Cholet Dupont Filiation Vie, Cocktail Expansion 2, Cocktail Expansion 2 Capitalisation, Cocktail Expansion 2 PEP, Cocktail Expansion Capitalisation, Cocktail Plan, Compte Actif Retraite, Compte Actif Retraite SCPI, Compte Actif Retraite SCPI Rocher Pierre, Compte Double Détente, Compte double garantie, Compte Embleme Retraite, Compte Epargne Performance, Compte Investissement Libre, Continentale Multi-Investissements, Contrat de capitalisation MAIF, Convergences (Generali Patrimoine), Daedra (Generali Patrimoine), EPI (Generali Patrimoine), E-novline (Generali Patrimoine), E-novline Capitalisation (Generali Patrimoine), EMBLEME ROCHER PIERRE 1, Epargne Fede (Generali Patrimoine), EPI DSK, EPI Multi-Placements (Generali Patrimoine), Espace Gestion (Generali Patrimoine), Espace Gestion Capi, Espace Gestion PEP, Espace Horizon 8, Espace Invest 4, Espace Invest 4 Capitalisation (Generali Patrimoine), Espace Invest 5, Espace Invest 5 Capitalisation, Espace Invest Duo +, Espace Invest Madelin, Espace Transatlantique Vie, Expert 107 10000 et 100000, Expert 107 7, Expert 107 7,5, Expert 108 8, Expert 108 A 8, Expert Croissance 12, Expert SCPI Rocher Pierre 1, F.E.R. Versement Périodique, F.H.P. 1 B PEP, F.H.P. 1 PEP, Fede 17250, Fédéralia Epargne Retraite, Fédération Premier, Fédération Valor Capi, Fédération Valor, Fipavenir TNS, France Multi Investissements 2, France Multi Investissements 4, Generali Epargne, Generali Platinium Collaborateurs, GPA, Guardian Capitalisation (Generali Patrimoine), Guardian Epargne, Guardian Guaranty, Guardian Privilège, Guardian Protection N° 9012 (Generali Patrimoine), guardian Strategy, Guardian Top Indice (Generali Patrimoine), Guardian Vie Invest (Generali Patrimoine), Guardian Vie Invest, Himalia, Himalia Patrimoine, Himalia Patrimoine Capitalisation, Horizons Multiples, ING Direct Vie, Jupiter PEP Euraction, Jupiter Universel, Kapital-Direct, KBC Invest, Kléber Sélection, L'Epargne Generali Platinium, L'Epargne Generali Platinium Capi, Laffitte 2001, LE PER GENERALI PATRIMOINE, PERP (Generali Patrimoine), LinXea Vie (Generali Patrimoine), Lloyds Protection, LLoyds Vie Invest, Lloyds Vie Invest B, M Stratégie Allocation Vie, Ma Sentinelle Vie, Assurance-vie MAIF Avenir Patrimoine, Meilleurtaux Allocation Capitalisation, Mercure Vie, Mon Partenaire Assurance Vie, Mon Partenaire Capi, Mon Petit Placement Vie, monabanq. vie Premium, Mornay Epargne, MTD Protection, Multi Préférences, My Pension XPER, NABAB Confidence, Nalo Patrimoine, Open Prestige, Open Prestige - VE (Generali Patrimoine), Open Prestige III (Generali Patrimoine), Oroc C, Oroc D, Palatine Multi Gestion, Palatine Preferences, Palatine Preferences 2, Palatine Preferences Pep, Palatine Vibrato, Palatine Vibrato Capitalisation, PAR Multi SICAV v1, PAR Multi SICAV v2, PAR Multi SICAV v3, PAR Multi SICAV v4, Patrimoine Epargne, Patrimoine Essentiel (Generali Patrimoine), PEP Performances, Pep uni 100, PEP Uni Performances, PEP Valor Actions, Placement-direct Essentiel, Plan Actif Retraite, Plan Actif Retraite SCPI Georges V, Plan Actif Retraite SCPI Valoripierre, Plan Epargne Familial, PM&A Stratégie Monde I, PM&A Retraite Madelin (Generali Patrimoine), PM&A Stratégie Capital Investissement Pierre Privilège (Generali Patrimoine), PM&A Stratégie Capital Investissement (Generali Patrimoine), PM&A Stratégie Capital Investissement 92 (Generali Patrimoine), PM&A Stratégie Epargne (Generali Patrimoine), PM&A Stratégie Epargne Investissement (Generali Patrimoine), PM&A Stratégie Epargne Investissement GBF (Generali Patrimoine), PM&A Stratégie Monde II (Generali Patrimoine), PM&A Stratégie Portfolio Monde (Generali Patrimoine), PM&A Stratégie PortFolio Monde Version 1 Compte (Generali Patrimoine), PM&A Stratégie PortFolio Monde Version 1 Plan (Generali Patrimoine), PM&A Stratégie PortFolio Monde Version 2 Compte (Generali Patrimoine), PM&A Stratégie PortFolio Monde Version 2 Plan (Generali Patrimoine), PM&A Stratégie Portfolio Monde Version 3 (Generali Patrimoine), PM&A Stratégie Retraite Individuelle (Generali Patrimoine), PM&A Stratégie Revenu Pierre (Generali Patrimoine), PM&A Stratégie Vie Entière (Generali Patrimoine), PMO Longue Vie, Portfolio (Generali Patrimoine), Portfolio, Premavenir PER (Generali Patrimoine), Prestige DBW, Prestige Saint-Honore, Prestige Saint-Honoré Capitalisation II, Prestige Saint-Honore II, Prestige Saint-Honore III, Progresso, Prudence Avenir, Prudence Avenir Valeurs Mobilieres, Puissance Sélection, R Multigestion (CD), R Multigestion Capitalisation, Réflexion (VE), Replique, Retraite Volontaire 1, Retraite Volontaire 2, S.M.B.E.F., Sélection Épargne Retraite (Compte), Sélection Mezzodi, Sélection Mezzodi Capitalisation, Sélection Privée, Sélection Privée Capitalisation, Sélection R Horizon, Sélection R Horizon durée viagère (Generali Patrimoine), Sélection R PEP (Generali Patrimoine), Serenidad IFC (Generali Patrimoine), Serenidad Retraite Madelin, Stanislas Multi-Placements, Symphonie (Generali Patrimoine), Symphonie 98, Symphonie Compte (Generali Patrimoine), Symphonie Plan, T.A.P. EXPERT 107, TAP EXPERT 107 10 000 et 100 000, T.C.P. Finex Immobilier Fede 10 000 et 100, TNS Retraite, UBS Croissance Capi, UNEP Actif Patrimoine Capi, Uniretraite, Uniretraite B.A.M.I., Vivalor, VP Evolution, WinToWin, Xaélidia, XL Vie, Daedra, Duo Fédé, E-Xaélidia, E-Xaélidia Capitalisation, E-Xaélidia PEP, Himalia Capitalisation, PEA Performance, Primavalis, Sérénidad PERP, Xaelidia 2, Xaélidia Capitalisation, Xaélidia PEP, Xaélidia PEP 2, Xaélidia Retraite Individuelle
+
+#### Prix d'achat moyen
+
+Les prix d'achat moyens sont transmis par ce fournisseur.
+
+#### Mouvements agrégés
+
+Versement programmé, Rachat partiel et retrait programmé, Arbitrage volontaire, Participation aux bénéfices, Décès, Taxes et prélevements sociaux, Prime ou bonus de fidélité, Remboursement de prime, Hors Nomenclature, Renonciation, Rachat total et fermeture, Versement initial, Versement libre complémentaire, Transfert sortant, Distribution de revenus (coupons, SCPI), Cotisation, Arbitrage automatique, Sans effet, Frais de gestion, OST sans impact fiscal, Rachat partiel et retrait
+
+#### Fréquence d'agrégation
+
+La fréquence d'agrégation est hebdomadaire

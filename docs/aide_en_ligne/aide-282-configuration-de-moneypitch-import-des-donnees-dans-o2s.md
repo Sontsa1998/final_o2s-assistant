@@ -1,0 +1,212 @@
+---
+title: Configuration de MoneyPitch & Import des données dans O2S
+corpus: aide_en_ligne
+source_format: markdown
+source_url: https://o2s-help.harvest.fr/import-des-donnees-moneypitch/
+products:
+- MoneyPitch
+language: fr
+audience: conseiller
+audiences:
+- conseiller
+internal_links:
+- https://o2s-help.harvest.fr/espace-abonnements/
+- https://o2s-help.harvest.fr/presentation/
+- https://o2s-help.harvest.fr/moneypitch-pilot/
+- https://o2s-help.harvest.fr/quelle-est-la-difference-entre-moneypitch-et-kyc/
+- https://o2s-help.harvest.fr/moneypitch-starter/
+- https://o2s-help.harvest.fr/creer-une-requete/
+- https://o2s-help.harvest.fr/ged/
+- https://o2s-help.harvest.fr/etablissements-agreges-dans-moneypitch/
+doc_id: aide-282-configuration-de-moneypitch-import-des-donnees-dans-o2s
+wp_post_id: 282
+wp_categories:
+- '36'
+wp_statut: publish
+thematique: MONEYPITCH
+date_modification: '2026-09-15'
+---
+
+## Sommaire
+
+- Présentation
+- Administration
+- Personnalisation de MoneyPitch
+- Paramétrage de l’accès à MoneyPitch
+- Options d’import des données de MoneyPitch
+- Alerte sur les données MoneyPitch modifiées
+- Import des données dans O2S
+- Données MoneyPitch dans O2S
+- Gestion du mot de passe MoneyPitch du client
+
+## Présentation
+
+Depuis O2S, activez l’accès MoneyPitch de vos clients et importez les données renseignées dans MoneyPitch par ces derniers afin de les retrouver dans O2S. Suivez les étapes pas à pas, depuis la mise en place du service MoneyPitch dans votre structure jusqu’à l’import des données client dans O2S; vous allez ainsi : définir quels conseillers pourront accorder des accès MoneyPitch à leurs clients; personnaliser les options globales MoneyPitch s’appliquant à tous les clients; personnaliser les options d’import associées à chaque client, utilisateur de MoneyPitch; ouvrir l’accès de chaque client à MoneyPitch; savoir quelles actions entreprendre lorsque vous recevrez des alertes sur des données à importer; et enfin, réaliser l’import des données.
+
+A la fin de cette rubrique, vous trouverez également une présentation des données MoneyPitch dans O2S ainsi que les différentes façons d’interagir avec vos clients, une fois l’import effectué. Si vous ne disposez pas des droits permettant d’accorder aux conseillers le droit d’ouvrir des accès MoneyPitch pour leurs clients, vous pouvez passer à la partie Personnalisation de MoneyPitch .
+
+### Personnalisation de MoneyPitch
+
+Si vous disposez de ce niveau d’administration, vous pouvez poursuivre la lecture ci-dessous. Avant toute chose, vous devez disposer d’un abonnement vous permettant d’utiliser MoneyPitch. Dans le cas contraire, contactez le service Assistance clientèle.
+
+## Assistance clientèle
+
+Note L’ouverture d’un accès MoneyPitch est réservée aux personnes physiques uniquement.
+
+### Permettre à mes conseillers d’ouvrir des accès MoneyPitch
+
+Vos conseillers ne pourront ouvrir des accès MoneyPitch que s’ils disposent d’un droit spécifique les y autorisant. Pour ce faire, rendez-vous dans l’ Espace Abonnements , accessible en cliquant sur votre menu utilisateur en haut à droite. Cliquez sur l’onglet Utilisateurs, puis cliquez sur Modifier en haut à droite. Cochez les cases permettant aux conseillers d’attribuer les différents accès MoneyPitch, et cliquez sur Enregistrer. Personnaliser globale de MoneyPitch pour tous les clients. Dans Services > MoneyPitch > MoneyPitch Pilot , paramétrez les accès à l’aide, à l’assistance et choisissez les écrans à afficher dans MoneyPitch. Vous pouvez aussi paramétrer les options du nouveau module Placements (beta).
+
+MoneyPitch, plusieurs options, classées dans 3 pages distinctes, peuvent être activées dans Moneypitch en les cochant. Portefeuille et comptes.
+
+### Portefeuille et comptes
+
+Choisissez dans cette page les options d’affichage des informations financières. Les options Affichage des plus / moins-values, Affichage des prix moyens et Inclure les audits dans les éditions des états de comptes, définies par défaut pour tous vos contacts, peuvent être surchargées pour chaque client . Cependant, si vous modifiez la valeur de ces options par défaut, elles seront également modifiées dans la page de paramétrage MoneyPitch de tous vos clients. Inclure les audits dans les éditions des états de comptes Fonctionnalités. Cette page est dédiée à l’activation de certaines fonctionnalités associées à MoneyPitch. les coordonnées du cabinet sur la page de connexion de MoneyPitch : par défaut cette option n’est pas cochée, elle fait apparaître vos coordonnées.
+
+En la cochant, ce sont les coordonnées de votre cabinet qui figureront dans la page de connexion. la possibilité laissée au client de changer son mot de passe : en cas d’activation, vos clients pourront changer leur mot de passe depuis la page (paramètres). les coordonnées du cabinet sur la page de connexion de MoneyPitch : par défaut cette option n’est pas cochée, elle fait apparaître vos coordonnées. Important Si un accès de type SSO (Single Sign-On – authentification unique) a été mis en place pour accéder à MoneyPitch, il est indispensable de décocher cette option. MoneyPitch, il est indispensable de décocher cette option. le dépôt dans la GED : vos clients pourront déposer des documents dans l’espace Documents de MoneyPitch. la possibilité pour l’utilisateur de modifier son profil d’investisseur. l’activation de la messagerie associée à MoneyPitch, afin de communiquer par messages avec vous. la mise à disposition des modules orientés « conseils » tels que le diagnostic et les indicateurs patrimoniaux, ainsi que les pages Actualités et de tutos vidéos. le choix des simulateurs : vous pourrez mettre à disposition des simulateurs financiers. le dépôt dans la GED : vos clients pourront déposer des documents dans l’espace Documents de MoneyPitch.
+
+Calcul du nombre de connexions. Cette option vous permet de connaître exactement le nombre de connexions effectuées sur MoneyPitch par vos clients sur la période de temps de votre choix. Ce nombre s’affiche dans la page MoneyPitch > Historique de connexion de chaque fiche client. Les jours et heures des connexions sont également précisés : MoneyPitch > Historique de connexion Dans tous les cas, n’oubliez pas de cliquer sur Enregistrer pour valider vos saisies. Paramétrage de l’accès client à MoneyPitch.
+
+### Paramétrage de l’accès client à MoneyPitch
+
+En tant que conseiller, vous créez des accès à MoneyPitch et les faites évoluer selon les besoins.
+
+### Accès à la page de paramétrage MoneyPitch
+
+Contacts de chaque client, un lien Activer MoneyPitch vous permet, en le cliquant, d’accéder directement à la page d’activation et de paramétrage de l’accès à MoneyPitch. Vous devez lire et valider la page des Conditions Générales d’Utilisation; elles décrivent les termes qui vous lient à votre client dans le cadre du service MoneyPitch. Avant d’effectuer le paramétrage, vérifiez que le contact dispose d’une adresse email dans la page Tout parcourir > Dossier > Coordonnées. Dans le cas contraire, il ne pourra pas recevoir les mails d’activation de compte.
+
+### Ouvrir l’accès de votre client à MoneyPitch
+
+Dans la section Accès de l’onglet Activation, cliquez sur la liste déroulante Activer / Désactiver l’accès et sélectionnez le MoneyPitch de votre choix (KYC, MoneyPitch, MoneyPitch Premium ). La zone de saisie Identifiant du contact apparait.
+
+### Identifiant du contact apparait
+
+Un identifiant par défaut est affiché; nous vous conseillons de ne pas le modifier. Note : l’identifiant ne doit pas être utilisé pour un autre contact. Si vous utilisez l’adresse mail du contact et qu’elle n’est pas acceptée par O2S, c’est qu’elle est déjà utilisée pour un accès MoneyPitch. Cliquez sur le bouton Enregistrer. Puis confirmez les fenêtres vous avertissant sur la facturation de l’accès et l’envoi de l’email d’activation du compte. Votre client recevra alors immédiatement un email d’activation lui notifiant son identifiant et l’invitant à créer son mot de passe. Il devra renseigner les champs de saisie en respectant les contraintes indiquées. En cliquant sur, il pourra visualiser les caractères saisis.
+
+Lors de connexions ultérieures, s’il oublie de son mot de passe , son identifiant lui sera demandé. en respectant les contraintes indiquées Après avoir cliqué sur Valider, votre client accède à MoneyPitch. Il recevra également un email de confirmation de création de son accès à MoneyPitch. Il pourra ensuite accéder à MoneyPitch en indiquant son identifiant et son mot de passe depuis la page http://www.moneypitch.fr. http://www.moneypitch.fr Lorsque votre client se connectera à Moneypitch pour la première fois, il devra lire les Conditions Générales d’Utilisation. en faisant défiler tout le texte des CGU à l’aide de l’ascenseur à droite de l’écran. Lorsque le bouton Accepter est orange, il pourra entrer dans MoneyPitch en le cliquant.
+
+Notez que vous pouvez créer un accès MoneyPitch ou MoneyPitch Premium à votre client lorsque celui-ci a mis à jour ses informations suite à votre demande . Vous récupérez ainsi ses informations dans O2S et à ce même moment vous avez la possibilité de lui créer rapidement un accès. Dans O2S, lorsque l’accès MoneyPitch de votre client est activé, dans le menu Tout parcourir, vous retrouvez l’entrée MoneyPitch vous permettant d’afficher la page précisant les données importées. Vous pouvez également accéder à cette page en cliquant sur l’icône MoneyPitch dans la fiche du client. Paramétrer si besoin les options qui apparaissent dessous.
+
+### Personnalisation spécifique au client
+
+Deux encarts Options figurant dans la page Activation vous permettent de personnaliser des options MoneyPitch du client, puis de sélectionner la méthode d’import de votre choix, dans le cas où vous souhaitez importer les données MoneyPitch du client dans O2S.
+
+### Options d’affichage dans MoneyPitch
+
+Des options vous permettent de moduler l’affichage de certaines données financières ainsi que la GED MoneyPitch du client. Afficher les +/- values Afficher les +/- values Module l’affichage des plus et des moins-values en euros, pourcentage ou les deux dans MoneyPitch pour ce client. Afficher les prix moyens Afficher les prix moyens Cette option fait figurer les prix moyens dans les comptes. Autoriser le client à enregistrer des fichiers dans l’espace GED de MoneyPitch En cochant cette option, votre client pourra déposer des documents dans la GED de MoneyPitch (Outils > Mes documents). Ces derniers apparaitront ensuite dans la GED O2S de votre client, dans le dossier O2S – MoneyPitch.
+
+### Options d’import des données de MoneyPitch
+
+Quand votre client ajoute ou modifie des données dans MoneyPitch, O2S peut récupérer ces informations. Les listes déroulantes Importer les données MoneyPitch et Vérifier les données importées sont importantes car elles vous donnent la possibilité d’activer l’import et, le cas échéant, de choisir la façon avec laquelle vous allez procéder à l’import de ces données. MoneyPitch, le contact ne sera jamais mis à jour et vous ne serez jamais prévenu que votre client a modifié ses données dans MoneyPitch. Dans ce cas, votre client utilise MoneyPitch de manière autonome. Vous ne profitez pas des données qu’il ajuste. Les différents types d’import proposés dans la liste déroulante Vérifier les données importées sont les suivants : Vérifier les données importées Non, importer automatiquement Les données de ce client sont automatiquement mises à jour dès qu’une donnée est ajoutée, modifiée ou supprimée depuis MoneyPitch.
+
+### Non, importer automatiquement
+
+Les données de ce client sont automatiquement mises à jour dès qu’une donnée est ajoutée, modifiée ou supprimée depuis MoneyPitch. Vous ne serez pas averti de ces mises à jour.
+
+### Seulement si une donnée sensible est modifiée C’est l’option retenue par défaut.
+
+Certaines données d’O2S seront mises à jour sans que vous ayez besoin d’intervenir. Cependant d’autres données, dites « sensibles » déclencheront une alerte et O2S vous informera qu’une mise à jour est disponible car votre client aura ajouté, modifié ou supprimé l’une de ces données : Sur le client (ce périmètre est aussi valide pour le conjoint et les enfants quand ceux-ci sont rattachés à des contacts O2S) : -Nom -Date de naissance -Nationalité -Pièce d’identité -Numéro de la pièce d’identité -Date d’expiration de la pièce d’identité -Situation familiale -Téléphone mobile -Adresse mail Sur le conjoint : -Nom -Date de naissance -Téléphone mobile -Adresse mail Le profil d’investisseur : -La réponse aux questions -Résultat L’ ajout et la suppression des éléments suivants déclencheront aussi une alerte : -Le client -Le conjoint -Les enfants -Les avoirs financiers et non financiers -Les passifs -Les revenus -Les comptes. Dans ce cas, dès qu’une donnée sensible sera concernée, vous devrez passer en revue toutes les données (les données « non sensible » incluses) avant de procéder à l’import dans O2S.
+
+### Dès qu’une donnée est modifiée
+
+Les données du contact dans O2S seront mises à jour après votre validation.
+
+### Dès qu’une donnée est modifiée
+
+Lorsque vous avez terminé la saisie des options, cliquez sur Enregistrer pour prendre en compte vos modifications. Important Si vous exploitez MoneyPitch en mode SSO, c’est-à-dire que vos clients accèdent à MoneyPitch depuis le site internet de votre entreprise après s’être connecté à ce dernier, vos clients n’auront donc pas à entrer leur identifiant pour accéder à MoneyPitch. Il est possible d’utiliser des identifiants et mots de passe que vous avez retenus pour votre propre site. Dans ce cas, il faudra attribuer ces mêmes login / mots de passe dans la page de paramétrage de MoneyPitch présente dans O2S pour les clients concernés. Si vous ne souhaitez pas utiliser les mêmes identifiants / mots de passe, tout en bénéficiant du SSO, vous devrez alors gérer une table de correspondance pour communiquer les identifiants / mots de passe MoneyPitch correspondant à l’utilisateur connecté sur votre site.
+
+### Alerte – Données MoneyPitch modifiées
+
+Dès que l’accès à MoneyPitch est ouvert, que le client a validé son mot de passe puis agrégé ses comptes et/ou modifié ses données dans MoneyPitch, alors O2S peut détecter que des données MoneyPitch doivent être importées. Vous recevez alors une alerte si vous avez choisi les modes d’import « Oui, après validation en présence d’au moins une donnée sensible » ou « Oui, après validation dès qu’une donnée est modifiée ». Oui, après validation dès qu’une donnée est modifiée » Notification de l’alerte. L’alerte est signalée à 3 emplacements dans O2S (cette alerte est mise à jour toutes les 15 minutes) : dans la fiche du client; la mention MoneyPitch apparait en couleur orange. Cliquez-la pour accéder à la page d’ import des données MoneyPitch .
+
+Cette notification est mise à jour toutes les 30 secondes. dans la fiche du client; la mention MoneyPitch apparait en couleur orange. Cette notification est mise à jour toutes les 30 secondes. fiche dans l’encart Alertes techniques de l’accueil (ou du pilotage), ainsi que dans la barre d’outils d’O2S (« cloche » avec numéro) Alertes techniques « cloche » avec numéro) Important Ces 2 alertes sont destinées à effectuer un import par lot . Avant de procéder à un import par lot, il est conseillé de prendre connaissance de l’ import des données MoneyPitch ci-dessous afin de connaitre en détail les différents périmètres et niveaux de données, et plus généralement le fonctionnement de l’import.
+
+### Périmètre des données
+
+Import des données, les données du client sont classées sous différentes catégories. L’import peut être effectué donnée par donnée, ou bien au niveau d’une catégorie ou même au niveau du client. Filtre d’affichage des données Filtre d’affichage des données Voir toutes les données : affiche toutes les données du périmètre d’import MoneyPitch, qu’elles soient identiques ou différentes.
+
+### Voir les données
+
+différentes : n’affiche que les données différentes entre O2S et MoneyPitch. L’import des données est composé de 4 colonnes vous permettant de visualiser rapidement les données de l’import.  Représente l’arborescence des données classées par catégories et sous-catégories.
+
+|  |  | Représente l’arborescence des données classées par catégories et sous-catégories. Quelle que soit leur valeur, ces données sont présentes dans MoneyPitch et/ou dans O2S. Cliquez sur les chevrons > afin d’afficher les données des (sous-)catégorie. Cliquez sur Tout déplier pour afficher toute l’arborescence. |
+|---|---|---|
+|  |  | Ici sont présentées les données provenant de MoneyPitch. Celles qui sont identiques aux données présentes dans O2S sont en gris. Dans le cas contraire, elles sont affichées avec une police colorée (orange dans l’exemple ci-dessus). 2 tirets colorés indiquent que la valeur n’existe pas dans MoneyPitch (). Note Si une donnée est présente dans O2S mais pas dans MoneyPitch, par défaut elle apparait barrée dans la colonne O2S  (car nous présumons que c’est la donnée de MoneyPitch, même absente, qui sera importée). En cliquant sur le bouton switch (qui devient alors noir), la donnée O2S n’est plus barrée et ne sera pas supprimée dans O2S. |
+|  |  | Ici vous allez choisir l’action à entreprendre pour chaque donnée ou catégorie de données, de façon unitaire, ou pour tout un niveau. |
+|  |  | Ici sont affichées les données telles qu’elles seront dans O2S après validation. Si une valeur est en gras, cela signifie que la donnée O2S sera remplacée par celle qui provient de MoneyPitch : vous voyez ici l’impact du choix effectué en . Si elle est barrée, c’est que la donnée n’existe pas dans MoneyPitch et la valeur présente dans O2S sera alors supprimée. |
+
+La présentation en arborescence des données permet d’appliquer l’action souhaitée à différents niveaux : pour chaque donnée : Les données provenant de MoneyPitch différentes de celles qui sont dans O2S figurent en couleur (orange si vous utilisez le thème Lagon). Pour chacune d’elle, le bouton d’action est par défaut sur l’état « Importer dans O2S ». O2S, cliquez sur le curseur afin de le déplacer vers la gauche. pour chaque client, compte, catégorie ou sous-catégorie de données : Pour chaque client, catégorie ou sous-catégorie, le bouton d’action est par défaut sur l’état. Tout refuser » apparaisse en gris. pour chaque donnée : Les données provenant de MoneyPitch différentes de celles qui sont dans O2S figurent en couleur (orange si vous utilisez le thème Lagon).
+
+Attention L’action que vous choisirez pour le client ou une de ses catégories, sera également appliquée aux catégories et aux éventuelles sous-catégories. Vous pouvez par exemple procéder à un import par catégorie et ensuite vérifier une à une les données à importer ou pas. Lorsqu’au niveau d’un client, d’une catégorie ou d’une sous-catégorie, le bouton revêt l’aspect, ceci indique que certaines données seront importées et d’autres non.
+
+### Cas particuliers
+
+Conjoint, les enfants et le patrimoine. Les données concernant le conjoint, les enfants et le patrimoine ne peuvent pas être importées une à une. Vous devez soit accepter, soit refuser l’ensemble des données du conjoint, d’un enfant ou d’un des éléments du patrimoine (actifs, revenus…).
+
+### Profil d’investisseur
+
+Bien entendu, en cas d’acceptation dans O2S de l’import des questionnaires renseignés par le client dans MoneyPitch, les réponses saisies par le client seront présentes dans O2S. Vous devez donc décider si vous acceptez ou non le questionnaire dans sa globalité.
+
+### Import de comptes
+
+Toutes les données d’un compte sont importées en bloc. Vous pouvez cependant choisir / modifier le Nom du produit dans une liste déroulante qui vous est proposée. Par défaut, le compte sera importé. Quand vous choisissez d’importer un compte, lors des imports suivants, une mention vous rappelle que ce compte a été importé et qu’il est à jour.
+
+### Validation de l’import
+
+Ce bouton est fixe dans la page, même si vous la faite défiler. Vous pouvez par ailleurs le réduire en cliquant sur sa partie à droite. Le bouton prend alors une apparence compacte.
+
+### Import par lot
+
+En cliquant sur l’alerte, la fenêtre Liste des clients ayant mis à jour leurs données sous MoneyPitch s’ouvre; 2 types de traitement sont possibles : Liste des clients ayant mis à jour leurs données sous MoneyPitch Traitement unitaire.
+
+### Traitement unitaire
+
+Pour les données MoneyPitch d’un client en particulier, plusieurs options s’offrent à vous : Fonction Description Voir les données En cliquant sur l’icône, la fenêtre d’import des données MoneyPitch s’ouvre, vous permettant ainsi de sélectionner précisément les données à importer dans O2S.
+
+### Voir les données
+
+En cliquant sur l’icône, la fenêtre d’import des données MoneyPitch s’ouvre, vous permettant ainsi de sélectionner précisément les données à importer dans O2S. Après avoir précisé ces données, cliquez sur OK afin d’effectuer l’import, sinon cliquez sur Annuler.
+
+### Actions
+
+Liste déroulante permettant de choisir le traitement de l’alerte. 3 choix sont possibles : – Refuser la mise à jour : La mise à jour des données ne vous sera plus présentée tant que le client ne modifiera pas à nouveau ses données dans MoneyPitch. – Accepter la mise à jour : intègre la mise à jour des données dans la fiche contact O2S. – Reporter le traitement : le client dont les données MoneyPitch ont changé réapparaîtra toujours dans les alertes tant qu’aucune action définitive (Accepter ou Refuser) n’aura pas été effectuée. C’est l’action proposée par défaut. Ce choix est conservé même si vous fermez la fenêtre de traitement des alertes et que vous l’ouvrez à nouveau. Note Si vous hésitez à effectuer le traitement d’un client et que vous souhaitez voir en détail les données modifiées, cliquez sur dans Voir les données, vous arriverez directement dans la page d’import MoneyPitch.
+
+### OK
+
+Ferme la fenêtre en prenant en compte vos modifications.
+
+### Annuler
+
+Ferme la fenêtre sans prendre en compte vos modifications.
+
+OK Annuler Important Lorsque votre client lance MoneyPitch, il retrouve les données provenant d’O2S. O2S reste « maître » des données, c’est à dire que si vous refusez l’import d’une donnée, lors de la reconnexion suivante du client à son MoneyPitch, celui-ci retrouvera la donnée d’O2S. En d’autres termes, le refus d’importer une donnée équivaut à une « perte » de la donnée modifiée par le client. O2S sera mis à jour, et à la prochaine connexion du client, celui-ci retrouvera la donnée qu’il a modifiée. En cas de report, toute modification effectuée par le client vous sera à nouveau proposée tant qu’il ne l’aura pas à nouveau modifiée dans MoneyPitch.
+
+### Traitement par lot
+
+Vous pouvez accepter la mise à jour par lot sur la liste entière des clients en cliquant sur le bouton Accepter tous. L’action que vous choisirez sera appliquée à tous les clients présents dans la liste.
+
+### Repérer les comptes MoneyPitch
+
+Une fois les données importées, le logo MoneyPitch apparait dans le portefeuille au niveau des comptes importés.
+
+### Profils d’investisseur MoneyPitch
+
+Au niveau du tableau d’historique des profils investisseurs (tout en bas de la page), un questionnaire issu de MoneyPitch est clairement identifiable par l’icone MoneyPitch, une fois importé dans O2S.
+
+### Requêtes sur MoneyPitch
+
+Comptes 1/2, vous pouvez effectuer des requêtes sur la source d’agrégation afin de retrouver les comptes MoneyPitch. Contact 2/2, vous pouvez lancer des recherches portant sur la présence d’accès à MoneyPitch, sur les visites faites par vos clients dans MoneyPitch, ainsi que sur le volume de GED MoneyPitch.
+
+### Echanges de documents avec votre client
+
+Mettre à disposition de vos clients des documents essentiels est très simple. Le module Contacts > Autres > GED offre la possibilité d’intégrer des documents directement dans l’application MoneyPitch. Il suffit de cliquer-droit sur le dossier O2S – MoneyPitch, puis de cliquer sur Ajouter afin de sélectionner le document de votre choix, en le faisant glisser sur la zone en pointillés ou en le cliquant depuis son emplacement. Lorsque le client ouvre MoneyPitch, le document figure au sein de l’onglet Outils > Mes documents. De son côté votre client, si vous lui avez accordé le droit de déposer des documents dans la GED, peut mettre des documents à votre disposition. Vous recevrez une notification dans votre page Accueil / Pilotage O2S vous avertissant qu’il a déposé un document dans la GED.
+
+Cette notification est laissée à la discrétion de votre client; il peut en effet choisir de ne pas vous envoyer de notification. La communication par messagerie interne avec votre client s’effectue depuis la fenêtre d’emails et de messages. Vous recevez ici les messages envoyés par vos clients depuis MoneyPitch. Vous pouvez envoyer des messages à vos clients qui les recevront dans leur espace dédié dans MoneyPitch.
+
+### Gestion du mot de passe MoneyPitch du Client
+
+Si votre client a perdu son mot de passe….
+
+## Depuis la page de connexion, il devra cliquer sur le lien Mot de passe oublié ?
+
+Après avoir renseigné son identifiant, il recevra automatiquement un email de réinitialisation de son mot de passe. page de connexion Mot de passe oublié ? En cas de perte ou d’oubli de ses identifiants de connexion, vous pouvez proposer à votre contact de réinitialiser son mot de passe; il suffit de cliquer sur l’option Envoyer un email de réinitialisation dans la fiche de votre client > Tout parcourir > MoneyPitch > Activation. Votre client recevra alors un email de réinitialisation lui rappelant son identifiant, dans lequel il devra cliquer sur le lien Accéder maintenant afin de modifier son mot de passe. Consultez la liste des Etablissements agrégés dans MoneyPitch Voir aussi… MoneyPitchEtablissements agrégés dans MoneyPitch
