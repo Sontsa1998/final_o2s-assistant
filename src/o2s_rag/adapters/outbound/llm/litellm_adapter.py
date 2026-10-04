@@ -64,6 +64,7 @@ class LiteLLMClient:
                                    http_client=_http_client(verify))
         self._pricing = pricing
         self._rf_mode: dict[str, str] = {}   # mode de sortie structurée retenu par modèle
+        self._no_temperature: set[str] = set()   # modèles qui ont refusé le paramètre temperature
 
     # ------------------------------------------------------------------ utils
     def _usage(self, model: str, operation: str, usage: Any, headers: Any, t0: float) -> Usage:
@@ -83,17 +84,31 @@ class LiteLLMClient:
 
     def _params(self, model: str, temperature: float | None, max_tokens: int | None) -> dict[str, Any]:
         p: dict[str, Any] = {}
-        if temperature is not None and _supports_temperature(model):
+        if temperature is not None and _supports_temperature(model) and model not in self._no_temperature:
             p["temperature"] = temperature
         if max_tokens:
             p["max_tokens"] = max_tokens
         return p
 
+    async def _create_chat(self, create, *, model: str, temperature: float | None, max_tokens: int | None,
+                           **kw):
+        """Appel chat ; si le modèle refuse `temperature` (ex. Claude récent sur Bedrock : « temperature is
+        deprecated for this model »), relance sans et ne l'envoie plus jamais à ce modèle."""
+        params = self._params(model, temperature, max_tokens)
+        try:
+            return await create(model=model, **params, **kw)
+        except BadRequestError as e:
+            if "temperature" not in params or "temperature" not in str(e.message).lower():
+                raise
+            log.warning("Paramètre temperature refusé par %s : il n'est plus envoyé à ce modèle", model)
+            self._no_temperature.add(model)
+            return await create(model=model, **self._params(model, temperature, max_tokens), **kw)
+
     # ------------------------------------------------------------------ LLMPort
     async def complete(self, messages, *, model, operation="", temperature=None, max_tokens=None) -> LLMResult:
         t0 = time.perf_counter()
-        raw = await self._client.chat.completions.with_raw_response.create(
-            model=model, messages=messages, **self._params(model, temperature, max_tokens))
+        raw = await self._create_chat(self._client.chat.completions.with_raw_response.create, model=model,
+                                      temperature=temperature, max_tokens=max_tokens, messages=messages)
         resp = raw.parse()
         text = resp.choices[0].message.content or ""
         return LLMResult(text=text, usage=self._usage(model, operation, resp.usage, raw.headers, t0))
@@ -156,9 +171,9 @@ class LiteLLMClient:
 
     async def stream(self, messages, *, model, operation="", temperature=None) -> AsyncIterator[str | Usage]:
         t0 = time.perf_counter()
-        stream = await self._client.chat.completions.create(
-            model=model, messages=messages, stream=True, stream_options={"include_usage": True},
-            **self._params(model, temperature, None))
+        stream = await self._create_chat(self._client.chat.completions.create, model=model,
+                                         temperature=temperature, max_tokens=None, messages=messages,
+                                         stream=True, stream_options={"include_usage": True})
         usage = None
         async for chunk in stream:
             if chunk.choices and chunk.choices[0].delta and chunk.choices[0].delta.content:

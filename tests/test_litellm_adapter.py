@@ -80,3 +80,25 @@ async def test_structured_degrades_on_400_and_remembers_mode():
         grade, _ = await c.structured([{"role": "user", "content": "q"}], ContextGrade, model="gpt-5-mini")
         assert grade.sufficient
     assert seen == ["json_schema", "json_object", "json_object"]
+
+
+@pytest.mark.asyncio
+async def test_stream_drops_temperature_when_model_refuses_it():
+    sent: list[bool] = []
+
+    def h(request: httpx.Request) -> httpx.Response:
+        body = json.loads(request.content)
+        sent.append("temperature" in body)
+        if "temperature" in body:
+            return httpx.Response(400, json={"error": {"message": "litellm.BadRequestError: BedrockException - "
+                                                                  "`temperature` is deprecated for this model."}})
+        return handler(request)
+
+    c = LiteLLMClient("http://proxy", "k", PricingTable({}))
+    c._client = AsyncOpenAI(base_url="http://proxy", api_key="k", max_retries=0,
+                            http_client=httpx.AsyncClient(transport=httpx.MockTransport(h)))
+    for _ in range(2):
+        parts = [p async for p in c.stream([{"role": "user", "content": "q"}], model="claude-sonnet-5",
+                                           temperature=0.0)]
+        assert "".join(p for p in parts if isinstance(p, str)) == "Bonjour"
+    assert sent == [True, False, False]
