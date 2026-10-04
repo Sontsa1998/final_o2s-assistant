@@ -1,0 +1,5 @@
+## 37. Votre portail Harvest Connect
+
+Désormais, vous accédez à votre application O2S via le nouveau portail Harvest Connect. Mais savez-vous que Harvest Connect vous offre bien plus ?. Accès direct à Big. En cliquant sur l’icône en haut à gauche de votre application, accédez directement à vos autres solutions Harvest, telles que Big si vous en êtes utilisateur, sans avoir à saisir vos identifiants.  Des supports pour vous accompagner. Grâce au sommaire à gauche, restez informé des dernières actualités réglementaires, formez-vous en continu, et consultez les webinaires et podcasts dédiés, pour toujours garder une longueur d’avance. actualités formez-vous webinaires podcasts  Prendre connaissance des dernières nouveautés. En haut à droite, cliquez sur En savoir plus pour découvrir les dernières évolutions intégrées à vos solutions. En savoir plus  Harvest Connect , c’est la clé pour une expérience optimisée et un accompagnement à chaque étape ! Harvest Connect
+
+**Source :** [https://o2s-help.harvest.fr/votre-portail-harvest-connect/](https://o2s-help.harvest.fr/votre-portail-harvest-connect/)

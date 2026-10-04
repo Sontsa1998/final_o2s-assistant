@@ -1,0 +1,47 @@
+# Stack complète : Qdrant + 3 services RAG (indexer, search, reranker) + agent.
+# Le proxy LiteLLM est EXTERNE (déjà en place) : renseignez LITELLM_BASE_URL dans .env
+# (depuis un conteneur, un proxy local s'atteint via http://host.docker.internal:4000).
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    ports: ["6333:6333", "6334:6334"]
+    volumes: ["qdrant_data:/qdrant/storage"]
+
+  indexer:
+    build: { context: ., dockerfile: services/indexer/Dockerfile }
+    env_file: .env
+    environment: { QDRANT_URL: "http://qdrant:6333" }
+    volumes: ["./docs:/app/docs:ro"]
+    ports: ["8001:8001"]
+    depends_on: [qdrant]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+
+  search:
+    build: { context: ., dockerfile: services/search/Dockerfile }
+    env_file: .env
+    environment: { QDRANT_URL: "http://qdrant:6333" }
+    ports: ["8002:8002"]
+    depends_on: [qdrant]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+
+  reranker:
+    build: { context: ., dockerfile: services/reranker/Dockerfile }
+    env_file: .env
+    ports: ["8003:8003"]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+
+  agent:
+    build: { context: ., dockerfile: services/agent/Dockerfile }
+    env_file: .env
+    environment:
+      SERVICES_MODE: http
+      SEARCH_SERVICE_URL: "http://search:8002"
+      RERANK_SERVICE_URL: "http://reranker:8003"
+    volumes: ["agent_data:/app/data"]
+    ports: ["8000:8000"]
+    depends_on: [search, reranker]
+    extra_hosts: ["host.docker.internal:host-gateway"]
+
+volumes:
+  qdrant_data:
+  agent_data:

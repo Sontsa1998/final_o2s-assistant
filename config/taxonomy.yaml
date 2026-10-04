@@ -1,0 +1,93 @@
+# Taxonomie partagée entre l'INDEXATION (chaque chunk reçoit une intention/thème)
+# et la RECHERCHE (l'agent détecte l'intention de la question, puis booste les chunks
+# de même intention). Construite à partir du contenu réel de docs/ :
+#   - 6 références techniques issues des contrats OpenAPI (Comptes, O2S API, Contacts,
+#     Documents, Référentiels, Utilisateurs) ;
+#   - 3 guides fonctionnels issus des PDF « Documentation API O2S » (Comptes,
+#     Contacts & Relations, Documents & Catégories) : tableaux de synthèse GET/POST/PUT,
+#     correspondances avec l'IHM O2S, valeurs autorisées, règles spécifiques ;
+#   - 388 articles de la base d'aide en ligne O2S (scrapés depuis o2s-help.harvest.fr,
+#     cf. config/documents.yaml) : procédures pas à pas dans l'IHM, présentations de
+#     fonctionnalités, FAQ, dépannage, fiches par partenaire d'agrégation.
+#
+# Les intentions `*_endpoint`/`*_requete`/... (héritées des contrats OpenAPI) servent
+# aux questions d'intégrateur sur l'API technique ; `procedure_utilisateur` et les
+# intentions qui suivent servent aux questions d'un conseiller sur l'usage d'O2S.
+
+intents:
+  authentification: "Obtenir/utiliser le jeton JWT : OAuth2 password grant, client_id/client_secret, username/password, en-tête Authorization: Bearer, endpoint /auth/realms/AppUsers/protocol/openid-connect/token"
+  reference_endpoint: "Description d'un endpoint : chemin, méthode HTTP (GET/POST/PUT/DELETE), rôle, ressource manipulée, operationId"
+  parametres_requete: "Paramètres d'entrée : path (contactId, compteId…), query (filtres, limit, offset), corps de requête, champs requis"
+  format_reponse: "Structure de la réponse : schémas JSON (Contact, Compte, Document, Relation…), propriétés retournées, codes de succès 200/201/204/206"
+  pagination_limites: "Pagination et volumes : limit/offset, 20 éléments par défaut, maximum 100, -1 = sans limite, réponse partielle 206 et en-tête Content-Range"
+  disponibilite_champs: "Tableau de synthèse O2S : un champ API est-il disponible en GET / POST / PUT, pour une PP ou une PM, obligatoire (OB) ou supprimable (SUP)"
+  correspondance_ihm: "Correspondance entre un champ de l'API et son emplacement dans l'IHM O2S (onglet « Général », « Coordonnées », « Profil d'investisseur »… et champ affiché)"
+  valeurs_autorisees: "Valeurs et codes autorisés : énumérations, types et rôles de relation, codes patrimoine/budget O2S_*, types de pièce d'identité, capacité juridique, référentiels (professions, capacités, origines, qualités)"
+  regles_metier: "Règles spécifiques O2S : données minimales pour créer un contact, suppression de données via PUT, modification d'une relation (DELETE + POST), relations manuelles, classement GED des documents, clôture d'un compte"
+  exemple_integration: "Exemples de flux JSON, requêtes/réponses complètes, scénarios pas à pas"
+  codes_erreur: "Codes HTTP d'erreur (400, 401, 404, 4xx, 5xx), format Problem (Zalando), erreurs OAuth, causes et résolution"
+  configuration_environnement: "URL des serveurs, environnements recette / production (auth-r7.harvest.fr, auth.harvest.fr), prérequis"
+  securite_conformite: "RGPD, données sensibles, zones de commentaires libres, rôle de sous-traitant d'Harvest, DPO"
+  concepts_generaux: "Présentation d'une API et de ses ressources, généralités, version, légende des tableaux, glossaire (PP, PM, GED…)"
+  # --- intentions ajoutées pour la base d'aide en ligne (guides utilisateur O2S / MoneyPitch)
+  procedure_utilisateur: "Comment faire une action précise dans l'IHM O2S/MoneyPitch, pas à pas : menu, bouton, champ à renseigner"
+  presentation_fonctionnalite: "À quoi sert une fonctionnalité, vue d'ensemble, avant de commencer, cas d'usage"
+  parametrage_configuration: "Comment paramétrer/configurer un module, des droits utilisateur, un modèle de document, un modèle GED"
+  depannage: "Bogue, dysfonctionnement, message d'erreur dans l'IHM, incident d'agrégation, donnée manquante ou erronée, comment le résoudre"
+  information_partenaire: "Informations propres à un partenaire/dépositaire financier : format du code apporteur, produits agrégés, fréquence et mode d'agrégation, lettre d'autorisation"
+  faq: "Question fréquente au format question/réponse court, sans procédure détaillée"
+  actualite_nouveaute: "Nouveautés fonctionnelles, historique des mises à jour, palmarès, sessions d'information"
+  autre: "Aucune des intentions ci-dessus"
+
+# Thèmes métier (liste ouverte : le LLM peut en proposer un nouveau si aucun ne convient).
+# Chaque thème correspond à un périmètre fonctionnel de l'API O2S ou de l'application O2S.
+themes:
+  # --- API techniques (contrats OpenAPI + guides PDF)
+  - authentification          # OAuth2 / JWT, commun à toutes les API
+  - comptes                   # comptes espèces, placements, valeur, détenteurs, situations, account details
+  - contacts                  # personnes PP/PM : identité, coordonnées, adresses, profession, FATCA, profil investisseur
+  - patrimoine_budget         # stocks (actifs/passifs) et flux (revenus/charges), codes O2S_*
+  - relations                 # liens entre contacts : types, rôles, relations manuelles
+  - documents                 # GED O2S : documents d'un contact, types IDENTITE / AUTRE, métadonnées, édition
+  - categories_documents      # catégories de la GED
+  - referentiels              # professions, capacités, origines, qualités
+  - utilisateurs              # utilisateurs, agences, profils
+  - institutions              # institutions, produits (O2S API)
+  - rgpd                      # règlement général sur la protection des données
+  - erreurs                   # réponses en cas de problème (Problem Zalando)
+  - general                   # présentation générale, prise en main, informations transverses, FAQ générales
+  # --- base d'aide en ligne O2S / MoneyPitch (388 articles scrapés, cf. config/documents.yaml)
+  - agregation                 # fournisseurs/dépositaires agrégés, incidents, alertes techniques d'agrégation
+  - moneypitch                 # portail patrimonial MoneyPitch (KYC digital, GED, messagerie, pilot…)
+  - kyc                        # KYC, profil d'investisseur, déclaration d'adéquation, SRI/SRRI, RIC, DCC
+  - produits_catalogue         # catalogue produits, fonds, comparateur, portefeuilles modèles, Quantalys
+  - commissions_frais          # paramétrage des commissions et frais, import/export
+  - signature_electronique     # mise en place et usage de la signature électronique
+  - variables_documents        # variables de fusion pour documents et e-mails
+  - communication_client       # e-mail, messagerie MoneyPitch, dysfonctionnements d'envoi
+  - notifications_alertes      # notifications et alertes applicatives (hors agrégation) : contacts, comptes, portefeuille
+  - agenda                     # agenda O2S et synchronisation (Outlook, Google, iPhone/iPad, Mac, Thunderbird)
+  - conformite_vigilance       # conformité, vigilance LAB-FT, piste d'audit, réclamations
+  - projets_simulateurs        # projets d'investissement, transactions, simulateurs
+  - requetes                   # constructeur de requêtes et exploitation des résultats
+  - migration_prisme           # migration de Prisme vers O2S / MoneyPitch
+  - partenaires                # intégrations partenaires Business Link / Wealth Link (hors fiches d'agrégation)
+  - souscriptions_digitalisees # souscriptions et actes de gestion digitalisés avec les partenaires
+  - assistant_ia               # assistant IA O2S (questions contextualisées, déclaration d'adéquation…)
+  - administration              # paramétrage, droits utilisateurs, SSO, structure du cabinet
+  - commercial                  # commercial, juridique (CGU), actualités, palmarès
+
+content_types:
+  - description
+  - endpoint
+  - parametres
+  - schema
+  - exemple
+  - erreur
+  - tableau_synthese          # tableau Champs API / PP-PM / GET / POST / PUT / Spécificités O2S
+  - tableau_valeurs           # liste de codes / valeurs autorisées
+  - procedure
+  - faq
+  - glossaire
+  - juridique
+  - fiche_partenaire          # fiche d'agrégation ou d'intégration propre à un partenaire

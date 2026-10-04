@@ -1,0 +1,5 @@
+## 98. Tutos – Vigilance et conformité
+
+Vigilance (LAB-FT) – Personnalisation des données. O2S vous permet d’assurer vos obligations réglementaires en termes de vigilance afin de cartographier vos clients et leurs opérations financières. Apprenez à paramétrer l’espace dédié à ces cartographies.   [Vidéo: https://www.youtube.com/embed/VmH49wgvrhg?feature=oembed]  La conformité. O2S dispose d’une fonctionnalité dédiée à la conformité. Découvrez comment vous assurer que, pour chaque client, vous disposez bien de l’ensemble des documents requis afin que son dossier soit conforme.    [Vidéo: https://www.youtube.com/embed/M5rh2MWvcX4?feature=oembed]  Conformité – Personnalisation des données. Dans O2S vous garantissez la conformité de vos clients et de leurs comptes. Apprenez à personnaliser votre espace de conformité.   [Vidéo: https://www.youtube.com/embed/VmH49wgvrhg?feature=oembed] Voir tous les autres tutos …. tous les autres tutos
+
+**Source :** [https://o2s-help.harvest.fr/vigilance-et-conformite/](https://o2s-help.harvest.fr/vigilance-et-conformite/)

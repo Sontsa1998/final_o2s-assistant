@@ -1,0 +1,5 @@
+## 130. Patrimoine
+
+Cet espace permet d’accéder aux informations relatives au Patrimoine , au Budget et à la Fiscalité du contact. Patrimoine Budget Fiscalité Actifs / Passifs. Actifs / Passifs Ici vous pouvez sélectionner les dispositifs ou biens détenus et renseigner leur montant. L’onglet se divise en deux parties distinctes : l’une à gauche regroupant les dispositifs ou biens détenus et l’autre, à droite, affiche une représentation graphique de la répartition des avoirs.  Budget. Budget Présente les revenus et les charges du client et permet d’estimer le solde budgétaire. Des graphiques illustrent le solde budgétaire ainsi que la répartition des revenus ou des charges .  solde budgétaire répartition des revenus ou des charges Fiscalité. Fiscalité Contient des champs permettant de préciser la fiscalité du client. Ainsi vous pouvez renseigner des informations telles que les BNC (Bénéfices Non Commerciaux), les réductions d’ISF ou encore les contributions sociales.
+
+**Source :** [https://o2s-help.harvest.fr/patrimoine/](https://o2s-help.harvest.fr/patrimoine/)

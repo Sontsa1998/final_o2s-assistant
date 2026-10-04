@@ -1,0 +1,3 @@
+OPENAI_API_KEY="sk-uf1Sutr3-CZcOIQBzRWmkg" 
+LITELLM_URL="https://litellm.aws-prod-internal.harvest.fr/"
+OPENAI_BASE_URL="https://litellm.aws-prod-internal.harvest.fr//v1"
