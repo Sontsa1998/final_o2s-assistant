@@ -1,4 +1,5 @@
-"""Metadata de la base documentaire réelle (docs/) : catalogue, normalisation, pages, annotation."""
+"""Metadata de la base documentaire réelle (docs/, 395 documents) : catalogue, profils, normalisation,
+pages, annotation, graphe de liens."""
 import asyncio
 import re
 from pathlib import Path
@@ -23,7 +24,7 @@ TAX = Taxonomy.from_file(Path("config/taxonomy.yaml"))
 
 @pytest.fixture(scope="module")
 def docs():
-    return {d.doc_id: d for d in MarkdownFolderLoader(DOCS, catalog=CATALOG).load()}
+    return {d.doc_id: d for d in MarkdownFolderLoader(DOCS, catalog=CATALOG, taxonomy=TAX).load()}
 
 
 @pytest.fixture(scope="module")
@@ -40,18 +41,41 @@ def _chunk(nodes, doc_id, crumb):
 
 
 # ------------------------------------------------------------------ catalogue
-def test_every_doc_is_catalogued(docs):
+EXCLUDED = {"012_test.md", "191_partenaires.md"}
+
+
+def test_every_doc_has_complete_metadata(docs):
     files = {p.name for p in DOCS.glob("*.md") if p.name.lower() != "readme.md"}
-    assert files <= set(CATALOG.documents), files - set(CATALOG.documents)
-    assert len(docs) == len(files)                                     # doc_id uniques
-    doc_types = {"reference_api", "guide_fonctionnel", "fiche_partenaire_agregation",
-                 "fiche_partenaire_integration", "procedure_technique", "faq", "test"}
+    assert len(docs) == len(files - EXCLUDED) == 395                  # doc_id uniques, 2 pages vides exclues
+    ids = set(docs)
     for d in docs.values():
         m = d.metadata
-        assert m.api and m.doc_type in doc_types
-        assert m.default_theme in TAX.themes()
-        assert set(m.related_docs) <= set(docs), (d.doc_id, m.related_docs)
+        assert m.corpus in TAX.corpora() and m.doc_type in TAX.doc_types(), (d.doc_id, m.doc_type)
+        assert m.default_theme in TAX.themes(), (d.doc_id, m.default_theme)
+        assert m.audience in TAX.audiences() and set(m.audiences) <= set(TAX.audiences())
+        assert set(m.products) <= set(TAX.products())
+        assert set(m.related_docs) <= ids and set(m.links_to) <= ids and set(m.linked_from) <= ids
         assert (m.api_version is not None) == (m.doc_type == "reference_api")
+        assert m.summary and m.profile_source in {"llm", "heuristique", "partenaire"}, d.doc_id
+        if m.corpus == "aide_en_ligne":
+            assert d.doc_id.startswith("help-") and m.source_format == "help_center" and m.article_number
+
+
+def test_help_articles_are_cleaned_and_linked(docs):
+    faq = docs["help-076-faq-agregation-dans-o2s"]
+    assert faq.metadata.source_url == "https://o2s-help.harvest.fr/faq-agregation/"
+    assert faq.metadata.doc_type == "faq" and faq.metadata.default_theme == "agregation"
+    assert "Comment agréger un partenaire financier dans O2S ?" in faq.metadata.outline
+    assert "(https://" not in faq.content and "(#" not in faq.content and "Sommaire" not in faq.content
+    assert "help-141-liste-des-partenaires-lettres-dautorisation" in faq.metadata.links_to
+    assert faq.doc_id in docs["help-141-liste-des-partenaires-lettres-dautorisation"].metadata.linked_from
+    assert any("Gestion de l’agrégation" in p for p in faq.metadata.ui_paths)
+    sheet = docs["help-233-informations-sur-lagregation-de-123-investment-managers"]
+    m = sheet.metadata
+    assert m.partner == "123 Investment Managers" and m.doc_type == "fiche_partenaire_agregation"
+    assert m.partner_facts["frequence_agregation"] == "quotidienne"
+    assert m.partner_facts["prix_achat_moyen_transmis"] is False
+    assert "Quelle est la fréquence d'agrégation de 123 Investment Managers ?" in m.key_questions
 
 
 def test_frontmatter_overrides_catalog(tmp_path):

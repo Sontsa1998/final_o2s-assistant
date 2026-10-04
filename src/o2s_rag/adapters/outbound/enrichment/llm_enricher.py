@@ -82,8 +82,12 @@ class LLMMetadataEnricher:
         m, ctx = c.doc_meta, c.context
         version = f" v{m.api_version}" if m.api_version else ""
         indications = {**ctx.hints, **ctx.forced}
+        if m.corpus == "aide_en_ligne":
+            api = "Aide en ligne O2S" + (f" | Partenaire : {m.partner}" if m.partner else "")
+        else:
+            api = f"API : {m.api_name or c.doc_title}{version}"
         return prompts.ENRICH_USER_TEMPLATE.format(
-            doc_title=c.doc_title, api=f"{m.api_name or c.doc_title}{version}",
+            doc_title=c.doc_title, corpus=m.corpus or "—", api=api, doc_summary=c.doc_context or "—",
             doc_type=m.doc_type or "documentation", resource=ctx.api_resource or "—",
             section_kind=ctx.section_kind or "—", breadcrumb=c.breadcrumb,
             indications=", ".join(f"{k} = {v}" for k, v in indications.items()) or "—",
@@ -97,8 +101,9 @@ class LLMMetadataEnricher:
             if not getattr(enr, key, None):
                 setattr(enr, key, value)
         enr.intent = self.tax.normalize_intent(enr.intent)
-        if not enr.audience and c.doc_meta.audience:
-            enr.audience = c.doc_meta.audience
+        if enr.audience not in (c.doc_meta.audiences or [c.doc_meta.audience]) and c.doc_meta.audience:
+            enr.audience = enr.audience if enr.audience in {"integrateur", "conseiller", "administrateur",
+                                                            "assistant", "client_final"} else c.doc_meta.audience
         for value in [*c.features.field_paths[:8], *c.features.enum_values[:8]]:
             if value not in enr.entities:
                 enr.entities.append(value)

@@ -20,22 +20,70 @@ class NodeLevel(str, Enum):
 
 
 class DocumentMetadata(BaseModel):
-    """Metadata de niveau document, issues du catalogue `config/documents.yaml` (ou du frontmatter).
-    Propagées à plat sur chaque nœud indexé : elles permettent de filtrer par API / type de doc."""
-    api: str = ""                              # famille d'API : comptes, contacts, documents, referentiels…
+    """Metadata de niveau document. Sources, par priorité croissante : `defaults` et `patterns` du
+    catalogue, profil généré (`config/document_profiles.yaml`, o2s-profile), entrée du catalogue,
+    frontmatter ; plus les faits extraits du contenu (aide en ligne : URL, liens, plan, partenaire…).
+    Une partie est propagée à plat dans le payload de chaque chunk (filtres, citations, contexte)."""
+    # --- identification / provenance
+    corpus: str = ""                           # api_technique | aide_en_ligne
+    doc_type: str = ""                         # cf. taxonomy.yaml > doc_types
+    source_format: str = "markdown"            # openapi | pdf | help_center | markdown (normalisation)
+    source_url: str | None = None              # page d'origine (aide en ligne)
+    article_number: int | None = None          # numéro de l'article dans l'export de l'aide en ligne
+    language: str = "fr"
+    exclude: bool = False                      # page vide / de test : non indexée
+    # --- API (corpus api_technique)
+    api: str = ""                              # comptes, contacts, documents, referentiels… | o2s_app
     api_name: str = ""                         # nom officiel (« Harvest API - Contacts O2S »)
     api_version: str | None = None
-    # reference_api | guide_fonctionnel | faq | fiche_partenaire_agregation |
-    # fiche_partenaire_integration | procedure_technique | test
-    doc_type: str = ""
-    source_format: str = "markdown"            # openapi | pdf | markdown (pilote la normalisation)
     resources: list[str] = Field(default_factory=list)       # ressources métier (Contact, Relation…)
-    default_theme: str = ""                    # thème par défaut des chunks du document
-    related_docs: list[str] = Field(default_factory=list)    # doc_id complémentaires
+    # --- classement
+    default_theme: str = ""                    # thème principal (thème par défaut des chunks)
+    secondary_themes: list[str] = Field(default_factory=list)
+    audience: str = "integrateur"              # public principal (cf. taxonomy.yaml > audiences)
+    audiences: list[str] = Field(default_factory=list)
+    products: list[str] = Field(default_factory=list)        # O2S, MoneyPitch, Prisme, Quantalys…
     tags: list[str] = Field(default_factory=list)
-    language: str = "fr"
-    audience: str = "integrateur"
-    description: str = ""
+    # --- contenu (profil)
+    description: str = ""                      # description courte (catalogue)
+    summary: str = ""                          # résumé factuel du document (profil)
+    user_tasks: list[str] = Field(default_factory=list)      # tâches que le document permet de réaliser
+    key_questions: list[str] = Field(default_factory=list)   # questions auxquelles il répond
+    keywords: list[str] = Field(default_factory=list)
+    synonyms: list[str] = Field(default_factory=list)        # formulations alternatives (recherche lexicale)
+    prerequisites: list[str] = Field(default_factory=list)   # droits, contrat, paramétrage préalable
+    ui_paths: list[str] = Field(default_factory=list)        # chemins de menus (« Services > Administration > … »)
+    outline: list[str] = Field(default_factory=list)         # plan (intertitres)
+    word_count: int = 0
+    # --- partenaire (fiches d'agrégation / d'intégration)
+    partner: str | None = None
+    partner_facts: dict[str, Any] = Field(default_factory=dict)
+    # --- graphe documentaire
+    related_docs: list[str] = Field(default_factory=list)    # doc_id complémentaires (curatés)
+    links_to: list[str] = Field(default_factory=list)        # doc_id cités par ce document
+    linked_from: list[str] = Field(default_factory=list)     # doc_id qui citent ce document
+    internal_links: list[str] = Field(default_factory=list)  # URLs internes non résolues (hors base)
+    videos: list[str] = Field(default_factory=list)
+    # --- traçabilité du profil
+    profile_source: str = ""                   # llm | heuristique | catalogue
+    profile_model: str | None = None
+
+
+class DocumentProfile(BaseModel):
+    """Fiche descriptive d'un document (sortie structurée du LLM de profilage, ou heuristique)."""
+    title: str = Field("", description="Titre propre et explicite du document, en français")
+    summary: str = Field("", description="Résumé factuel en 2 à 4 phrases : de quoi parle le document, pour qui, ce qu'il permet")
+    doc_type: str = Field("", description="Type de document (clé exacte de la liste fournie)")
+    default_theme: str = Field("", description="Thème principal (clé exacte de la liste fournie)")
+    secondary_themes: list[str] = Field(default_factory=list, description="0 à 3 thèmes secondaires (clés exactes)")
+    audiences: list[str] = Field(default_factory=list, description="Publics visés, le principal en premier (clés exactes)")
+    products: list[str] = Field(default_factory=list, description="Produits / modules concernés (noms de la liste fournie)")
+    partner: str | None = Field(None, description="Partenaire financier concerné s'il y en a un précis, sinon null")
+    user_tasks: list[str] = Field(default_factory=list, description="3 à 8 tâches concrètes permises, à l'infinitif")
+    key_questions: list[str] = Field(default_factory=list, description="5 à 10 questions d'utilisateurs auxquelles le document répond")
+    keywords: list[str] = Field(default_factory=list, description="8 à 15 termes exacts du document (menus, champs, sigles, noms)")
+    synonyms: list[str] = Field(default_factory=list, description="5 à 12 formulations alternatives qu'un utilisateur pourrait employer, absentes du texte")
+    prerequisites: list[str] = Field(default_factory=list, description="0 à 5 prérequis : droits, contrat, paramétrage préalable")
 
 
 class SourceDocument(BaseModel):
@@ -76,6 +124,11 @@ class StructuralFeatures(BaseModel):
     parameters: list[str] = Field(default_factory=list)
     urls: list[str] = Field(default_factory=list)
     field_paths: list[str] = Field(default_factory=list)     # chemins de champs API (personne/fatca/usPerson)
+    ui_paths: list[str] = Field(default_factory=list)        # chemins de menus de l'IHM (« Services > Modules > … »)
+    products: list[str] = Field(default_factory=list)        # produits / modules cités (taxonomie)
+    glossary_terms: list[str] = Field(default_factory=list)  # sigles / termes métier du glossaire cités
+    glossary_expansions: list[str] = Field(default_factory=list)  # leurs formes développées (BM25)
+    has_video: bool = False
     enum_values: list[str] = Field(default_factory=list)     # constantes (O2S_API, CNI, MESURE_JUDICIAIRE…)
     o2s_tabs: list[str] = Field(default_factory=list)        # onglets de l'IHM O2S cités (« Général »…)
 
@@ -130,6 +183,12 @@ class Chunk(BaseModel):
         return " > ".join([self.doc_title, *self.heading_path]) if self.heading_path else self.doc_title
 
     @property
+    def doc_context(self) -> str:
+        """Résumé court du document, préfixé à chaque chunk (contextual retrieval)."""
+        m = self.doc_meta
+        return (m.summary or m.description or "").strip()[:400]
+
+    @property
     def text_hash(self) -> str:
         """Empreinte du texte normalisé : repère les sections dupliquées d'une API à l'autre."""
         norm = unicodedata.normalize("NFKD", self.text).encode("ascii", "ignore").decode().lower()
@@ -139,14 +198,23 @@ class Chunk(BaseModel):
         """Texte contextualisé (contextual retrieval) envoyé à l'embedding."""
         e, m, ctx = self.enrichment, self.doc_meta, self.context
         version = f" v{m.api_version}" if m.api_version else ""
-        parts = [
-            f"Document : {self.doc_title}",
-            f"API : {m.api_name or self.doc_title}{version} | Type de document : {m.doc_type or 'documentation'}",
+        parts = [f"Document : {self.doc_title}"]
+        if m.corpus == "aide_en_ligne":
+            parts.append(f"Aide en ligne O2S | Type de document : {m.doc_type or 'article'}"
+                         + (f" | Partenaire : {m.partner}" if m.partner else "")
+                         + (f" | Produits : {', '.join(m.products)}" if m.products else ""))
+        else:
+            parts.append(f"API : {m.api_name or self.doc_title}{version} | Type de document : {m.doc_type or 'documentation'}")
+        if self.doc_context and self.level != NodeLevel.DOCUMENT:
+            parts.append(f"À propos du document : {self.doc_context}")
+        parts += [
             f"Section : {self.breadcrumb}",
             f"Thème : {e.theme} | Intention : {e.intent} | Type : {e.content_type}",
         ]
-        if ctx.chapter or ctx.api_resource:
+        if m.corpus != "aide_en_ligne" and (ctx.chapter or ctx.api_resource):
             parts.append(f"Chapitre : {ctx.chapter or '—'} | Ressource : {ctx.api_resource or '—'}")
+        if self.features.ui_paths:
+            parts.append("Menus : " + " ; ".join(self.features.ui_paths[:4]))
         if e.summary:
             parts.append(f"Résumé : {e.summary}")
         if e.hypothetical_questions:
@@ -156,11 +224,13 @@ class Chunk(BaseModel):
         return "\n".join(parts)
 
     def sparse_text(self) -> str:
-        e, f = self.enrichment, self.features
-        return "\n".join([
-            self.breadcrumb, self.context.endpoint, " ".join(e.keywords), " ".join(f.endpoints),
-            " ".join(f.parameters), " ".join(f.field_paths), " ".join(f.enum_values), self.text,
-        ])
+        e, f, m = self.enrichment, self.features, self.doc_meta
+        return "\n".join(p for p in [
+            self.breadcrumb, self.context.endpoint, m.partner or "", " ".join(m.products),
+            " ".join(e.keywords), " ".join(m.synonyms[:10]), " ".join(f.glossary_expansions),
+            " ".join(f.endpoints), " ".join(f.parameters), " ".join(f.field_paths), " ".join(f.enum_values),
+            " ".join(f.ui_paths), self.text,
+        ] if p)
 
     def to_payload(self) -> dict[str, Any]:
         """Payload Qdrant à plat (filtrable)."""
@@ -176,10 +246,16 @@ class Chunk(BaseModel):
             "doc_frontmatter": self.doc_frontmatter, "content_hash": self.content_hash,
             "doc_version": self.doc_version, "last_modified": self.last_modified,
             "text_hash": self.text_hash,
-            # document (catalogue)
-            "api": m.api, "api_name": m.api_name, "api_version": m.api_version, "doc_type": m.doc_type,
-            "source_format": m.source_format, "resources": m.resources, "related_docs": m.related_docs,
-            "tags": m.tags, "language": m.language,
+            # document (catalogue + profil + faits extraits)
+            "corpus": m.corpus, "doc_type": m.doc_type, "source_format": m.source_format,
+            "source_url": m.source_url, "language": m.language,
+            "api": m.api, "api_name": m.api_name, "api_version": m.api_version, "resources": m.resources,
+            "doc_theme": m.default_theme, "secondary_themes": m.secondary_themes,
+            "doc_audiences": m.audiences or [m.audience], "products": m.products, "tags": m.tags,
+            "doc_summary": self.doc_context, "user_tasks": m.user_tasks,
+            "partner": m.partner, "partner_facts": m.partner_facts,
+            "related_docs": m.related_docs, "links_to": m.links_to, "linked_from": m.linked_from,
+            "profile_source": m.profile_source,
             # contexte de section
             "section_kind": ctx.section_kind, "api_resource": ctx.api_resource, "chapter": ctx.chapter,
             "endpoint": ctx.endpoint, "page_start": ctx.page_start, "page_end": ctx.page_end,
@@ -201,7 +277,11 @@ class SearchFilters(BaseModel):
     theme: str | None = None
     doc_ids: list[str] | None = None
     apis: list[str] | None = None      # familles d'API (catalogue) : comptes, contacts…
-    doc_type: str | None = None        # reference_api | guide_fonctionnel
+    doc_type: str | None = None        # cf. taxonomy.yaml > doc_types
+    doc_types: list[str] | None = None
+    corpus: str | None = None          # api_technique | aide_en_ligne
+    partner: str | None = None         # fiche d'un partenaire précis
+    products: list[str] | None = None
     strict_intent: bool = False        # True = filtre dur
 
 
@@ -248,6 +328,7 @@ class QueryAnalysis(BaseModel):
     entities: list[str] = Field(default_factory=list, description="Endpoints, paramètres, codes, objets cités")
     sub_queries: list[str] = Field(default_factory=list, description="Sous-questions si la question est composée (max 3)")
     route: Route = "documentation"
+    corpus: str = Field(default="", description="api_technique, aide_en_ligne, ou vide si indéterminé")
     language: str = "fr"
     reasoning: str = ""
 

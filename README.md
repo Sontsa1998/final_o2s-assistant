@@ -8,7 +8,7 @@ français et avec citations. S'il ne trouve rien, il le dit explicitement et pro
 | Brique | Choix |
 |---|---|
 | Orchestration agentique | LangGraph (graphe d'état, streaming, threads, checkpoints) |
-| Modèles | via le proxy **LiteLLM** : `claude-sonnet-4.6` (réponse), `gpt-5.1` (outils MCP, juge d'éval), `gpt-5-mini` (intention, grading, réécriture, rerank, enrichissement), `text-embedding-3-large` |
+| Modèles | via le proxy **LiteLLM** : `claude-sonnet-5` (réponse, profil des documents), `gpt-5.1` (outils MCP, juge d'éval), `gpt-5-mini` (intention, grading, réécriture, rerank, enrichissement), `text-embedding-3-large` |
 | Base vectorielle | **Qdrant** uniquement — hybride dense (3072) + sparse BM25, fusion RRF |
 | Architecture | Hexagonale (ports & adapters) |
 | Services déployables | `indexer`, `search`, `reranker` (+ `agent`), un Dockerfile chacun |
@@ -32,7 +32,7 @@ flowchart LR
     IX[Indexer :8001] --> Q
     D[docs/*.md] --> IX
     AG & SE & RR & IX --> L[Proxy LiteLLM]
-    L --> C[claude-sonnet-4.6]
+    L --> C[claude-sonnet-5]
     L --> G[gpt-5.1 / gpt-5-mini]
     L --> E[text-embedding-3-large]
 ```
@@ -78,7 +78,7 @@ flowchart TD
     RE --> RK[rerank]
     RK --> GR[grade_context]
     TA --> GR
-    GR -->|suffisant| GE[generate<br/>claude-sonnet-4.6 · strict · citations]
+    GR -->|suffisant| GE[generate<br/>claude-sonnet-5 · strict · citations]
     GR -->|insuffisant, essais restants| RW[rewrite_query]
     RW --> RE
     GR -->|insuffisant, essais épuisés| NA[no_answer<br/>reformulations]
@@ -97,7 +97,7 @@ flowchart TD
 | `rerank` | Rerank listwise 0–10, seuil `RERANK_MIN_SCORE`, top `RERANK_TOP_N` | gpt-5-mini |
 | `grade_context` | Corrective RAG : le contexte permet-il de répondre ? | gpt-5-mini |
 | `rewrite_query` | Nouvelles formulations (synonymes métier, noms d'endpoints…), sans boost d'intention | gpt-5-mini |
-| `generate` | Réponse stricte, en français, citée `[S1]`, streamée token par token | claude-sonnet-4.6 |
+| `generate` | Réponse stricte, en français, citée `[S1]`, streamée token par token | claude-sonnet-5 |
 | `no_answer` | « Je ne trouve pas de réponse dans le contexte qui m'est fourni. » + 2–3 reformulations + question de clarification | gpt-5-mini |
 | `tools_agent` | Sous-agent MCP : appelle les outils, leurs résultats deviennent des sources | gpt-5.1 |
 | `converse` | Salutations et questions sur la conversation elle-même, sans contenu technique | gpt-5-mini |
@@ -112,46 +112,45 @@ flowchart TD
 
 ### 1.4 Indexation et metadata
 
-**La base documentaire** (`docs/`, 397 fichiers) contient trois familles de documents, toutes déclarées
-dans le catalogue `config/documents.yaml` (aucun de ces fichiers n'a de frontmatter — généré/scrapé, il
-serait perdu à la prochaine régénération) :
+**La base documentaire** (`docs/`) : 397 fichiers, **395 indexés** (2 pages vides exclues).
 
-| `doc_id` | API (`api`) | Type (`doc_type`) | Source | Version |
-|---|---|---|---|---|
-| `ref-api-comptes-o2s` | comptes | reference_api | OpenAPI | 0.9.3 |
-| `ref-o2s-api` | o2s_api (accounts, agences, institutions…) | reference_api | OpenAPI | 1.89.2 |
-| `ref-api-contacts-o2s` | contacts (contacts + relations, FAQ) | reference_api | OpenAPI | 0.9.3 |
-| `ref-api-documents-o2s` | documents (documents + catégories GED) | reference_api | OpenAPI | 0.9.3 |
-| `ref-api-referentiels-o2s` | referentiels | reference_api | OpenAPI | 0.9.3 |
-| `ref-api-utilisateurs-o2s` | utilisateurs (utilisateurs, agences, profils) | reference_api | OpenAPI | 0.9.0 |
-| `guide-api-comptes-o2s` | comptes | guide_fonctionnel | PDF | — |
-| `guide-api-contacts-relations-o2s` | contacts | guide_fonctionnel | PDF | — |
-| `guide-api-documents-categories-o2s` | documents | guide_fonctionnel | PDF | — |
+| Corpus | Fichiers | Source | `source_format` |
+|---|---|---|---|
+| `api_technique` | 6 contrats OpenAPI (`ref-*`) + 3 guides PDF « Documentation API O2S » (`guide-*`) | conversion .json / PDF | `openapi`, `pdf` |
+| `aide_en_ligne` | 386 articles `help-NNN-*` d'o2s-help.harvest.fr, dont 149 fiches d'agrégation partenaire | scraping | `help_center` |
 
-3. **Aide en ligne O2S / MoneyPitch** (388 fichiers `NNN_*.md`, préfixe `help-*`) : articles scrapés
-   depuis [o2s-help.harvest.fr](https://o2s-help.harvest.fr/) — procédures pas à pas dans l'IHM,
-   présentations de fonctionnalités, FAQ, dépannage, et ~170 fiches par partenaire/dépositaire
-   d'agrégation. Thèmes dédiés : `agregation`, `moneypitch`, `kyc`, `signature_electronique`,
-   `produits_catalogue`, `partenaires`, `migration_prisme`, `assistant_ia`… (voir `config/taxonomy.yaml`).
-   `doc_id`, `title`, `default_theme`, `doc_type`, `tags`, `source_url` et `description` ont été déduits
-   automatiquement du nom de fichier et du contenu lors de l'ajout de ces fichiers ; à affiner au cas par
-   cas si l'évaluation révèle une mauvaise classification.
+Aucun fichier n'a de frontmatter (il serait perdu à la prochaine conversion / au prochain scraping). Les
+metadata de document viennent de 4 sources, par priorité croissante :
 
-Ces fichiers étant générés (contrats `.json`, PDF convertis) ou scrapés, on ne leur ajoute pas de
-frontmatter : le catalogue porte les metadata de document (un frontmatter éventuel reste prioritaire).
-Il déclare aussi les
-**chapitres** des guides, la **ressource** de chaque chemin d'API et les **règles de sections**
-(`section_rules`) qui imposent ou suggèrent intention / thème / type de contenu (ex. RGPD → `securite_conformite`,
-« Tableau de synthèse » → `disponibilite_champs`, « Méthode de suppression » → `regles_metier`).
-Modifier une entrée du catalogue change l'empreinte du document, qui est donc réindexé.
+1. `config/documents.yaml` > `defaults` et `patterns` (famille de fichiers : corpus, format, public…) ;
+2. **faits extraits du contenu** : URL source, numéro d'article, plan, liens internes (résolus en
+   `links_to` / `linked_from`), vidéos, chemins de menus (`ui_paths`), produits cités, et pour les fiches
+   d'agrégation : partenaire, format du code apporteur, produits agrégés, PAM transmis, fréquence… ;
+3. **profil généré** `config/document_profiles.yaml` (`o2s-profile`) : titre propre, résumé, type de document,
+   thème principal et secondaires, publics, produits, partenaire, tâches permises, questions auxquelles le
+   document répond, mots-clés, synonymes, prérequis — rédigé par LLM (`MODEL_PROFILING`) et validé contre les
+   vocabulaires de la taxonomie, ou heuristique hors-ligne ; versionné par l'empreinte du fichier ;
+4. `config/documents.yaml` > `documents` : entrées curatées (9 documents d'API, exclusions, surcharges).
 
-**Normalisation avant découpe** (`adapters/outbound/loaders/normalizer.py`, selon `source_format`) :
-- *PDF* : retrait des enveloppes ```` ```markdown ```` de chaque page (sinon tout le guide serait vu comme du
-  code), suivi des pages (`page_start` / `page_end`), suppression des titres parasites (« Document Structuré »…),
-  hiérarchie reconstruite (`# API Contacts` > `## 2/ Tableau de synthèse` > `### personne/pieceIdentite`),
-  micro-sections et sous-chemins de champs regroupés ;
-- *OpenAPI* : un endpoint devient une section `### GET /contacts`, un composant `### Schéma : Contact`, une
-  question de FAQ `### FAQ : …`.
+Le catalogue déclare aussi les **chapitres** des guides PDF, la **ressource** de chaque chemin d'API, les
+**règles de sections** (`section_rules`, scopées par corpus) et des **indications par type de document**
+(`doc_type_hints`) qui imposent ou suggèrent intention / thème / type de contenu (ex. RGPD →
+`securite_conformite`, « Tableau de synthèse » → `disponibilite_champs`, question « Pourquoi … ? » de l'aide
+→ `depannage`, fiche d'agrégation → `information_partenaire`). Modifier le catalogue ou un profil change
+l'empreinte du document, qui est donc réindexé.
+
+**Normalisation avant découpe** (selon `source_format`) :
+- *PDF* (`normalizer.py`) : retrait des enveloppes ```` ```markdown ```` de chaque page, suivi des pages
+  (`page_start` / `page_end`), titres parasites supprimés, hiérarchie reconstruite
+  (`# API Contacts` > `## 2/ Tableau de synthèse` > `### personne/pieceIdentite`) ;
+- *OpenAPI* (`normalizer.py`) : un endpoint devient une section `### GET /contacts`, un composant
+  `### Schéma : Contact`, une question de FAQ `### FAQ : …` ;
+- *Aide en ligne* (`help_center.py`) : le scraping a produit des articles sur une seule ligne, avec chaque
+  passage recopié 2 à 4 fois, des « résidus » de mots en gras, des liens qui coupent les mots, un sommaire
+  répété et des tableaux en TSV. Le parseur recolle les mots, retire doublons et résidus, reconstruit les
+  intertitres (sommaire, questions « … ? », blocs encadrés d'espaces), les paragraphes et les tableaux, et
+  garde chaque fiche d'agrégation en un seul chunk. Résultat : texte réduit à ~71 % (jusqu'à 10 %) sans perte
+  de vocabulaire (couverture médiane 100 %, contrôle : `python -m evaluation.help_cleaning_report`).
 
 Contrôle sans LLM ni Qdrant : `o2s-index --dry-run` affiche l'arbre et les metadata déterministes.
 
@@ -177,38 +176,43 @@ Document (nœud racine : plan + introduction)
 | Famille | Champs |
 |---|---|
 | Hiérarchie | `level` (document/section/chunk), `parent_id`, `children_ids`, `prev_id`, `next_id`, `root_id`, `depth`, `position`, `global_position`, `siblings_count` |
-| Localisation | `doc_id`, `doc_title`, `source_path`, `heading`, `heading_path`, `breadcrumb`, `anchor` |
-| Document | `doc_frontmatter` (catalogue + frontmatter), `doc_version`, `content_hash`, `last_modified`, `text_hash` |
-| Catalogue | `api`, `api_name`, `api_version`, `doc_type`, `source_format`, `resources`, `related_docs`, `tags`, `language` |
-| Contexte de section | `section_kind` (endpoint, schema, faq, tableau_synthese, valeurs, regle_metier, rgpd…), `api_resource`, `chapter`, `endpoint` (« GET /contacts »), `page_start`, `page_end`, `shared` |
-| Structure (regex) | `token_count`, `char_count`, `has_code`, `code_languages`, `has_table`, `has_list`, `http_methods`, `endpoints`, `status_codes`, `parameters`, `urls`, `field_paths` (personne/fatca/usPerson…), `enum_values` (O2S_API, MESURE_JUDICIAIRE, O2S_LivretA…), `o2s_tabs` (onglets de l'IHM cités) |
+| Localisation | `doc_id`, `doc_title`, `source_path`, `source_url`, `heading`, `heading_path`, `breadcrumb`, `anchor`, `page_start`, `page_end` |
+| Document (catalogue + profil) | `corpus`, `doc_type`, `source_format`, `language`, `api`, `api_name`, `api_version`, `resources`, `doc_theme`, `secondary_themes`, `doc_audiences`, `products`, `tags`, `doc_summary`, `user_tasks`, `partner`, `partner_facts`, `profile_source`, `content_hash`, `last_modified`, `text_hash` |
+| Graphe | `related_docs` (curatés), `links_to`, `linked_from` (liens internes de l'aide en ligne) |
+| Contexte de section | `section_kind` (endpoint, schema, question, fiche_partenaire, parametrage, tableau_synthese, rgpd…), `api_resource`, `chapter`, `endpoint` (« GET /contacts »), `shared` |
+| Structure (regex + taxonomie) | `token_count`, `has_code`, `has_table`, `has_list`, `has_video`, `http_methods`, `endpoints`, `status_codes`, `parameters`, `urls`, `field_paths`, `enum_values` (O2S_API, O2S_LivretA…), `o2s_tabs`, `ui_paths` (« Services > Modules > Accueil et pilotage > Alertes »), `products`, `glossary_terms`, `glossary_expansions` |
 | Sémantique (LLM) | `intent`, `theme`, `sub_theme`, `summary`, `keywords`, `hypothetical_questions`, `entities`, `content_type`, `audience` |
 
 - Ordre d'enrichissement : annotation déterministe (`SectionAnnotator` : endpoint, ressource, règles du
-  catalogue), puis LLM — sections d'abord, puis chunks avec le résumé de leur section parente. Le LLM reçoit
-  l'API, le type de document, la ressource et les suggestions ; les valeurs **imposées** par les règles
-  priment sur sa sortie. Le nœud document agrège ses enfants et reprend la description du catalogue.
-- Texte embarqué = en-tête contextuel (document, API + version, type de doc, fil d'Ariane, thème, intention,
-  chapitre, ressource, résumé, questions hypothétiques) + contenu (*contextual retrieval*). Texte BM25 = fil
-  d'Ariane + endpoint + mots-clés + endpoints + paramètres + chemins de champs + énumérations + contenu.
+  catalogue, produits et sigles cités), puis LLM — sections d'abord, puis chunks avec le résumé de leur
+  section parente **et celui du document**. Les valeurs **imposées** par les règles priment sur sa sortie.
+- Texte embarqué (*contextual retrieval*) = document, corpus / API + version, type de doc, partenaire,
+  produits, **résumé du document**, fil d'Ariane, thème, intention, menus, résumé et questions hypothétiques du
+  chunk, puis le contenu. Texte BM25 = fil d'Ariane + endpoint + partenaire + produits + mots-clés +
+  **synonymes du profil** + **formes développées des sigles** (SRI → « indicateur de risque ») + endpoints,
+  paramètres, chemins de champs, énumérations, menus + contenu.
 - Les blocs communs recopiés dans chaque référence (RGPD, authentification, Problem) sont marqués `shared`
   et dédoublonnés à la recherche (`text_hash`).
-- Index de payload Qdrant sur `intent`, `theme`, `api`, `doc_type`, `section_kind`, `api_resource`,
-  `endpoint`, `field_paths`, `enum_values`, `endpoints`, `status_codes`… et index plein texte multilingue
-  sur `text`. `SearchFilters` accepte `apis` et `doc_type` en plus de `intent`, `theme` et `doc_ids`.
-- Les citations indiquent l'API, sa version, le type de document et les pages du PDF d'origine.
-- **Incrémental** : un document dont le hash n'a pas changé est ignoré, un document modifié est remplacé,
+- Index de payload Qdrant sur les champs ci-dessus (corpus, doc_type, partner, products, doc_theme,
+  section_kind, ui_paths, glossary_terms…) et index plein texte multilingue sur `text`. `SearchFilters`
+  accepte `corpus`, `doc_type(s)`, `partner`, `products`, `apis`, `theme`, `doc_ids` et le boost d'intention.
+- **Recherche ciblée par l'agent** : en plus de la recherche générale, une requête restreinte à la fiche
+  du partenaire nommé dans la question (annuaire construit sur les profils : « Swiss Life Banque » →
+  fiche SwissLife Banque) et une requête restreinte au corpus détecté (`api_technique` / `aide_en_ligne`).
+- Les citations indiquent l'API et sa version ou le lien de l'article d'aide, le type de document et les
+  pages du PDF d'origine.
+- **Incrémental** : un document dont l'empreinte n'a pas changé est ignoré, un document modifié est remplacé,
   un document supprimé du dossier est retiré de Qdrant.
 
 **La taxonomie** (`config/taxonomy.yaml`) est le contrat entre indexation et recherche : chaque chunk reçoit
 une intention, chaque question aussi, et la recherche fusionne (RRF) une liste filtrée par intention avec une
-liste non filtrée. On obtient un boost, pas un filtre dur, donc une intention mal détectée ne fait pas tout
-échouer. Elle couvre les 397 documents : intentions propres aux 9 références/guides API
-(`disponibilite_champs`, `correspondance_ihm`, `valeurs_autorisees`, `pagination_limites`) et thèmes
-alignés sur les périmètres de l'API (comptes, contacts, patrimoine_budget, relations, documents,
-referentiels, utilisateurs…), plus les intentions ajoutées pour les 388 articles d'aide en ligne
-(`procedure_utilisateur`, `depannage`, `information_partenaire`, `faq`…) et leurs thèmes (`agregation`,
-`moneypitch`, `kyc`, `signature_electronique`…).
+liste non filtrée (boost, pas filtre dur). Elle couvre les deux corpus : intentions des documents d'API
+(`disponibilite_champs`, `correspondance_ihm`, `valeurs_autorisees`, `pagination_limites`…) et de l'aide en
+ligne (`procedure_utilisateur`, `depannage`, `parametrage_configuration`, `information_partenaire`, `faq`…),
+32 thèmes, et les **vocabulaires contrôlés** de niveau document : `corpora`, `doc_types` (15), `audiences`
+(integrateur, conseiller, administrateur, assistant, client_final), `products` (O2S, MoneyPitch, Prisme,
+Quantalys, Business Link… avec leurs alias) et un **glossaire** métier (KYC, SRI, DDA, LAB-FT, PAM, code
+apporteur… avec leurs formes développées et synonymes).
 
 ### 1.5 Mémoire, threads et streaming
 
@@ -268,19 +272,29 @@ docker run -d --name qdrant -p 6333:6333 -v qdrant_data:/qdrant/storage qdrant/q
 
 ### 2.4 Indexer la documentation
 
-1. Les 397 fichiers Markdown O2S (références API + aide en ligne) sont déjà dans `docs/` et déclarés
-   dans `config/documents.yaml`. Si vous ajoutez/renommez un fichier, déclarez-le (ou mettez à jour son
-   entrée) dans ce catalogue.
-2. Contrôlez la découpe et les metadata déterministes sans appeler de LLM :
+1. Les 397 fichiers sont dans `docs/`. Un nouvel article d'aide `NNN_*.md` est pris en charge
+   automatiquement (motif du catalogue) ; un nouveau document d'API se déclare dans `config/documents.yaml`.
+2. Générez les profils de documents (une fois, puis seulement pour les documents nouveaux ou modifiés) :
+   ```powershell
+   o2s-profile --dry-run      # nombre de documents et tokens estimés
+   o2s-profile                # profils LLM (MODEL_PROFILING) ; ~250 documents, les 149 fiches d'agrégation
+                              # reçoivent un profil déterministe construit sur leurs faits
+   o2s-profile --heuristic    # hors-ligne, sans LLM (profils de repli)
+   ```
+   Le résultat (`config/document_profiles.yaml`) est versionnable et relisible ; une valeur à corriger se
+   surcharge dans `config/documents.yaml` > `documents`.
+3. Contrôlez la découpe et les metadata sans appeler de LLM :
    ```powershell
    o2s-index --dry-run
    ```
-3. Indexez (enrichissement LLM + embeddings + upsert) :
+4. Indexez (enrichissement LLM + embeddings + upsert) :
    ```powershell
    o2s-index            # incrémental
    o2s-index --force    # tout réindexer (après un changement de taxonomie ou de chunking)
    ```
    Le rapport affiche les documents traités, le nombre de nœuds, la durée, les tokens et le coût.
+   Les nouveaux index de payload ne sont créés qu'à la création de la collection : après une mise à jour du
+   schéma, supprimez la collection Qdrant (ou changez `QDRANT_COLLECTION`) avant `o2s-index --force`.
 
 ### 2.5 Discuter avec l'assistant
 
@@ -390,6 +404,9 @@ Les tests n'appellent aucun service externe :
 
 | Variable | Défaut | Effet |
 |---|---|---|
+| `LITELLM_BASE_URL` / `LITELLM_API_KEY` | — | Proxy LiteLLM (alias acceptés : `OPENAI_BASE_URL`, `LITELLM_URL`, `OPENAI_API_KEY` ; « /v1 » ajouté) ; fichier `.env` ou `env` |
+| `MODEL_GENERATION` / `MODEL_PROFILING` | claude-sonnet-5 | Réponse finale / profils de documents |
+| `MODEL_FAST` / `MODEL_REASONING` | gpt-5-mini / gpt-5.1 | Intention, grading, rerank, enrichissement / outils, juge |
 | `CHUNK_SIZE` / `CHUNK_OVERLAP` | 512 / 100 | Taille des chunks feuilles |
 | `PARENT_HEADING_LEVELS` | 3 | Titres H1..Hn qui deviennent des sections |
 | `ENABLE_SPARSE` | true | Recherche hybride BM25 + dense |

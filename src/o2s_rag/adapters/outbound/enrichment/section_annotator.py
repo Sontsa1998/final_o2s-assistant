@@ -26,11 +26,18 @@ class SectionAnnotator:
     def annotate(self, chunks: list[Chunk]) -> list[Chunk]:
         themes = set(self.tax.themes())
         for c in chunks:
-            ctx = c.context
+            ctx, meta = c.context, c.doc_meta
+            # --- vocabulaire contrôlé cité dans le nœud (filtres + expansion BM25)
+            sample = f"{c.heading} {c.text}"
+            c.features.products = self.tax.detect_products(sample)
+            c.features.glossary_terms = self.tax.detect_glossary(sample)
+            c.features.glossary_expansions = [e for e in self.tax.expansions(c.features.glossary_terms)
+                                              if e not in c.features.glossary_terms]
+            c.features.has_video = bool(meta.videos)
             if c.level == NodeLevel.DOCUMENT:
                 ctx.section_kind = "document"
-                if c.doc_meta.default_theme:
-                    ctx.hints["theme"] = c.doc_meta.default_theme
+                if meta.default_theme:
+                    ctx.hints["theme"] = meta.default_theme
                 continue
             path = c.heading_path
 
@@ -51,8 +58,8 @@ class SectionAnnotator:
 
             # --- règles de sections : titre de la section d'abord, puis fil d'Ariane complet
             targets = ([path[-1]] if path else []) + [" > ".join(path)]
-            attrs, forced, hints = self.catalog.resolve_rules(targets)
-            ctx.section_kind = str(attrs.get("section_kind") or ("endpoint" if ctx.endpoint else ""))
+            attrs, forced, hints = self.catalog.resolve_rules(targets, doc_type=meta.doc_type, corpus=meta.corpus)
+            ctx.section_kind = str(attrs.get("section_kind") or ("endpoint" if ctx.endpoint else "contenu"))
             ctx.shared = bool(attrs.get("shared", False))
 
             # --- thème : règle > chemin de l'endpoint (fiable) > chapitre du guide > défaut du document

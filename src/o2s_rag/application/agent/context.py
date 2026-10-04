@@ -30,6 +30,7 @@ def build_sources(context: list[dict[str, Any]], strategy: str, parent_inline_ma
             "api_name": md.get("api_name", ""),
             "api_version": md.get("api_version"),
             "doc_type": md.get("doc_type", ""),
+            "source_url": md.get("source_url"),
             "page_start": md.get("page_start"),
             "page_end": md.get("page_end"),
             "intent": md.get("intent", ""),
@@ -51,12 +52,15 @@ def format_sources(sources: list[dict[str, Any]]) -> str:
         if s.get("api_name"):
             details.append(s["api_name"] + (f" v{s['api_version']}" if s.get("api_version") else ""))
         if s.get("doc_type"):
-            details.append({"reference_api": "référence technique",
-                            "guide_fonctionnel": "guide fonctionnel"}.get(s["doc_type"], s["doc_type"]))
+            details.append({"reference_api": "référence technique", "guide_fonctionnel": "guide fonctionnel",
+                            "fiche_partenaire_agregation": "fiche partenaire", "guide_utilisateur": "aide en ligne",
+                            }.get(s["doc_type"], s["doc_type"].replace("_", " ")))
         if s.get("page_start"):
             end = s.get("page_end")
             details.append(f"p. {s['page_start']}" + (f"-{end}" if end and end != s["page_start"] else ""))
-        if s.get("source_path"):
+        if s.get("source_url"):
+            details.append(f"lien : {s['source_url']}")
+        elif s.get("source_path"):
             details.append(f"fichier : {s['source_path']}")
         if details:
             header += f" ({' ; '.join(details)})"

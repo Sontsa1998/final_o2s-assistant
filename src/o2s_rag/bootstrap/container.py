@@ -54,9 +54,9 @@ def build_indexing_service(s: Settings | None = None):
     from o2s_rag.adapters.outbound.loaders.catalog import DocumentCatalog
     from o2s_rag.adapters.outbound.loaders.markdown_loader import MarkdownFolderLoader
     from o2s_rag.application.indexing_service import IndexingService
-    catalog, tax = DocumentCatalog.from_file(s.catalog_path), taxonomy(s)
+    catalog, tax = DocumentCatalog.from_file(s.catalog_path, s.profiles_path), taxonomy(s)
     return IndexingService(
-        loader=MarkdownFolderLoader(s.docs_dir, catalog=catalog),
+        loader=MarkdownFolderLoader(s.docs_dir, catalog=catalog, taxonomy=tax),
         chunker=HierarchicalMarkdownChunker(s.chunk_size, s.chunk_overlap, s.parent_heading_levels,
                                             s.parent_max_tokens),
         enricher=LLMMetadataEnricher(build_llm(s), s.model_fast, tax, s.enrichment_concurrency,
@@ -98,8 +98,9 @@ def build_agent_deps(s: Settings):
         max_retrieval_attempts=s.max_retrieval_attempts, history_window=s.history_window,
         summarize_after_messages=s.summarize_after_messages, context_strategy=s.context_strategy,
         parent_inline_max_tokens=s.parent_inline_max_tokens, max_tool_iterations=s.max_tool_iterations)
+    from o2s_rag.domain.directory import DocumentDirectory
     return AgentDeps(llm=build_llm(s), search=search, reranker=reranker, tools=build_tools(s),
-                     taxonomy=taxonomy(s), config=cfg)
+                     taxonomy=taxonomy(s), config=cfg, directory=DocumentDirectory.from_profiles(s.profiles_path))
 
 
 @asynccontextmanager

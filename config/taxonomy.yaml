@@ -91,3 +91,89 @@ content_types:
   - glossaire
   - juridique
   - fiche_partenaire          # fiche d'agrégation ou d'intégration propre à un partenaire
+  - presentation              # vue d'ensemble d'une fonctionnalité
+  - tutoriel_video            # tutoriel (vidéo + texte d'accompagnement)
+
+# --------------------------------------------------------------------------------------------
+# Vocabulaires contrôlés de niveau DOCUMENT (catalogue, profils o2s-profile, filtres de recherche)
+# --------------------------------------------------------------------------------------------
+corpora:
+  api_technique: "Contrats OpenAPI et guides PDF de l'API O2S (intégrateurs)"
+  aide_en_ligne: "Base d'aide en ligne o2s-help.harvest.fr (utilisateurs d'O2S / MoneyPitch)"
+
+doc_types:
+  reference_api: "Contrat OpenAPI d'une API O2S : endpoints, paramètres, schémas"
+  guide_fonctionnel: "Guide PDF « Documentation API O2S » : spécificités O2S d'une API"
+  guide_utilisateur: "Procédure pas à pas dans l'application (comment faire…)"
+  presentation_fonctionnalite: "Présentation d'une fonctionnalité ou d'un module, cas d'usage"
+  faq: "Questions fréquentes (plusieurs questions/réponses)"
+  depannage: "Résolution d'un problème : bogue, donnée manquante/erronée, incident"
+  fiche_partenaire_agregation: "Fiche d'agrégation d'un partenaire financier (code apporteur, produits, fréquence)"
+  fiche_partenaire_integration: "Intégration avec un partenaire (Business Link, Wealth Link, souscriptions digitalisées)"
+  tutoriel_video: "Tutoriel vidéo et son texte d'accompagnement"
+  reference_liste: "Liste de référence : variables, catégories de fonds, partenaires, codes"
+  migration: "Migration Prisme -> O2S"
+  actualite: "Nouveautés, palmarès, informations ponctuelles"
+  formation: "Ateliers, formations, prise en main"
+  parametrage: "Mise en place / paramétrage d'un module par l'administrateur du cabinet"
+  brouillon: "Page vide ou de test : exclue de l'index"
+
+audiences:
+  integrateur: "Développeur / intégrateur de l'API O2S"
+  conseiller: "Conseiller en gestion de patrimoine utilisateur d'O2S"
+  administrateur: "Administrateur du cabinet : paramétrage, droits, utilisateurs, SSO"
+  assistant: "Assistant(e) / back-office : saisie, documents, agrégation"
+  client_final: "Client final via le portail MoneyPitch"
+
+# Produits et modules : alias reconnus dans le texte -> forme canonique (metadata `products`,
+# expansion du texte BM25). Les alias sont des expressions exactes (insensibles à la casse).
+products:
+  O2S: ["O2S"]
+  MoneyPitch: ["MoneyPitch", "Money Pitch", "portail patrimonial"]
+  Prisme: ["Prisme"]
+  Big: ["Big Expert", "Big"]
+  Quantalys: ["Quantalys"]
+  Business Link: ["Business Link", "O2S Business Link"]
+  Wealth Link: ["Wealth Link"]
+  Wealth Platform: ["Wealth Platform", "Wealth Digital"]
+  Assistant IA O2S: ["Assistant IA", "assistant IA O2S"]
+  Assistant Aide O2S: ["Assistant Aide", "assistant d'aide"]
+  Microsoft Outlook: ["Outlook", "Microsoft 365", "Office 365"]
+  Microsoft Entra ID: ["Entra ID", "Microsoft Entra", "Azure AD"]
+  Google Workspace: ["Google Agenda", "Google Calendar", "Gmail", "Google Workspace"]
+  Universign: ["Universign"]
+  Microsoft Excel: ["Excel"]
+  Microsoft Word: ["Word"]
+
+# Glossaire métier : sigle -> formes développées / synonymes. Sert à l'expansion du texte BM25
+# (un chunk qui contient « SRI » est aussi retrouvé par « indicateur de risque ») et au LLM.
+glossary:
+  KYC: ["connaissance client", "know your customer", "dossier de connaissance client"]
+  SRI: ["indicateur synthétique de risque", "indicateur de risque", "niveau de risque"]
+  SRRI: ["indicateur de risque et de rendement", "indicateur de risque"]
+  DDA: ["directive distribution d'assurances"]
+  DCC: ["document de connaissance client", "déclaration de conformité client"]
+  RIC: ["recueil d'informations client"]
+  MIF2: ["MiFID II", "directive marchés d'instruments financiers"]
+  MIF: ["MiFID", "directive marchés d'instruments financiers"]
+  LAB-FT: ["LCB-FT", "lutte anti-blanchiment", "lutte contre le blanchiment et le financement du terrorisme"]
+  PPE: ["personne politiquement exposée"]
+  GED: ["gestion électronique des documents", "documents du client"]
+  SSO: ["authentification unique", "single sign-on", "connexion unique"]
+  SCPI: ["société civile de placement immobilier"]
+  OPCVM: ["fonds", "organisme de placement collectif"]
+  UC: ["unité de compte", "unités de compte"]
+  PER: ["plan d'épargne retraite"]
+  PEA: ["plan d'épargne en actions"]
+  FCPI: ["fonds commun de placement dans l'innovation"]
+  FIP: ["fonds d'investissement de proximité"]
+  ESG: ["critères environnementaux sociaux et de gouvernance", "finance durable"]
+  VL: ["valeur liquidative"]
+  PAM: ["prix d'achat moyen", "PRU", "prix de revient unitaire"]
+  IMAP: ["courrier entrant", "messagerie entrante"]
+  SMTP: ["courrier sortant", "serveur d'envoi"]
+  code apporteur: ["code courtier", "identifiant apporteur", "code intermédiaire"]
+  agrégation: ["synchronisation des contrats", "remontée des données partenaires", "flux partenaires"]
+  lettre d'autorisation: ["mandat d'agrégation", "autorisation partenaire"]
+  déclaration d'adéquation: ["rapport d'adéquation", "lettre d'adéquation", "conseil en investissement"]
+  profil investisseur: ["profil d'investisseur", "questionnaire profil", "profil de risque"]

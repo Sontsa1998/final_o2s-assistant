@@ -8,6 +8,8 @@ import logging
 
 
 def main() -> None:
+    from o2s_rag.adapters.inbound.cli import utf8_console
+    utf8_console()
     p = argparse.ArgumentParser(description="Indexe la documentation O2S dans Qdrant")
     p.add_argument("--force", action="store_true", help="réindexe même les documents inchangés")
     p.add_argument("--no-prune", action="store_true", help="ne supprime pas les documents disparus")
@@ -25,11 +27,11 @@ def main() -> None:
         from o2s_rag.adapters.outbound.loaders.catalog import DocumentCatalog
         from o2s_rag.adapters.outbound.loaders.markdown_loader import MarkdownFolderLoader
         from o2s_rag.bootstrap.container import taxonomy
-        catalog, tax = DocumentCatalog.from_file(s.catalog_path), taxonomy(s)
+        catalog, tax = DocumentCatalog.from_file(s.catalog_path, s.profiles_path), taxonomy(s)
         chunker = HierarchicalMarkdownChunker(s.chunk_size, s.chunk_overlap, s.parent_heading_levels,
                                               s.parent_max_tokens)
         enricher = LLMMetadataEnricher(None, "", tax, enabled=False, annotator=SectionAnnotator(catalog, tax))
-        for doc in MarkdownFolderLoader(s.docs_dir, catalog=catalog).load():
+        for doc in MarkdownFolderLoader(s.docs_dir, catalog=catalog, taxonomy=tax).load():
             nodes, _ = asyncio.run(enricher.enrich(chunker.split(doc)))
             m = doc.metadata
             print(f"\n=== {doc.doc_id} — {doc.title} ({len(nodes)} nœuds)")

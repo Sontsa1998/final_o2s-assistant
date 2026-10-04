@@ -1,7 +1,11 @@
 # Prix en USD par million de tokens — REPLI uniquement.
 # En priorité, le coût réel est lu dans l'en-tête `x-litellm-response-cost` renvoyé par le proxy.
-# Vérifiez ces valeurs avec votre grille contractuelle (elles peuvent avoir changé).
-claude-sonnet-4.6:       { input: 3.00, output: 15.00 }
+# Valeurs indicatives (grille publique des éditeurs) : vérifiez-les avec votre grille contractuelle.
+claude-sonnet-5:         { input: 3.00, output: 15.00 }
+claude-haiku-4.5:        { input: 1.00, output: 5.00 }
+claude-opus-4.6:         { input: 5.00, output: 25.00 }
+claude-opus-4.8:         { input: 5.00, output: 25.00 }
 gpt-5.1:                 { input: 1.25, output: 10.00 }
 gpt-5-mini:              { input: 0.25, output: 2.00 }
 text-embedding-3-large:  { input: 0.13, output: 0.00 }
+cohere-embed-v4:         { input: 0.12, output: 0.00 }

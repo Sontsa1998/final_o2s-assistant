@@ -5,23 +5,34 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
+from pydantic import AliasChoices, Field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
+    # `.env` (convention) ou `env` (fichier sans point, plus simple à créer sous Windows), à la racine
+    # du projet puis dans le répertoire courant ; les variables d'environnement priment.
+    model_config = SettingsConfigDict(
+        env_file=(PROJECT_ROOT / "env", PROJECT_ROOT / ".env", "env", ".env"),
+        env_file_encoding="utf-8", extra="ignore", populate_by_name=True)
 
     # --- Proxy LiteLLM (compatible OpenAI) ---
-    litellm_base_url: str = "http://localhost:4000"
-    litellm_api_key: str = "sk-changeme"
+    # Noms alternatifs acceptés : ceux des SDK OpenAI (OPENAI_API_KEY / OPENAI_BASE_URL) et LITELLM_URL.
+    litellm_base_url: str = Field("http://localhost:4000", validation_alias=AliasChoices(
+        "LITELLM_BASE_URL", "OPENAI_BASE_URL", "LITELLM_URL"))
+    litellm_api_key: str = Field("sk-changeme", validation_alias=AliasChoices(
+        "LITELLM_API_KEY", "OPENAI_API_KEY"))
     llm_timeout_s: float = 120.0
 
-    # Rôles des modèles (noms tels qu'exposés par le proxy LiteLLM)
-    model_generation: str = "claude-sonnet-4.6"   # réponse finale (stricte)
+    # Rôles des modèles (noms tels qu'exposés par le proxy LiteLLM). Modèles disponibles sur la clé :
+    # claude-haiku-4.5, claude-sonnet-5, claude-opus-4.6, claude-opus-4.8, gpt-5-mini, gpt-5.1,
+    # text-embedding-3-large, cohere-embed-v4.
+    model_generation: str = "claude-sonnet-5"     # réponse finale (stricte)
     model_reasoning: str = "gpt-5.1"              # agent outils MCP + juge d'évaluation
-    model_fast: str = "gpt-5-mini"                # intention, grading, réécriture, rerank, enrichissement
+    model_fast: str = "gpt-5-mini"                # intention, grading, réécriture, rerank, enrichissement chunks
+    model_profiling: str = "claude-sonnet-5"      # fiche de chaque document (o2s-profile), une fois par version
     model_embedding: str = "text-embedding-3-large"
     embedding_dim: int = 3072
 
@@ -37,6 +48,9 @@ class Settings(BaseSettings):
     docs_dir: Path = PROJECT_ROOT / "docs"
     taxonomy_path: Path = PROJECT_ROOT / "config" / "taxonomy.yaml"
     catalog_path: Path = PROJECT_ROOT / "config" / "documents.yaml"   # metadata par document + règles
+    profiles_path: Path = PROJECT_ROOT / "config" / "document_profiles.yaml"   # généré par o2s-profile
+    legacy_classification_path: Path = PROJECT_ROOT / "config" / "legacy" / "help_classification.yaml"
+    profiling_concurrency: int = 6
     chunk_size: int = 512
     chunk_overlap: int = 100
     parent_max_tokens: int = 1800
@@ -74,6 +88,17 @@ class Settings(BaseSettings):
     pricing_path: Path = PROJECT_ROOT / "config" / "pricing.yaml"
 
     log_level: str = "INFO"
+
+    @field_validator("litellm_base_url")
+    @classmethod
+    def _normalize_base_url(cls, v: str) -> str:
+        """Le client OpenAI attend la racine `/v1` du proxy : « https://h/ », « https://h//v1 » -> « https://h/v1 »."""
+        v = v.strip().strip('"').rstrip("/")
+        scheme, _, rest = v.partition("://")
+        rest = "/".join(p for p in rest.split("/") if p)
+        if not rest.endswith("/v1"):
+            rest += "/v1"
+        return f"{scheme}://{rest}" if scheme and rest else v
 
 
 @lru_cache

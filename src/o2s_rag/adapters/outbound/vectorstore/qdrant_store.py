@@ -16,12 +16,14 @@ DENSE, SPARSE = "dense", "bm25"
 _KEYWORD_INDEXES = [
     "doc_id", "level", "parent_id", "intent", "theme", "sub_theme", "content_type", "audience",
     "http_methods", "endpoints", "status_codes", "keywords", "anchor", "doc_version",
-    # catalogue (niveau document)
-    "api", "api_version", "doc_type", "source_format", "resources", "tags",
+    # catalogue / profil (niveau document)
+    "corpus", "api", "api_version", "doc_type", "source_format", "resources", "tags", "doc_theme",
+    "secondary_themes", "doc_audiences", "products", "partner", "profile_source", "links_to",
     # contexte de section / structure
     "section_kind", "api_resource", "endpoint", "field_paths", "enum_values", "o2s_tabs", "text_hash",
+    "ui_paths", "glossary_terms",
 ]
-_BOOL_INDEXES = ["has_code", "has_table", "shared"]
+_BOOL_INDEXES = ["has_code", "has_table", "shared", "has_video"]
 _INT_INDEXES = ["depth", "global_position", "page_start"]
 
 
@@ -96,6 +98,14 @@ class QdrantVectorStore:
             must.append(models.FieldCondition(key="api", match=models.MatchAny(any=f.apis)))
         if f.doc_type:
             must.append(models.FieldCondition(key="doc_type", match=models.MatchValue(value=f.doc_type)))
+        if f.doc_types:
+            must.append(models.FieldCondition(key="doc_type", match=models.MatchAny(any=f.doc_types)))
+        if f.corpus:
+            must.append(models.FieldCondition(key="corpus", match=models.MatchValue(value=f.corpus)))
+        if f.partner:
+            must.append(models.FieldCondition(key="partner", match=models.MatchValue(value=f.partner)))
+        if f.products:
+            must.append(models.FieldCondition(key="products", match=models.MatchAny(any=f.products)))
         if with_intent and f.intent:
             must.append(models.FieldCondition(key="intent", match=models.MatchValue(value=f.intent)))
         return models.Filter(must=must)

@@ -39,6 +39,7 @@ dev = ["o2s-agentic-rag[local]", "pytest>=8", "pytest-asyncio>=0.24"]
 [project.scripts]
 o2s-index = "o2s_rag.adapters.inbound.cli.index_cli:main"
 o2s-chat = "o2s_rag.adapters.inbound.cli.chat_cli:main"
+o2s-profile = "o2s_rag.adapters.inbound.cli.profile_cli:main"
 
 [build-system]
 requires = ["hatchling"]

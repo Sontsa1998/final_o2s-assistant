@@ -1,6 +1,6 @@
 """Adapters LLM & embeddings vers le proxy LiteLLM (API compatible OpenAI).
 
-Tous les modèles (claude-sonnet-4.6, gpt-5.1, gpt-5-mini, text-embedding-3-large) passent par
+Tous les modèles (claude-sonnet-5, gpt-5.1, gpt-5-mini, text-embedding-3-large…) passent par
 le même proxy : seul le nom de modèle change. Le coût réel est lu dans l'en-tête
 `x-litellm-response-cost` ; à défaut, il est estimé avec la table de prix.
 """

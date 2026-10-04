@@ -19,6 +19,7 @@ from o2s_rag.application.agent.state import RESET, AgentState
 from o2s_rag.domain import prompts
 from o2s_rag.domain.models import (ContextGrade, QueryAnalysis, Reformulations, RerankRequest,
                                    RetrievedChunk, RewrittenQueries, SearchFilters, SearchRequest, Usage)
+from o2s_rag.domain.directory import DocumentDirectory
 from o2s_rag.domain.taxonomy import Taxonomy
 from o2s_rag.ports import LLMPort, RerankPort, SearchPort, ToolProviderPort
 
@@ -47,6 +48,7 @@ class AgentDeps:
     tools: ToolProviderPort
     taxonomy: Taxonomy
     config: AgentConfig
+    directory: DocumentDirectory | None = None     # partenaires -> fiches (recherche ciblée)
 
 
 # --------------------------------------------------------------------------- #
@@ -149,6 +151,7 @@ class AgentNodes:
         boost = intent if (state.get("attempts", 0) == 0 and intent and intent != "autre") else None
         reqs = [SearchRequest(query=q, top_k=self.cfg.search_top_k, filters=SearchFilters(intent=boost))
                 for q in state["queries"]]
+        reqs += self._focused_requests(state)
         results = await asyncio.gather(*[self.d.search.search(r) for r in reqs])
         merged: dict[str, dict] = {c["id"]: c for c in state.get("candidates", [])}
         usages: list[Usage] = []
@@ -165,6 +168,21 @@ class AgentNodes:
         return {"candidates": list(merged.values()), "retrieved_log": log_entries, "usage": _u(usages),
                 "_details": {"queries": [r.query for r in reqs], "intent_boost": boost,
                              "candidates": len(merged)}}
+
+    def _focused_requests(self, state: AgentState) -> list[SearchRequest]:
+        """Requêtes ciblées ajoutées à la recherche générale (fusionnées puis départagées par le rerank) :
+        fiches des partenaires nommés dans la question, et corpus détecté (API / aide en ligne)."""
+        analysis = state.get("analysis", {})
+        q = analysis.get("standalone_question") or state["question"]
+        out: list[SearchRequest] = []
+        if self.d.directory is not None:
+            for _name, doc_ids in self.d.directory.find_partners(f"{state['question']} {q}")[:3]:
+                out.append(SearchRequest(query=q, top_k=6, filters=SearchFilters(doc_ids=doc_ids)))
+        corpus = analysis.get("corpus")
+        if corpus in ("api_technique", "aide_en_ligne") and state.get("attempts", 0) == 0:
+            out.append(SearchRequest(query=q, top_k=max(8, self.cfg.search_top_k // 2),
+                                     filters=SearchFilters(corpus=corpus)))
+        return out
 
     # 2b -------------------------------------------------------- rerank
     @traced("rerank")

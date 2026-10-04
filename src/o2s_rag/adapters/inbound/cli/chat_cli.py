@@ -58,6 +58,8 @@ async def run(thread_id: str, show_trace: bool) -> None:
 
 
 def main() -> None:
+    from o2s_rag.adapters.inbound.cli import utf8_console
+    utf8_console()
     p = argparse.ArgumentParser()
     p.add_argument("--thread", default=None, help="reprendre un thread existant (mémoire)")
     p.add_argument("--trace", action="store_true", help="afficher le cheminement nœud par nœud")

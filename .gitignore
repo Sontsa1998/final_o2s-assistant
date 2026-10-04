@@ -7,3 +7,7 @@ evaluation/results/*
 !evaluation/results/.gitkeep
 *.egg-info/
 .pytest_cache/
+
+# Secrets : fichier d environnement sans point (cle API LiteLLM)
+env
+*.tmp

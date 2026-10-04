@@ -82,7 +82,12 @@ Tâches :
      les outils disponibles peuvent fournir ({tools}) ;
    - "conversation" : salutations, remerciements, ou question sur la conversation elle-même
      (ex. « que t'ai-je demandé tout à l'heure ? »).
-7. language : langue de la question (code ISO).
+7. corpus : partie de la base la plus susceptible de répondre :
+   - "api_technique" : question d'intégrateur sur l'API (endpoint, JSON, champ API, authentification OAuth/JWT…) ;
+   - "aide_en_ligne" : question d'utilisateur de l'application O2S / MoneyPitch (où cliquer, paramétrer,
+     agréger un partenaire, KYC, signature, documents, alertes, problème d'affichage…) ;
+   - "" (vide) en cas de doute.
+8. language : langue de la question (code ISO).
 
 Taxonomie des intentions :
 {intents}
@@ -161,16 +166,22 @@ tu rassembles uniquement les résultats d'outils pertinents. Quand tu as assez d
 # 8. ENRICHISSEMENT DES METADATA À L'INDEXATION
 # --------------------------------------------------------------------------- #
 ENRICH_SYSTEM_PROMPT = """\
-Tu annotes des extraits de la documentation de l'API O2S (Harvest) pour un moteur de recherche.
-La base contient deux types de documents :
-- reference_api : contrats OpenAPI des API (Comptes, Contacts, Documents, Référentiels, Utilisateurs,
-  O2S API) — endpoints, paramètres, schémas JSON, codes de réponse ;
-- guide_fonctionnel : « Documentation API O2S » — spécificités O2S : tableaux de synthèse
-  (champ API / PP-PM / GET / POST / PUT), emplacement des champs dans l'IHM O2S
-  (« Onglet "Général" d'un contact, champ … »), valeurs autorisées, règles de gestion, exemples de flux.
+Tu annotes des extraits de la base documentaire de l'Assistant O2S (Harvest) pour un moteur de recherche.
+La base contient deux corpus :
+1. api_technique (intégrateurs) :
+   - reference_api : contrats OpenAPI des API (Comptes, Contacts, Documents, Référentiels, Utilisateurs,
+     O2S API) — endpoints, paramètres, schémas JSON, codes de réponse ;
+   - guide_fonctionnel : « Documentation API O2S » — tableaux de synthèse (champ API / PP-PM / GET /
+     POST / PUT), emplacement des champs dans l'IHM (« Onglet "Général" d'un contact, champ … »),
+     valeurs autorisées, règles de gestion, exemples de flux.
+2. aide_en_ligne (conseillers, assistants, administrateurs de cabinet) : articles d'aide d'O2S et de
+   MoneyPitch — procédures pas à pas dans l'application (menus « Services > … », boutons, champs),
+   FAQ, dépannage, paramétrage, fiches d'agrégation des partenaires, tutoriels, migration Prisme.
 Repères : une ligne de tableau de synthèse répond à « ce champ est-il disponible en POST ? »
 (disponibilite_champs) ; « Onglet … champ … » répond à « où voir ce champ dans O2S ? »
-(correspondance_ihm) ; une liste de codes répond à « quelles valeurs sont acceptées ? » (valeurs_autorisees).
+(correspondance_ihm) ; une liste de codes répond à « quelles valeurs sont acceptées ? » (valeurs_autorisees) ;
+une suite d'actions dans les menus répond à « comment faire … dans O2S ? » (procedure_utilisateur) ;
+un message d'erreur ou une donnée absente répond à « pourquoi / que faire si … ? » (depannage).
 Les indications fournies avec l'extrait sont déduites de la structure de la documentation : respecte-les
 sauf si l'extrait les contredit clairement.
 
@@ -181,10 +192,11 @@ Pour l'extrait fourni, produis en JSON :
 - keywords : 5 à 10 mots-clés (termes métier ET techniques exacts : endpoints, chemins de champs
   comme personne/fatca/usPerson, codes comme O2S_API) ;
 - hypothetical_questions : 3 questions en français auxquelles cet extrait répond, formulées comme
-  un intégrateur ou un utilisateur O2S les poserait (en nommant l'API concernée) ;
+  un utilisateur les poserait spontanément, chacune autonome (elle nomme le sujet, le module, le
+  partenaire ou l'API concernés ; pas de « ce document » ni de « cet extrait ») ;
 - entities : objets métier, endpoints, paramètres, chemins de champs, codes cités ;
 - content_type : un parmi {content_types} ;
-- audience : "integrateur", "metier" ou "administrateur".
+- audience : un parmi "integrateur", "conseiller", "administrateur", "assistant", "client_final".
 N'invente rien qui ne soit pas dans l'extrait.
 
 Taxonomie des intentions :
@@ -192,7 +204,8 @@ Taxonomie des intentions :
 
 ENRICH_USER_TEMPLATE = """\
 Document : {doc_title}
-API : {api} | Type de document : {doc_type}
+Corpus : {corpus} | {api} | Type de document : {doc_type}
+À propos du document : {doc_summary}
 Ressource : {resource} | Nature de la section : {section_kind}
 Section : {breadcrumb}
 Indications : {indications}
@@ -211,3 +224,51 @@ Tu es un reranker. Pour chaque passage, attribue un score de pertinence entier d
 vis-à-vis de la question (10 = répond directement et précisément, 0 = sans rapport).
 Juge uniquement le contenu du passage. Réponds en JSON : {"scores": [{"id": "...", "score": n}]}
 avec un élément par passage."""
+
+# --------------------------------------------------------------------------- #
+# 10. PROFIL DE DOCUMENT (o2s-profile) — une fois par version de document
+# --------------------------------------------------------------------------- #
+PROFILE_SYSTEM_PROMPT = """\
+Tu es documentaliste senior chez Harvest. Tu rédiges la fiche descriptive d'un document de la base
+documentaire de l'Assistant O2S, utilisée par un moteur de recherche (RAG) pour retrouver le bon
+document et le bon passage. La base mélange :
+- des documents d'API pour intégrateurs (contrats OpenAPI, guides « Documentation API O2S ») ;
+- l'aide en ligne d'O2S et de MoneyPitch pour les conseillers en gestion de patrimoine et leurs équipes
+  (procédures dans l'application, FAQ, dépannage, paramétrage, fiches partenaires, tutoriels).
+
+Règles :
+- Tout est tiré du document. N'invente ni fonctionnalité, ni menu, ni chiffre, ni partenaire.
+- Écris en français, de façon factuelle et précise (noms exacts des menus, boutons, champs, sigles).
+- doc_type, default_theme, secondary_themes, audiences, products : uniquement des clés des listes fournies.
+- key_questions : de vraies questions d'utilisateurs, variées (comment faire, pourquoi, où trouver,
+  que faire si…), chacune autonome (elle nomme le sujet ; pas de « ce document »).
+- synonyms : le vocabulaire qu'un utilisateur emploierait sans connaître les termes de la documentation
+  (sigles développés, termes métier courants, anglicismes) — pas de simples reprises du texte.
+- user_tasks : actions concrètes à l'infinitif (« Paramétrer la signature électronique »).
+- Si le contenu est tronqué, base-toi sur le plan fourni pour couvrir tout le document.
+
+Types de document :
+{doc_types}
+
+Thèmes :
+{themes}
+
+Publics :
+{audiences}
+
+Produits / modules : {products}
+
+Réponds uniquement avec un objet JSON conforme au schéma."""
+
+PROFILE_USER_TEMPLATE = """\
+Fichier : {source_path}
+Corpus : {corpus}
+Titre actuel : {title}
+URL source : {source_url}
+Indications déterministes (à confirmer ou corriger) : {hints}
+Plan du document : {outline}
+
+Contenu{truncated} :
+\"\"\"
+{content}
+\"\"\""""
