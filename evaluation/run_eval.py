@@ -34,6 +34,7 @@ import argparse
 import asyncio
 import csv
 import json
+import re
 import statistics
 import sys
 import time
@@ -118,8 +119,8 @@ def resolve_targets(items: list[dict[str, Any]], settings) -> dict[str, Any]:
         if d.metadata.source_url:
             by_url[M.normalize_url(d.metadata.source_url)].add(d.doc_id)
             by_slug[M.url_slug(d.metadata.source_url)].add(d.doc_id)
-        stem = Path(d.source_path).stem
-        by_slug[stem.split("_", 1)[-1].lower()].add(d.doc_id)
+        stem = Path(d.source_path).stem                 # « aide-8292-echange-dinformations-entre-big-et-o2s »
+        by_slug[re.sub(r"^(?:\d{3}_|aide-\d+-|faq-prisme-\d+-)", "", stem).lower()].add(d.doc_id)
     missing: set[str] = set()
     for it in items:
         if it.get("relevant") or not it.get("expected_links"):
