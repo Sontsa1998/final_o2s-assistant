@@ -38,12 +38,25 @@ def _supports_temperature(model: str) -> bool:
     return not model.lower().startswith(("gpt-5", "o1", "o3", "o4"))
 
 
+# Modes de sortie structurée, du plus contraint au plus permissif. Le schéma est de toute façon
+# recopié dans le prompt et la réponse validée par Pydantic : le mode "prompt" suffit.
+_RF_MODES = ("json_schema", "json_object", "prompt")
+
+
+def _initial_rf_mode(model: str) -> str:
+    # Claude via LiteLLM → Bedrock : `json_schema` est traduit en `output_config.format`, refusé
+    # par Bedrock (« Extra inputs are not permitted ») ou par le modèle (« Schema is too complex »),
+    # et chaque refus déclenche retries et fallbacks côté proxy. On s'en tient au prompt.
+    return "prompt" if model.lower().startswith("claude") else "json_schema"
+
+
 class LiteLLMClient:
     """Implémente LLMPort."""
 
     def __init__(self, base_url: str, api_key: str, pricing: PricingTable, timeout: float = 120.0):
         self._client = AsyncOpenAI(base_url=base_url, api_key=api_key, timeout=timeout, max_retries=2)
         self._pricing = pricing
+        self._rf_mode: dict[str, str] = {}   # mode de sortie structurée retenu par modèle
 
     # ------------------------------------------------------------------ utils
     def _usage(self, model: str, operation: str, usage: Any, headers: Any, t0: float) -> Usage:
@@ -78,26 +91,43 @@ class LiteLLMClient:
         text = resp.choices[0].message.content or ""
         return LLMResult(text=text, usage=self._usage(model, operation, resp.usage, raw.headers, t0))
 
+    def _response_format(self, mode: str, schema: type[BaseModel], json_schema: dict) -> dict[str, Any] | None:
+        if mode == "json_schema":
+            return {"type": "json_schema",
+                    "json_schema": {"name": schema.__name__, "schema": json_schema, "strict": False}}
+        return {"type": "json_object"} if mode == "json_object" else None
+
+    async def _create_structured(self, model: str, msgs: list, schema: type[BaseModel], json_schema: dict):
+        """Appelle le modèle en dégradant le mode de sortie structurée sur 400 ; mémorise le mode qui passe."""
+        mode = self._rf_mode.get(model) or _initial_rf_mode(model)
+        while True:
+            rf = self._response_format(mode, schema, json_schema)
+            try:
+                raw = await self._client.chat.completions.with_raw_response.create(
+                    model=model, messages=msgs, **({"response_format": rf} if rf else {}))
+                self._rf_mode[model] = mode
+                return raw
+            except BadRequestError as e:
+                i = _RF_MODES.index(mode)
+                if i + 1 >= len(_RF_MODES):
+                    raise
+                log.warning("response_format=%s refusé pour %s (%s) : repli sur %s",
+                            mode, model, e.message, _RF_MODES[i + 1])
+                mode = _RF_MODES[i + 1]
+
     async def structured(self, messages, schema: type[T], *, model, operation="") -> tuple[T, Usage]:
-        """Sortie structurée validée par Pydantic, avec repli json_object puis 1 retry correctif."""
+        """Sortie structurée validée par Pydantic (json_schema → json_object → prompt), avec 1 retry correctif."""
         t0 = time.perf_counter()
         json_schema = schema.model_json_schema()
-        rf: dict[str, Any] = {"type": "json_schema",
-                              "json_schema": {"name": schema.__name__, "schema": json_schema, "strict": False}}
         msgs = list(messages)
         msgs[-1] = {**msgs[-1], "content": f"{msgs[-1]['content']}\n\nSchéma JSON attendu :\n"
-                                          f"{json.dumps(json_schema, ensure_ascii=False)}"}
+                                          f"{json.dumps(json_schema, ensure_ascii=False)}\n\n"
+                                          "Réponds uniquement avec un objet JSON conforme à ce schéma."}
         total_pt = total_ct = 0
         cost = 0.0
         last_err: Exception | None = None
         for attempt in range(2):
-            try:
-                raw = await self._client.chat.completions.with_raw_response.create(
-                    model=model, messages=msgs, response_format=rf)
-            except BadRequestError:
-                rf = {"type": "json_object"}
-                raw = await self._client.chat.completions.with_raw_response.create(
-                    model=model, messages=msgs, response_format=rf)
+            raw = await self._create_structured(model, msgs, schema, json_schema)
             resp = raw.parse()
             u = self._usage(model, operation, resp.usage, raw.headers, t0)
             total_pt += u.prompt_tokens

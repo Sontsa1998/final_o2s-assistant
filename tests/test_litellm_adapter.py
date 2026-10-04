@@ -47,3 +47,36 @@ async def test_stream_falls_back_to_pricing():
     assert "".join(p for p in parts if isinstance(p, str)) == "Bonjour"
     usage = parts[-1]
     assert isinstance(usage, Usage) and usage.cost_usd == pytest.approx((100 * 0.25 + 20 * 2) / 1e6)
+
+
+def _recording_client(reject: set[str]):
+    """Faux proxy qui refuse (400) les response_format dont le type est dans `reject` et note chaque appel."""
+    seen: list[str | None] = []
+
+    def h(request: httpx.Request) -> httpx.Response:
+        rf = (json.loads(request.content).get("response_format") or {}).get("type")
+        seen.append(rf)
+        if rf in reject:
+            return httpx.Response(400, json={"error": {"message": "output_config.format: Extra inputs are not permitted"}})
+        return handler(request)
+
+    c = LiteLLMClient("http://proxy", "k", PricingTable({}))
+    c._client = AsyncOpenAI(base_url="http://proxy", api_key="k", max_retries=0,
+                            http_client=httpx.AsyncClient(transport=httpx.MockTransport(h)))
+    return c, seen
+
+
+@pytest.mark.asyncio
+async def test_structured_claude_skips_response_format():
+    c, seen = _recording_client(reject={"json_schema", "json_object"})
+    grade, _ = await c.structured([{"role": "user", "content": "q"}], ContextGrade, model="claude-sonnet-5")
+    assert grade.sufficient and seen == [None]
+
+
+@pytest.mark.asyncio
+async def test_structured_degrades_on_400_and_remembers_mode():
+    c, seen = _recording_client(reject={"json_schema"})
+    for _ in range(2):
+        grade, _ = await c.structured([{"role": "user", "content": "q"}], ContextGrade, model="gpt-5-mini")
+        assert grade.sufficient
+    assert seen == ["json_schema", "json_object", "json_object"]
