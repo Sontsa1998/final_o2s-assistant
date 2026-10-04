@@ -1,0 +1,2 @@
+-- Nombre de document a reindexer ainsi
+o2s-profil --dry-run

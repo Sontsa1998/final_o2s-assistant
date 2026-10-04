@@ -9,5 +9,6 @@ evaluation/results/*
 .pytest_cache/
 
 # Secrets : fichier d environnement sans point (cle API LiteLLM)
-env
+.env
 *.tmp
+env

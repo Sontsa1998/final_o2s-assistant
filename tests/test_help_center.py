@@ -111,3 +111,25 @@ def test_settings_accept_openai_style_env(monkeypatch):
     monkeypatch.delenv("LITELLM_BASE_URL", raising=False)
     s = Settings(_env_file=None)
     assert s.litellm_api_key == "sk-test" and s.litellm_base_url == "https://proxy.example/v1"
+
+
+def test_profile_store_retries_when_file_is_locked(tmp_path, monkeypatch):
+    from o2s_rag.application import profiling_service as ps
+    store = ps.ProfileStore(tmp_path / "profiles.yaml")
+    store.put("a.md", {"summary": "x"})
+    calls = {"n": 0}
+    real_replace = Path.replace
+
+    def flaky_replace(self, target):                       # verrou OneDrive : 2 refus puis succès
+        calls["n"] += 1
+        if calls["n"] <= 2:
+            raise PermissionError(5, "Accès refusé")
+        return real_replace(self, target)
+
+    monkeypatch.setattr(Path, "replace", flaky_replace)
+    monkeypatch.setattr(ps.time, "sleep", lambda s: None)
+    assert store.save() and calls["n"] == 3
+    assert "summary: x" in (tmp_path / "profiles.yaml").read_text(encoding="utf-8")
+    monkeypatch.setattr(Path, "replace", lambda self, t: (_ for _ in ()).throw(PermissionError(5, "x")))
+    monkeypatch.setattr(Path, "write_text", lambda self, *a, **k: (_ for _ in ()).throw(PermissionError(5, "x")))
+    assert store.save(final=False) is False                # sauvegarde intermédiaire : pas d'arrêt

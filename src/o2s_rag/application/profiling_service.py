@@ -18,6 +18,7 @@ import asyncio
 import hashlib
 import logging
 import re
+import time
 from collections import Counter
 from datetime import datetime, timezone
 from pathlib import Path
@@ -55,14 +56,35 @@ class ProfileStore:
     def put(self, source_path: str, profile: dict[str, Any]) -> None:
         self.data[source_path] = profile
 
-    def save(self) -> None:
+    def save(self, final: bool = True) -> bool:
+        """Écrit le fichier (via un .tmp remplacé atomiquement). Sous Windows, OneDrive, l'antivirus ou un
+        éditeur peuvent verrouiller le fichier quelques instants : on réessaie, puis on écrit directement.
+        Une sauvegarde intermédiaire qui échoue n'interrompt pas le profilage (la suivante réessaiera)."""
         header = ("# Profils de documents — GÉNÉRÉ par `o2s-profile`, ne pas éditer à la main\n"
                   "# (surcharger un champ dans config/documents.yaml > documents).\n"
                   "# profile_source : llm | heuristique | partenaire ; content_hash : empreinte du fichier profilé.\n")
         body = yaml.safe_dump(dict(sorted(self.data.items())), allow_unicode=True, sort_keys=False, width=110)
+        text = header + body
         tmp = self.path.with_suffix(".tmp")
-        tmp.write_text(header + body, encoding="utf-8")
-        tmp.replace(self.path)
+        last_error: OSError | None = None
+        for attempt in range(8):
+            try:
+                tmp.write_text(text, encoding="utf-8")
+                tmp.replace(self.path)
+                return True
+            except PermissionError as e:                   # fichier verrouillé (WinError 5 / 32)
+                last_error = e
+                time.sleep(0.25 * (attempt + 1))
+        try:                                               # repli : écriture directe du fichier
+            self.path.write_text(text, encoding="utf-8")
+            tmp.unlink(missing_ok=True)
+            return True
+        except OSError as e:
+            last_error = e
+        if final:
+            raise last_error
+        log.warning("Sauvegarde intermédiaire des profils impossible (%s) : nouvel essai plus tard", last_error)
+        return False
 
 
 # =========================================================================== heuristiques
@@ -85,7 +107,7 @@ _INFINITIVE = re.compile(r"^(?![A-ZÀ-Þ][a-zà-ÿ]*(?:ure|ier|ière|eur|aire|ir
 
 
 def _sentences(text: str) -> list[str]:
-    body = "\n".join(l for l in text.splitlines() if l.strip() and not l.lstrip().startswith(("#", "|")))
+    body = "\n".join(ln for ln in text.splitlines() if ln.strip() and not ln.lstrip().startswith(("#", "|")))
     return [s.strip() for s in re.split(r"(?<=[.!?])\s+", body) if len(s.strip()) > 25]
 
 
@@ -242,7 +264,7 @@ class ProfilingService:
                 report[source] += 1
                 done += 1
                 if done % save_every == 0:
-                    self.store.save()
+                    self.store.save(final=False)
                     log.info("%d profils écrits", done)
 
         await asyncio.gather(*[one(d) for d in docs])
