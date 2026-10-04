@@ -63,3 +63,14 @@ def test_business_csv_keeps_reference_verbatim(tmp_path):
     assert item["reference_answer"] == ref and item["question"] == "Où est le palmarès ?"
     assert item["expected_links"] == ["https://o2s-help.harvest.fr/palmares/"] and item["reference_links"] == []
     assert item["expected_keywords"] == ["Services"]
+
+
+def test_no_answer_cause():
+    from evaluation.run_eval import no_answer_cause
+    t = [{"doc_id": "a", "url": "u"}]
+    hit = [{"metadata": {"doc_id": "a"}}]
+    miss = [{"metadata": {"doc_id": "b"}}]
+    assert no_answer_cause([{"url": "u"}], hit, hit) == "absente_du_corpus"
+    assert no_answer_cause(t, miss, miss) == "recherche"
+    assert no_answer_cause(t, hit + miss, miss) == "reclassement"
+    assert no_answer_cause(t, hit, hit) == "evaluation_ou_generation"

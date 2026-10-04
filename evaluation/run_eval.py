@@ -164,6 +164,29 @@ async def judge(llm, model: str, item: dict, final: dict) -> tuple[dict | None, 
         return {"error": str(e)}, None
 
 
+NO_ANSWER_CAUSES = {
+    "absente_du_corpus": "page attendue absente de la base indexée",
+    "recherche": "page attendue jamais remontée par la recherche",
+    "reclassement": "page remontée par la recherche puis écartée au reclassement",
+    "evaluation_ou_generation": "page présente dans le contexte, mais jugée insuffisante ou refusée à la génération",
+    "sans_reference": "pas de page attendue pour diagnostiquer",
+}
+
+
+def no_answer_cause(targets: list[dict], candidates: list[dict], context: list[dict]) -> str:
+    """Étape du pipeline où la bonne page a été perdue, pour une question restée sans réponse."""
+    if not targets:
+        return "sans_reference"
+    indexed = [t for t in targets if t.get("doc_id")]
+    if not indexed:
+        return "absente_du_corpus"
+    if not any(M.relevance_vector(candidates, indexed)):
+        return "recherche"
+    if not any(M.relevance_vector(context, indexed)):
+        return "reclassement"
+    return "evaluation_ou_generation"
+
+
 async def evaluate_one(svc, llm, item: dict, args, embedder=None) -> dict[str, Any]:
     t0 = time.perf_counter()
     final: dict[str, Any] = {}
@@ -232,6 +255,8 @@ async def evaluate_one(svc, llm, item: dict, args, embedder=None) -> dict[str, A
             except Exception as e:  # la similarité est un plus : ne fait pas échouer la question
                 row["semantic_similarity_error"] = repr(e)
     row["links"] = M.link_metrics(final, item.get("expected_links", []))
+    if row["refused"] and item["answerable"]:
+        row["no_answer_cause"] = no_answer_cause(targets, union_ranked, reranked)
     if not args.no_judge:
         verdict, usage = await judge(llm, args.judge_model, item, final)
         row["judge"] = verdict
@@ -292,6 +317,9 @@ def summarize(rows: list[dict], args) -> dict[str, Any]:
     s["by_thematique"] = _breakdown(ok, "thematique")
     s["by_produit"] = _breakdown(ok, "produit")
     s["refusal"] = M.refusal_metrics(ok)
+    causes = Counter(r["no_answer_cause"] for r in ok if r.get("no_answer_cause"))
+    if causes:
+        s["no_answer_causes"] = dict(causes.most_common())
     s["agentic"] = {
         "mean_attempts": statistics.fmean(r["attempts"] for r in ok),
         "rewrite_rate": statistics.fmean(r["attempts"] > 0 for r in ok),
@@ -412,6 +440,10 @@ def write_report(s: dict, rows: list[dict], path: Path) -> None:
                   f"- Fidélité des citations : {_f(j['citation_faithfulness'], True)}",
                   f"- Pertinence : {_f(j['answer_relevancy'], nd=2)} / 5",
                   f"- Exactitude : {_f(j['correctness'], nd=2)} / 5"]
+        if s.get("no_answer_causes"):
+            L += ["", "## Questions sans réponse : où la bonne page a été perdue", "",
+                  "| Cause | Questions |", "|---|---|"]
+            L += [f"| {NO_ANSWER_CAUSES.get(k, k)} | {v} |" for k, v in s["no_answer_causes"].items()]
         L += ["", "## Refus (questions hors documentation)", ""]
         L += [f"- {k} : {_f(v, True)}" for k, v in s["refusal"].items()]
         a = s["agentic"]
@@ -467,7 +499,7 @@ def write_report(s: dict, rows: list[dict], path: Path) -> None:
 CSV_COLUMNS = ["id", "thematique", "question", "reference_answer", "answer", "verdict", "correctness",
                "completeness", "contradiction", "missing_facts", "comment", "semantic_similarity", "token_f1",
                "rouge_l", "keyword_coverage", "link_in_sources", "link_cited", "expected_links", "cited_links",
-               "status", "attempts", "latency_ms", "ttft_ms", "cost_usd", "tokens", "error"]
+               "status", "no_answer_cause", "attempts", "latency_ms", "ttft_ms", "cost_usd", "tokens", "error"]
 
 
 def write_csv(rows: list[dict], path: Path) -> None:

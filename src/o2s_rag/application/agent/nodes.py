@@ -8,6 +8,7 @@ from __future__ import annotations
 import asyncio
 import functools
 import json
+import re
 import time
 import uuid
 from dataclasses import dataclass
@@ -22,6 +23,20 @@ from o2s_rag.domain.models import (ContextGrade, QueryAnalysis, Reformulations, 
 from o2s_rag.domain.directory import DocumentDirectory
 from o2s_rag.domain.taxonomy import Taxonomy
 from o2s_rag.ports import LLMPort, RerankPort, SearchPort, ToolProviderPort
+
+
+# Intentions propres à la documentation de l'API (cf. taxonomy.yaml) : leur bonus de recherche ne
+# s'applique qu'aux questions sur l'API.
+API_INTENTS = {"authentification", "reference_endpoint", "parametres_requete", "format_reponse",
+               "pagination_limites", "disponibilite_champs", "correspondance_ihm", "valeurs_autorisees",
+               "regles_metier", "exemple_integration", "codes_erreur", "configuration_environnement",
+               "securite_conformite"}
+
+
+# Une question ne relève du corpus API que si elle (ou l'historique) en parle explicitement.
+_API_CUES = re.compile(r"\b(api|apis|endpoints?|swagger|openapi|json|http|https?://|get|post|put|patch|delete|"
+                       r"jwt|token|jeton|oauth2?|bearer|client_id|client_secret|payload|webservices?|"
+                       r"int[ée]grat(eur|ion)|requ[êe]tes? http|sch[ée]ma|refExternes)\b", re.IGNORECASE)
 
 
 @dataclass
@@ -104,6 +119,15 @@ class AgentNodes:
     def _history(self, state: AgentState) -> str:
         return format_history(state.get("messages", []), state.get("summary", ""), self.cfg.history_window)
 
+    @staticmethod
+    def _user_question(state: AgentState) -> str:
+        """Question à juger (reclassement, évaluation du contexte, réécriture, génération) : celle de
+        l'utilisateur, mot pour mot ; la reformulation autonome seulement si la question dépend de
+        l'historique (sans historique, une reformulation ne peut qu'ajouter ou déformer)."""
+        standalone = (state.get("analysis", {}).get("standalone_question") or "").strip()
+        has_history = bool(state.get("messages") or state.get("summary"))
+        return standalone if has_history and standalone else state["question"]
+
     # 0 ------------------------------------------------------------- intake
     @traced("intake")
     async def intake(self, state: AgentState) -> dict:
@@ -135,10 +159,17 @@ class AgentNodes:
                                      reasoning=f"analyse indisponible : {e}")
             usages = []
         analysis.intent = self.d.taxonomy.normalize_intent(analysis.intent)
+        # garde-fou : pas de routage vers l'API si ni la question ni l'historique n'en parlent
+        if analysis.corpus == "api_technique" and not _API_CUES.search(f"{state['question']} {self._history(state)}"):
+            analysis.corpus = ""
+            analysis.reasoning = (analysis.reasoning + " [corpus API écarté : la question ne parle pas de l'API]").strip()
         if analysis.route == "outils" and not tools:
             analysis.route = "documentation"
         q = analysis.standalone_question.strip() or state["question"]
-        queries = [q] + [s for s in analysis.sub_queries[:3] if s.strip() and s.strip() != q]
+        queries: list[str] = []
+        for cand in [state["question"], q, *analysis.sub_queries[:3]]:   # la question d'origine d'abord
+            if cand.strip() and cand.strip() not in queries:
+                queries.append(cand.strip())
         return {"analysis": analysis.model_dump(), "route": analysis.route, "queries": queries,
                 "tried_queries": queries, "usage": _u(usages),
                 "_details": {"intent": analysis.intent, "theme": analysis.theme, "route": analysis.route,
@@ -147,8 +178,11 @@ class AgentNodes:
     # 2a ------------------------------------------------------- recherche
     @traced("retrieve")
     async def retrieve(self, state: AgentState) -> dict:
-        intent = state.get("analysis", {}).get("intent")
-        boost = intent if (state.get("attempts", 0) == 0 and intent and intent != "autre") else None
+        analysis = state.get("analysis", {})
+        intent = analysis.get("intent")
+        api_question = analysis.get("corpus") == "api_technique"
+        consistent = intent and intent != "autre" and (intent in API_INTENTS) == api_question
+        boost = intent if (state.get("attempts", 0) == 0 and consistent) else None
         reqs = [SearchRequest(query=q, top_k=self.cfg.search_top_k, filters=SearchFilters(intent=boost))
                 for q in state["queries"]]
         reqs += self._focused_requests(state)
@@ -173,21 +207,24 @@ class AgentNodes:
         """Requêtes ciblées ajoutées à la recherche générale (fusionnées puis départagées par le rerank) :
         fiches des partenaires nommés dans la question, et corpus détecté (API / aide en ligne)."""
         analysis = state.get("analysis", {})
-        q = analysis.get("standalone_question") or state["question"]
+        q = self._user_question(state)
         out: list[SearchRequest] = []
         if self.d.directory is not None:
             for _name, doc_ids in self.d.directory.find_partners(f"{state['question']} {q}")[:3]:
                 out.append(SearchRequest(query=q, top_k=6, filters=SearchFilters(doc_ids=doc_ids)))
         corpus = analysis.get("corpus")
-        if corpus in ("api_technique", "aide_en_ligne") and state.get("attempts", 0) == 0:
-            out.append(SearchRequest(query=q, top_k=max(8, self.cfg.search_top_k // 2),
-                                     filters=SearchFilters(corpus=corpus)))
+        if state.get("attempts", 0) == 0:
+            # corpus détecté, ou les deux en cas de doute : chaque corpus garde des candidats
+            corpora = [corpus] if corpus in ("api_technique", "aide_en_ligne") else ["aide_en_ligne", "api_technique"]
+            for c in corpora:
+                out.append(SearchRequest(query=q, top_k=max(8, self.cfg.search_top_k // 2),
+                                         filters=SearchFilters(corpus=c)))
         return out
 
     # 2b -------------------------------------------------------- rerank
     @traced("rerank")
     async def rerank(self, state: AgentState) -> dict:
-        question = state["analysis"].get("standalone_question") or state["question"]
+        question = self._user_question(state)
         docs = [RetrievedChunk.model_validate(c) for c in state.get("candidates", [])]
         kept, usages = await self.d.reranker.rerank(RerankRequest(
             query=question, documents=docs, top_n=self.cfg.rerank_top_n, min_score=self.cfg.rerank_min_score))
@@ -200,7 +237,7 @@ class AgentNodes:
     @traced("tools_agent")
     async def tools_agent(self, state: AgentState) -> dict:
         specs = await self._tools()
-        question = state["analysis"].get("standalone_question") or state["question"]
+        question = self._user_question(state)
         msgs: list[dict[str, Any]] = [{"role": "system", "content": prompts.TOOLS_SYSTEM_PROMPT},
                                       {"role": "user", "content": question}]
         results, usages, calls_log = [], [], []
@@ -236,7 +273,7 @@ class AgentNodes:
             grade = ContextGrade(sufficient=False, reason="Aucun extrait pertinent après reranking.",
                                  missing_information="Aucune information trouvée.")
             return {"grade": grade.model_dump(), "_details": grade.model_dump()}
-        question = state["analysis"].get("standalone_question") or state["question"]
+        question = self._user_question(state)
         sources = build_sources(context, "chunk", 0)
         try:
             grade, u = await self.d.llm.structured(
@@ -252,7 +289,7 @@ class AgentNodes:
     # 4 ------------------------------------------------------ réécriture
     @traced("rewrite_query")
     async def rewrite_query(self, state: AgentState) -> dict:
-        question = state["analysis"].get("standalone_question") or state["question"]
+        question = self._user_question(state)
         sections = sorted({c["metadata"].get("breadcrumb", "") for c in state.get("candidates", [])[:8]})
         try:
             res, u = await self.d.llm.structured(
@@ -276,7 +313,7 @@ class AgentNodes:
         a = state.get("analysis", {})
         user = prompts.GENERATION_USER_TEMPLATE.format(
             history=self._history(state), intent=a.get("intent", ""), theme=a.get("theme", ""),
-            context=format_sources(sources), question=a.get("standalone_question") or state["question"])
+            context=format_sources(sources), question=self._user_question(state))
         msgs = [{"role": "system", "content": prompts.GENERATION_SYSTEM_PROMPT}, {"role": "user", "content": user}]
         parts: list[str] = []
         usage: Usage | None = None

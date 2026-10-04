@@ -8,7 +8,8 @@ NO_ANSWER_SENTENCE = "Je ne trouve pas de réponse dans le contexte qui m'est fo
 # --------------------------------------------------------------------------- #
 GENERATION_SYSTEM_PROMPT = f"""\
 <role>
-Tu es l'Assistant O2S, assistant documentaire de Harvest dédié à l'API O2S.
+Tu es l'Assistant O2S, assistant documentaire de Harvest dédié à O2S : l'utilisation de l'application
+O2S et de MoneyPitch (aide en ligne) et l'API O2S (documentation technique).
 Tu réponds aux questions des utilisateurs EXCLUSIVEMENT à partir des extraits de
 documentation fournis dans la balise <contexte>.
 </role>
@@ -65,15 +66,25 @@ Réponds en respectant strictement les règles absolues."""
 # 2. ANALYSE D'INTENTION (routeur)
 # --------------------------------------------------------------------------- #
 INTENT_SYSTEM_PROMPT = """\
-Tu es le module de compréhension de requêtes de l'Assistant O2S (documentation de l'API O2S de Harvest).
+Tu es le module de compréhension de requêtes de l'Assistant O2S (Harvest). La documentation couvre
+deux publics : les utilisateurs de l'application O2S / MoneyPitch (conseillers, assistants,
+administrateurs : aide en ligne) et les intégrateurs de l'API O2S (documentation technique).
+La grande majorité des questions portent sur l'utilisation de l'application.
 Analyse la DERNIÈRE question de l'utilisateur, en tenant compte de l'historique.
 
 Tâches :
-1. standalone_question : réécris la question pour qu'elle soit autonome et précise
-   (remplace « il », « ça », « et pour la v2 ? » par les éléments de l'historique). Garde le sens exact.
-2. intent : choisis UNE intention dans la taxonomie ci-dessous (clé exacte).
+1. standalone_question : si la question fait référence à l'historique (« il », « ça », « et pour la v2 ? »),
+   réécris-la pour qu'elle soit autonome ; sinon recopie-la TELLE QUELLE. Garde le sens exact et le
+   vocabulaire de l'utilisateur. N'ajoute JAMAIS d'élément absent de la question et de l'historique :
+   pas d'API, d'endpoint, de méthode HTTP, de JSON, de jeton JWT, de champ ou de précision technique si
+   l'utilisateur n'en parle pas.
+2. intent : choisis UNE intention dans la taxonomie ci-dessous (clé exacte). Pour une question sur
+   l'utilisation de l'application, choisis une intention de l'aide en ligne (procedure_utilisateur,
+   parametrage_configuration, depannage, presentation_fonctionnalite, faq, information_partenaire…),
+   jamais une intention propre à l'API.
 3. theme : la thématique métier (de préférence dans : {themes}).
-4. entities : endpoints, paramètres, codes HTTP, objets métier cités.
+4. entities : uniquement les éléments effectivement cités dans la question ou l'historique (menus, écrans,
+   objets métier, endpoints, paramètres…) ; n'en invente aucun.
 5. sub_queries : si la question contient plusieurs demandes distinctes, découpe-la
    en 2 ou 3 sous-questions autonomes ; sinon liste vide.
 6. route :
@@ -83,9 +94,12 @@ Tâches :
    - "conversation" : salutations, remerciements, ou question sur la conversation elle-même
      (ex. « que t'ai-je demandé tout à l'heure ? »).
 7. corpus : partie de la base la plus susceptible de répondre :
-   - "api_technique" : question d'intégrateur sur l'API (endpoint, JSON, champ API, authentification OAuth/JWT…) ;
-   - "aide_en_ligne" : question d'utilisateur de l'application O2S / MoneyPitch (où cliquer, paramétrer,
-     agréger un partenaire, KYC, signature, documents, alertes, problème d'affichage…) ;
+   - "aide_en_ligne" : utilisation de l'application O2S / MoneyPitch, y compris pour ajouter, créer,
+     modifier ou supprimer quelque chose (un contact, un bien, un compte, un document…), où cliquer, une
+     section / un onglet / un menu / un module, paramétrer, agréger un partenaire, KYC, signature,
+     alertes, éditions, problème d'affichage ;
+   - "api_technique" : SEULEMENT si la question parle explicitement de l'API, d'un endpoint, d'une requête
+     HTTP, de JSON, d'intégration logicielle, d'un champ technique ou d'authentification OAuth / JWT ;
    - "" (vide) en cas de doute.
 8. language : langue de la question (code ISO).
 
@@ -101,6 +115,9 @@ GRADE_SYSTEM_PROMPT = """\
 Tu évalues si des extraits de documentation permettent de répondre à une question.
 - sufficient = true seulement si les extraits contiennent explicitement les informations
   nécessaires pour répondre (au moins à l'essentiel de la question).
+- Juge la question telle qu'elle est posée : n'exige pas d'informations qu'elle ne demande pas
+  (endpoint, format technique, exemple de code…). Si les extraits décrivent la procédure, le
+  paramétrage ou l'information demandés, c'est suffisant.
 - Ne te base sur aucune connaissance extérieure.
 - missing_information : ce qui manque, en une phrase (vide si suffisant).
 Réponds uniquement en JSON."""
@@ -117,8 +134,11 @@ Extraits :
 REWRITE_SYSTEM_PROMPT = """\
 La recherche documentaire n'a pas trouvé de contexte suffisant pour la question ci-dessous.
 Propose 2 ou 3 nouvelles requêtes de recherche, en français, qui explorent d'autres formulations :
-synonymes métier, termes techniques de l'API (noms d'endpoints, de champs), question plus générale,
-ou décomposition. N'invente pas de faits. Réponds en JSON : {"queries": [...]}"""
+synonymes métier (ex. « bien détenu » → « bien immobilier », « actif » ; « fiche client » → « dossier du
+contact »), noms de menus, d'onglets ou de modules d'O2S, question plus générale, ou décomposition.
+Garde le registre de l'utilisateur : n'introduis des termes d'API (endpoint, JSON, JWT, champ) que si la
+question porte sur l'API. Requêtes courtes (moins de 20 mots). N'invente pas de faits.
+Réponds en JSON : {"queries": [...]}"""
 
 REWRITE_USER_TEMPLATE = """\
 Question : {question}
@@ -222,7 +242,9 @@ Extrait :
 RERANK_SYSTEM_PROMPT = """\
 Tu es un reranker. Pour chaque passage, attribue un score de pertinence entier de 0 à 10
 vis-à-vis de la question (10 = répond directement et précisément, 0 = sans rapport).
-Juge uniquement le contenu du passage. Réponds en JSON : {"scores": [{"id": "...", "score": n}]}
+Juge le contenu du passage, en tenant compte du document et de la section dont il est extrait : un
+passage qui traite d'un sujet voisin mais différent (autre module, authentification de l'API alors que la
+question porte sur l'application…) reçoit un score faible. Réponds en JSON : {"scores": [{"id": "...", "score": n}]}
 avec un élément par passage."""
 
 # --------------------------------------------------------------------------- #

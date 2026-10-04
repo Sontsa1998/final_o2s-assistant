@@ -29,5 +29,23 @@ class RerankService:
         for d, s in zip(docs, scores):
             d.rerank_score = round(float(s), 4)
         ranked = sorted(docs, key=lambda d: d.rerank_score or 0.0, reverse=True)
-        kept = [d for d in ranked if (d.rerank_score or 0.0) >= request.min_score][:request.top_n]
-        return kept, usages
+        return self._diverse(ranked, request), usages
+
+    @staticmethod
+    def _diverse(ranked: list[RetrievedChunk], request: RerankRequest) -> list[RetrievedChunk]:
+        """Garde les meilleurs extraits au-dessus du seuil, sans texte en double (même bloc recopié dans
+        plusieurs documents) et au plus `max_per_doc` par document."""
+        kept: list[RetrievedChunk] = []
+        per_doc: dict[str, int] = {}
+        texts: set[str] = set()
+        for d in ranked:
+            if (d.rerank_score or 0.0) < request.min_score or len(kept) >= request.top_n:
+                break
+            doc = str(d.metadata.get("doc_id") or d.id)
+            text_key = d.metadata.get("text_hash") or d.text.strip()
+            if text_key in texts or (request.max_per_doc and per_doc.get(doc, 0) >= request.max_per_doc):
+                continue
+            kept.append(d)
+            texts.add(text_key)
+            per_doc[doc] = per_doc.get(doc, 0) + 1
+        return kept

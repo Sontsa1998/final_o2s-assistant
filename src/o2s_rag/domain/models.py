@@ -312,6 +312,7 @@ class RerankRequest(BaseModel):
     documents: list[RetrievedChunk]
     top_n: int = 6
     min_score: float = 0.0
+    max_per_doc: int = 2               # diversité : au plus N extraits d'un même document
 
 
 # --------------------------------------------------------------------------- #

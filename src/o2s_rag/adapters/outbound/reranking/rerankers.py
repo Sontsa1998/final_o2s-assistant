@@ -30,7 +30,8 @@ class LLMListwiseReranker:
         usages: list[Usage] = []
 
         async def run(batch: list[tuple[int, RetrievedChunk]]) -> dict[int, float]:
-            passages = [{"id": str(i), "section": d.breadcrumb, "texte": d.text[:self.max_chars]} for i, d in batch]
+            passages = [{"id": str(i), "document": d.metadata.get("doc_title", ""), "section": d.breadcrumb,
+                         "texte": d.text[:self.max_chars]} for i, d in batch]
             res, u = await self.llm.structured(
                 [{"role": "system", "content": prompts.RERANK_SYSTEM_PROMPT},
                  {"role": "user", "content": f"Question : {query}\n\nPassages :\n"
