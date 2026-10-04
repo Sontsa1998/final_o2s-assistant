@@ -356,6 +356,7 @@ class Usage(BaseModel):
     total_tokens: int = 0
     cost_usd: float = 0.0
     latency_ms: float = 0.0
+    cached: bool = False                       # servi par le cache local (0 token, 0 $)
 
 
 class LLMResult(BaseModel):

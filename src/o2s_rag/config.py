@@ -84,6 +84,10 @@ class Settings(BaseSettings):
     enable_mcp: bool = False
     max_tool_iterations: int = 4
 
+    # --- Cache local des appels LLM / embeddings (indexation, profilage, intention, rerank) ---
+    llm_cache_enabled: bool = True
+    llm_cache_path: Path = PROJECT_ROOT / "data" / "cache" / "llm_cache.sqlite"
+
     # --- Coûts (repli si le proxy ne renvoie pas x-litellm-response-cost) ---
     pricing_path: Path = PROJECT_ROOT / "config" / "pricing.yaml"
 

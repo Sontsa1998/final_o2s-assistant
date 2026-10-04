@@ -296,6 +296,13 @@ docker run -d --name qdrant -p 6333:6333 -v qdrant_data:/qdrant/storage qdrant/q
    Les nouveaux index de payload ne sont créés qu'à la création de la collection : après une mise à jour du
    schéma, supprimez la collection Qdrant (ou changez `QDRANT_COLLECTION`) avant `o2s-index --force`.
 
+   **Cache local** (`data/cache/llm_cache.sqlite`, `LLM_CACHE_ENABLED=true` par défaut) : les réponses
+   d'enrichissement, de profilage, d'intention, de rerank et les embeddings sont mémorisés par empreinte
+   (modèle + prompt + contenu). Un chunk inchangé ne coûte donc plus rien, même avec `--force` ou après une
+   suppression de la collection ; le rapport affiche les hits / misses dans `cache`. Pour forcer de nouveaux
+   appels (ex. `o2s-profile --force` pour régénérer des profils avec le même prompt), ajoutez `--no-cache`.
+   Supprimer le fichier vide le cache. La génération des réponses de l'agent n'est jamais mise en cache.
+
 ### 2.5 Discuter avec l'assistant
 
 ```powershell

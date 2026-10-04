@@ -15,11 +15,14 @@ def main() -> None:
     p.add_argument("--no-prune", action="store_true", help="ne supprime pas les documents disparus")
     p.add_argument("--dry-run", action="store_true",
                    help="découpe et annote sans LLM ni Qdrant (metadata déterministes du catalogue)")
+    p.add_argument("--no-cache", action="store_true", help="ignore le cache local des appels LLM / embeddings")
     args = p.parse_args()
     logging.basicConfig(level="INFO", format="%(asctime)s %(levelname)s %(message)s")
 
     from o2s_rag.config import get_settings
     s = get_settings()
+    if args.no_cache:
+        s = s.model_copy(update={"llm_cache_enabled": False})
     if args.dry_run:
         from o2s_rag.adapters.outbound.chunking.hierarchical_chunker import HierarchicalMarkdownChunker
         from o2s_rag.adapters.outbound.enrichment.llm_enricher import LLMMetadataEnricher
@@ -44,9 +47,12 @@ def main() -> None:
                       f"theme={e.theme} type={e.content_type}{' shared' if c.shared else ''}")
         return
 
-    from o2s_rag.bootstrap.container import build_indexing_service
+    from o2s_rag.bootstrap.container import build_indexing_service, response_cache
     report = asyncio.run(build_indexing_service(s).index(force=args.force, prune=not args.no_prune))
-    print(json.dumps(report.model_dump(), indent=2, ensure_ascii=False))
+    out = report.model_dump()
+    if cache := response_cache(s):
+        out["cache"] = cache.report()
+    print(json.dumps(out, indent=2, ensure_ascii=False))
 
 
 if __name__ == "__main__":

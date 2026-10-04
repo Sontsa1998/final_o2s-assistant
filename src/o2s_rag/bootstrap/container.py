@@ -6,6 +6,7 @@ from __future__ import annotations
 
 import logging
 from contextlib import asynccontextmanager
+from pathlib import Path
 from typing import AsyncIterator
 
 from o2s_rag.config import Settings, get_settings
@@ -19,18 +20,39 @@ def taxonomy(settings: Settings | None = None) -> Taxonomy:
     return Taxonomy.from_file(s.taxonomy_path)
 
 
+_caches: dict[Path, object] = {}
+
+
+def response_cache(s: Settings):
+    """Cache LLM/embeddings partagé par tous les adapters du processus (None si désactivé)."""
+    if not s.llm_cache_enabled:
+        return None
+    from o2s_rag.adapters.outbound.llm.cache import ResponseCache
+    if s.llm_cache_path not in _caches:
+        _caches[s.llm_cache_path] = ResponseCache(s.llm_cache_path)
+    return _caches[s.llm_cache_path]
+
+
 def build_llm(s: Settings):
     from o2s_rag.adapters.outbound.llm.litellm_adapter import LiteLLMClient
     from o2s_rag.adapters.outbound.llm.pricing import PricingTable
-    return LiteLLMClient(s.litellm_base_url, s.litellm_api_key, PricingTable.from_file(s.pricing_path),
-                         timeout=s.llm_timeout_s)
+    llm = LiteLLMClient(s.litellm_base_url, s.litellm_api_key, PricingTable.from_file(s.pricing_path),
+                        timeout=s.llm_timeout_s)
+    if cache := response_cache(s):
+        from o2s_rag.adapters.outbound.llm.cache import CachedLLM
+        llm = CachedLLM(llm, cache)
+    return llm
 
 
 def build_embedder(s: Settings):
     from o2s_rag.adapters.outbound.llm.litellm_adapter import LiteLLMEmbeddings
     from o2s_rag.adapters.outbound.llm.pricing import PricingTable
-    return LiteLLMEmbeddings(s.litellm_base_url, s.litellm_api_key, s.model_embedding,
-                             PricingTable.from_file(s.pricing_path), timeout=s.llm_timeout_s)
+    emb = LiteLLMEmbeddings(s.litellm_base_url, s.litellm_api_key, s.model_embedding,
+                            PricingTable.from_file(s.pricing_path), timeout=s.llm_timeout_s)
+    if cache := response_cache(s):
+        from o2s_rag.adapters.outbound.llm.cache import CachedEmbeddings
+        emb = CachedEmbeddings(emb, cache, s.model_embedding)
+    return emb
 
 
 def build_sparse(s: Settings):

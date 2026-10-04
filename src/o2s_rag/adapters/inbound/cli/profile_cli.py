@@ -23,6 +23,7 @@ def main() -> None:
     p.add_argument("--model", help="modèle de profilage (défaut : MODEL_PROFILING)")
     p.add_argument("--llm-partner-sheets", action="store_true",
                    help="profile aussi les 149 fiches d'agrégation par LLM (inutile : profil déterministe)")
+    p.add_argument("--no-cache", action="store_true", help="ignore le cache local des appels LLM")
     p.add_argument("--dry-run", action="store_true", help="affiche le nombre de documents à profiler et l'estimation")
     args = p.parse_args()
     logging.basicConfig(level="INFO", format="%(asctime)s %(levelname)s %(message)s")
@@ -32,10 +33,12 @@ def main() -> None:
     from o2s_rag.adapters.outbound.loaders.catalog import DocumentCatalog
     from o2s_rag.adapters.outbound.loaders.markdown_loader import MarkdownFolderLoader
     from o2s_rag.application.profiling_service import ProfileStore, ProfilingService
-    from o2s_rag.bootstrap.container import build_llm, taxonomy
+    from o2s_rag.bootstrap.container import build_llm, response_cache, taxonomy
     from o2s_rag.config import get_settings
 
     s = get_settings()
+    if args.no_cache:
+        s = s.model_copy(update={"llm_cache_enabled": False})
     tax = taxonomy(s)
     # Indications calculées sans les profils existants (sinon un ancien profil s'auto-confirmerait)
     catalog = DocumentCatalog.from_file(s.catalog_path, with_profiles=False)
@@ -57,6 +60,8 @@ def main() -> None:
                                concurrency=s.profiling_concurrency)
     report = asyncio.run(service.run(docs, use_llm=not args.heuristic, force=args.force,
                                      llm_for_partner_sheets=args.llm_partner_sheets))
+    if cache := response_cache(s):
+        report["cache"] = cache.report()
     print(json.dumps(report, indent=2, ensure_ascii=False))
 
 
