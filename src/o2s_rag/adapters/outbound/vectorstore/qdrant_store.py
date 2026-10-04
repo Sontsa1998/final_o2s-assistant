@@ -30,10 +30,12 @@ _INT_INDEXES = ["depth", "global_position", "page_start"]
 class QdrantVectorStore:
     """Implémente VectorStorePort."""
 
-    def __init__(self, url: str, collection: str, dim: int, api_key: str | None = None, sparse: bool = True):
+    def __init__(self, url: str, collection: str, dim: int, api_key: str | None = None, sparse: bool = True,
+                 verify: bool = True):
         # ":memory:" = Qdrant embarqué (tests), sinon serveur Qdrant
         self.client = (AsyncQdrantClient(location=":memory:") if url == ":memory:"
-                       else AsyncQdrantClient(url=url, api_key=api_key, timeout=60))
+                       else AsyncQdrantClient(url=url, api_key=api_key, timeout=60,
+                                              **({} if verify else {"verify": False})))
         self.collection = collection
         self.dim = dim
         self.sparse = sparse

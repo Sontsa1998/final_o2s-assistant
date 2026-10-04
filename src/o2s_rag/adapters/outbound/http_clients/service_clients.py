@@ -12,8 +12,8 @@ from o2s_rag.domain.models import RerankRequest, RetrievedChunk, SearchRequest, 
 class HttpSearchClient:
     """Implémente SearchPort."""
 
-    def __init__(self, base_url: str, timeout: float = 60.0):
-        self._client = httpx.AsyncClient(base_url=base_url, timeout=timeout)
+    def __init__(self, base_url: str, timeout: float = 60.0, verify: bool = True):
+        self._client = httpx.AsyncClient(base_url=base_url, timeout=timeout, verify=verify)
 
     async def search(self, request: SearchRequest) -> tuple[list[RetrievedChunk], list[Usage]]:
         r = await self._client.post("/search", json=request.model_dump())
@@ -26,8 +26,8 @@ class HttpSearchClient:
 class HttpRerankClient:
     """Implémente RerankPort."""
 
-    def __init__(self, base_url: str, timeout: float = 120.0):
-        self._client = httpx.AsyncClient(base_url=base_url, timeout=timeout)
+    def __init__(self, base_url: str, timeout: float = 120.0, verify: bool = True):
+        self._client = httpx.AsyncClient(base_url=base_url, timeout=timeout, verify=verify)
 
     async def rerank(self, request: RerankRequest) -> tuple[list[RetrievedChunk], list[Usage]]:
         r = await self._client.post("/rerank", json=request.model_dump())

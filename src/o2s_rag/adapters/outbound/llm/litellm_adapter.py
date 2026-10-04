@@ -13,7 +13,7 @@ import time
 from collections.abc import AsyncIterator, Sequence
 from typing import Any, TypeVar
 
-from openai import AsyncOpenAI, BadRequestError
+from openai import AsyncOpenAI, BadRequestError, DefaultAsyncHttpxClient
 from pydantic import BaseModel, ValidationError
 
 from o2s_rag.adapters.outbound.llm.pricing import PricingTable
@@ -31,6 +31,11 @@ def extract_json(text: str) -> str:
         text = re.sub(r"^```(?:json)?\s*|\s*```$", "", text)
     m = _JSON_RE.search(text)
     return m.group(0) if m else text
+
+
+def _http_client(verify: bool) -> DefaultAsyncHttpxClient | None:
+    # None = client par défaut du SDK ; verify=False : voir SSL_VERIFY dans config.py
+    return None if verify else DefaultAsyncHttpxClient(verify=False)
 
 
 def _supports_temperature(model: str) -> bool:
@@ -53,8 +58,10 @@ def _initial_rf_mode(model: str) -> str:
 class LiteLLMClient:
     """Implémente LLMPort."""
 
-    def __init__(self, base_url: str, api_key: str, pricing: PricingTable, timeout: float = 120.0):
-        self._client = AsyncOpenAI(base_url=base_url, api_key=api_key, timeout=timeout, max_retries=2)
+    def __init__(self, base_url: str, api_key: str, pricing: PricingTable, timeout: float = 120.0,
+                 verify: bool = True):
+        self._client = AsyncOpenAI(base_url=base_url, api_key=api_key, timeout=timeout, max_retries=2,
+                                   http_client=_http_client(verify))
         self._pricing = pricing
         self._rf_mode: dict[str, str] = {}   # mode de sortie structurée retenu par modèle
 
@@ -178,8 +185,9 @@ class LiteLLMEmbeddings:
     """Implémente EmbeddingPort (text-embedding-3-large via LiteLLM)."""
 
     def __init__(self, base_url: str, api_key: str, model: str, pricing: PricingTable,
-                 batch_size: int = 64, timeout: float = 120.0):
-        self._client = AsyncOpenAI(base_url=base_url, api_key=api_key, timeout=timeout, max_retries=3)
+                 batch_size: int = 64, timeout: float = 120.0, verify: bool = True):
+        self._client = AsyncOpenAI(base_url=base_url, api_key=api_key, timeout=timeout, max_retries=3,
+                                   http_client=_http_client(verify))
         self._model = model
         self._pricing = pricing
         self._batch = batch_size

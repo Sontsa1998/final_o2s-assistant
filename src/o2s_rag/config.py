@@ -84,6 +84,13 @@ class Settings(BaseSettings):
     enable_mcp: bool = False
     max_tool_iterations: int = 4
 
+    # --- Réseau ---
+    # false : désactive la vérification des certificats TLS (proxy d'entreprise qui réécrit les
+    # certificats, erreur « self-signed certificate in certificate chain »). Concerne LiteLLM, Qdrant,
+    # les microservices et le téléchargement des modèles Hugging Face (BM25, cross-encoder).
+    # Les échanges ne sont alors plus protégés contre l'interception : à réserver au poste de dev.
+    ssl_verify: bool = True
+
     # --- Cache local des appels LLM / embeddings (indexation, profilage, intention, rerank) ---
     llm_cache_enabled: bool = True
     llm_cache_path: Path = PROJECT_ROOT / "data" / "cache" / "llm_cache.sqlite"
