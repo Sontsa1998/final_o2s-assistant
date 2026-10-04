@@ -27,3 +27,39 @@ def test_percentiles_and_keywords():
     p = M.percentiles([1, 2, 3, 4, 100])
     assert p["p50"] == 3 and p["max"] == 100
     assert M.keyword_coverage("Utilisez le champ access_token", ["access_token", "expires_in"]) == 0.5
+
+
+def test_reference_overlap_and_key_terms():
+    ref = "Allez dans **Services > Modules** puis cochez **Palmarès**. Variable $RISQUE_ALLOCATION$.\n\n**Source** : x"
+    assert M.key_terms(ref) == ["Services > Modules", "Palmarès", "$RISQUE_ALLOCATION$"]
+    assert M.token_f1(ref, ref) == 1 and M.rouge_l(ref, ref) == 1
+    assert M.token_f1("Allez dans Services puis cochez Palmarès", ref) > M.token_f1("Ouvrez Agenda", ref)
+    assert M.rouge_l("rien", ref) == 0
+
+
+def test_links():
+    assert M.split_links("https://a.fr/x/;https://a.fr/y/") == ["https://a.fr/x/", "https://a.fr/y/"]
+    assert M.normalize_url("http://A.fr/x/#ancre") == "https://a.fr/x"
+    final = {"answer": "Voir https://o2s-help.harvest.fr/palmares/.", "citations": ["S1"],
+             "sources": [{"sid": "S1", "source_url": "https://o2s-help.harvest.fr/palmares"},
+                         {"sid": "S2", "source_url": "https://o2s-help.harvest.fr/autre/"}]}
+    m = M.link_metrics(final, ["https://o2s-help.harvest.fr/palmares/"])
+    assert m == {"link_in_sources": 1.0, "link_cited": 1.0, "link_in_answer": 1.0}
+    assert M.matches_target({"source_url": "https://o2s-help.harvest.fr/flux-rss"},
+                            {"url": "https://o2s-help.harvest.fr/flux-rss/"})
+
+
+def test_business_csv_keeps_reference_verbatim(tmp_path):
+    import csv
+
+    from evaluation.run_eval import load_business_csv
+    ref = "Étapes :\n\n1. **Services**\n\n**Source** : *Palmarès* ([Lien](https://o2s-help.harvest.fr/palmares/))"
+    p = tmp_path / "q.csv"
+    with p.open("w", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        w.writerow(["produit", "requete", "reponse_ideale", "liens_possibles", "thematique"])
+        w.writerow(["O2S", "Où est le palmarès ?", ref, "https://o2s-help.harvest.fr/palmares/", "O2S"])
+    [item] = load_business_csv(p)
+    assert item["reference_answer"] == ref and item["question"] == "Où est le palmarès ?"
+    assert item["expected_links"] == ["https://o2s-help.harvest.fr/palmares/"] and item["reference_links"] == []
+    assert item["expected_keywords"] == ["Services"]

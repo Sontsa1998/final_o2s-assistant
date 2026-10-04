@@ -356,40 +356,52 @@ Dans Docker, l'agent passe en `SERVICES_MODE=http`. Si LiteLLM tourne sur la mac
 
 ## 3. Évaluation
 
+### Jeu de test métier (par défaut)
+
+`evaluation/datasets/questions_tests.csv` : 125 questions O2S avec leur **réponse idéale validée par le
+métier** (colonnes `produit`, `requete`, `reponse_ideale`, `liens_possibles`, `thematique`). Les réponses sont
+utilisées telles quelles comme vérité terrain et ne doivent jamais être modifiées. Les liens possibles
+(plusieurs séparés par `;`) sont rattachés aux documents du corpus par leur URL source.
+
 ```powershell
-# 1. (optionnel) jeu « silver » généré depuis l'index, à relire
-python -m evaluation.generate_dataset --n 60
-
-# 2. évaluation
-python -m evaluation.run_eval --dataset evaluation/datasets/silver.jsonl --tag baseline
-python -m evaluation.run_eval --limit 10 --no-judge            # rapide, sans juge
+python -m evaluation.run_eval --tag baseline                 # 125 questions, juge LLM, coûts et latences réels
+python -m evaluation.run_eval --limit 10 --no-judge          # rapide, sans juge
+python -m evaluation.run_eval --concurrency 1                # latences sans contention (mesure « 1 utilisateur »)
 ```
 
-Format d'une question (`evaluation/datasets/questions.jsonl`, modèle à compléter avec de vraies questions) :
+Le cache LLM est désactivé pendant l'évaluation, pour mesurer les coûts et latences réels (`--use-cache`
+pour le réactiver lors d'itérations rapides).
 
-```json
-{"id": "q001", "question": "...", "answerable": true, "expected_intent": "authentification",
- "relevant": [{"doc_id": "authentification", "section": "jeton"}],
- "expected_keywords": ["access_token"], "reference_answer": "..."}
+### Ancien jeu technique (API)
+
+```powershell
+python -m evaluation.generate_dataset --n 60                 # jeu « silver » généré depuis l'index, à relire
+python -m evaluation.run_eval --dataset evaluation/datasets/questions.jsonl
 ```
 
-La vérité terrain est exprimée en `doc_id` + morceau de titre de section, et non en IDs de chunks : elle reste
-valable si vous changez la taille des chunks.
+Format JSONL : `{"id", "question", "answerable", "expected_intent", "relevant": [{"doc_id", "section"}],
+"expected_keywords", "reference_answer"}`. La vérité terrain est exprimée en `doc_id` + morceau de titre de
+section, et non en IDs de chunks : elle reste valable si vous changez la taille des chunks.
+
+### Métriques
 
 | Famille | Métriques |
 |---|---|
-| Retrieval (recherche brute, union des tentatives, après rerank) | recall@1/3/5/10/20, precision@k, hit@k, nDCG@k, MRR |
+| Exactitude métier (juge LLM `gpt-5.1`, différent du générateur) | % de réponses correctes / acceptables (correct + partiel) / incorrectes / refus, complétude (part des faits de la référence présents), taux de contradiction, exactitude /5 |
+| Proximité avec la réponse métier | similarité sémantique (embeddings), F1 lexical, ROUGE-L, couverture des éléments clés (termes en gras, `code`, `$VARIABLES$`) |
+| Liens de l'aide en ligne | page attendue dans les sources fournies, citée, écrite dans la réponse ; couverture du corpus (pages attendues non indexées) |
+| Retrieval (recherche brute, union des tentatives, après rerank) | hit@k, MRR, nDCG@k, recall@1/3/5/10/20, precision@k |
 | Reranking | gain Δ nDCG@5, Δ MRR, Δ precision@3 |
-| Compréhension | accuracy de l'intention |
-| Génération | couverture des mots-clés, taux de citation, précision des citations, taux de réponses en français |
-| Juge LLM (`gpt-5.1`, différent du générateur) | fidélité au contexte, fidélité des citations, pertinence /5, exactitude /5 |
-| Refus | accuracy, précision, rappel, taux de faux refus, hallucination sur questions hors périmètre |
+| Fiabilité | fidélité au contexte, fidélité des citations, pertinence /5, taux de citation, précision des citations, réponses en français, faux refus |
 | Agentique | tentatives moyennes, taux de réécriture, distribution des statuts et routes, chemins fréquents |
-| Opérationnel | latence bout en bout (moyenne, p50, p90, p95, p99), TTFT, latence par nœud |
-| Coûts | total, par question (moyenne, p95), projection pour 1 000 questions, par modèle, par opération, coût du juge |
+| Latence | bout en bout et TTFT (moyenne, p50, p90, p95, p99), latence par nœud (moyenne, p95), débit (questions/min) |
+| Coûts | total, par question (moyenne, p95), par réponse correcte, projection pour 1 000 questions, par modèle, par opération, tokens par question, coût de l'évaluation (juge + similarité) séparé |
+| Ventilation | toutes les métriques clés par thématique et par produit |
 
-Les sorties vont dans `evaluation/results/<date>-<tag>/` : `per_question.jsonl`, `summary.json` et
-`report.md`, qui liste aussi les 5 questions au plus faible recall à investiguer.
+Les sorties vont dans `evaluation/results/<date>-<tag>/` : `report.md` (synthèse, réponses incorrectes à
+relire), `per_question.csv` (une ligne par question avec la réponse idéale, la réponse de l'agent, le
+verdict, les faits manquants, la latence et le coût — s'ouvre dans Excel), `per_question.jsonl` et
+`summary.json`.
 
 **Coûts** : l'adapter lit le coût réel dans l'en-tête `x-litellm-response-cost` du proxy. À défaut (streaming),
 il l'estime avec `config/pricing.yaml`. Vérifiez ces prix avec votre grille.
