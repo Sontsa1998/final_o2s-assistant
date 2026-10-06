@@ -33,11 +33,20 @@ streaming arrive au fil de l'eau.
 
 ## Charte graphique
 
-Toutes les couleurs, polices, rayons et ombres sont définis dans
-[`src/styles/_harvest-theme.scss`](src/styles/_harvest-theme.scss) (variables CSS `--hv-*`). Les
-valeurs actuelles (bleu marine, accent orange, Montserrat / Open Sans) sont une **approximation à
-valider** avec le guide de marque officiel de Harvest. Il suffit de modifier ce fichier ; le logo
-textuel du bandeau se trouve dans `src/app/app.html`.
+L'interface reprend la charte des applications Harvest (portail Harvest Connect) :
+
+| Jeton | Valeur | Usage |
+|---|---|---|
+| `--hv-primary` | `#012233` | bandeau, boutons principaux, bulles de l'utilisateur, titres, texte |
+| `--hv-accent` | `#33EE87` | pictogramme, badges, liserés, éléments actifs, focus |
+| `--hv-surface-alt` | `#F5F7F9` | fond de page et barres latérales |
+| `--hv-secondary` | `#F1F2F3` | boutons secondaires, suggestions |
+| `--hv-link` | `#0670BA` | liens |
+| police | Poppins | tous les textes |
+
+Tous les jetons sont dans [`src/styles/_harvest-theme.scss`](src/styles/_harvest-theme.scss). Le
+pictogramme `public/harvest-mark.svg` est une approximation du logo : remplacez-le par le fichier
+officiel (même nom) pour l'utiliser partout (bandeau, accueil, avatar, favicon).
 
 ## Organisation
 

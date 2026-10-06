@@ -1,49 +1,54 @@
 /*
  * Charte graphique Harvest — jetons de design.
  *
- * TOUTES les couleurs, polices et rayons de l'application sont définis ici : pour aligner
- * l'interface sur la charte officielle (harvest.fr / guide de marque), il suffit de modifier
- * ce fichier. Les valeurs ci-dessous sont une première approximation (bleu marine institutionnel,
- * accent vif, typographie sans empattement) à valider avec l'équipe marketing de Harvest.
+ * Couleurs relevées sur le portail Harvest Connect : bleu nuit #012233 (panneaux, boutons
+ * principaux, textes), vert #33EE87 (accents, badges, éléments actifs), fond gris clair #F5F7F9,
+ * boutons secondaires #F1F2F3, liens #0670BA. Police : Poppins.
+ * Toutes les couleurs, polices et rayons de l'application sont définis ici.
  */
 :root {
   /* Couleurs de marque */
-  --hv-primary: #0b2a4a; /* bleu marine Harvest : bandeau, bulles utilisateur, titres */
-  --hv-primary-soft: #e8eef6;
-  --hv-primary-border: #b9c8db;
+  --hv-primary: #012233; /* bleu nuit : bandeau, boutons principaux, bulles utilisateur, titres */
+  --hv-primary-hover: #0a3347;
+  --hv-primary-soft: #e6edf0;
+  --hv-primary-border: #b3c3cb;
   --hv-on-primary: #ffffff;
-  --hv-accent: #f05a28; /* accent : bouton d'envoi, liseré, éléments actifs */
-  --hv-accent-soft: #fde4da;
-  --hv-on-accent: #ffffff;
+  --hv-accent: #33ee87; /* vert Harvest : logo, badges, liserés, éléments actifs */
+  --hv-accent-strong: #07ba7c; /* vert lisible sur fond blanc (texte, icônes) */
+  --hv-accent-soft: #d9fbe8;
+  --hv-on-accent: #012233;
+  --hv-link: #0670ba;
 
   /* Neutres */
   --hv-surface: #ffffff;
-  --hv-surface-alt: #f5f7fa;
-  --hv-hover: #eaeef3;
-  --hv-border: #e1e6ed;
-  --hv-border-strong: #c9d2dd;
-  --hv-text: #1c2533;
-  --hv-text-muted: #5f6b7a;
+  --hv-surface-alt: #f5f7f9; /* fond de page */
+  --hv-secondary: #f1f2f3; /* boutons secondaires (« Besoin d'aide ? ») */
+  --hv-hover: #e9ecef;
+  --hv-border: #dfdfe2;
+  --hv-border-strong: #ced4da; /* champs de saisie */
+  --hv-text: #012233;
+  --hv-text-muted: #5b5c67;
 
   /* États */
-  --hv-success: #1e7f5c;
-  --hv-success-soft: #e2f3ec;
+  --hv-success: #067a52;
+  --hv-success-soft: #d9fbe8;
   --hv-warning: #9a5b00;
   --hv-warning-soft: #fff1d6;
   --hv-danger: #c0392b;
   --hv-danger-soft: #fbe5e2;
 
   /* Typographie */
-  --hv-font-title: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
-  --hv-font-body: 'Open Sans', 'Segoe UI', system-ui, sans-serif;
+  --hv-font-title: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  --hv-font-body: 'Poppins', 'Segoe UI', system-ui, sans-serif;
   --hv-font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
 
   /* Formes et mise en page */
-  --hv-radius: 8px;
-  --hv-shadow-sm: 0 1px 2px rgb(11 42 74 / 0.06);
-  --hv-shadow-lg: 0 10px 30px rgb(11 42 74 / 0.18);
-  --hv-focus-ring: 0 0 0 3px rgb(11 42 74 / 0.15);
-  --hv-topbar-height: 60px;
+  --hv-radius: 6px;
+  --hv-radius-lg: 12px; /* cartes */
+  --hv-shadow-sm: 0 1px 2px rgb(1 34 51 / 0.06);
+  --hv-shadow-lg: 0 10px 30px rgb(1 34 51 / 0.18);
+  --hv-focus-ring: 0 0 0 3px rgb(51 238 135 / 0.45);
+  --hv-topbar-height: 64px;
   --hv-sidebar-width: 290px;
   --hv-toc-width: 290px;
 }

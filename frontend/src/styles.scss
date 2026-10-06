@@ -16,7 +16,7 @@ body {
   background: var(--hv-surface);
   color: var(--hv-text);
   font-family: var(--hv-font-body);
-  font-size: 15px;
+  font-size: 14px;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
@@ -59,11 +59,11 @@ svg {
 }
 
 .btn-primary {
-  background: var(--hv-accent);
-  color: var(--hv-on-accent);
+  background: var(--hv-primary);
+  color: var(--hv-on-primary);
 
   &:hover {
-    filter: brightness(0.95);
+    background: var(--hv-primary-hover);
   }
 }
 
@@ -73,9 +73,12 @@ svg {
 }
 
 .btn-ghost {
-  background: transparent;
-  border-color: var(--hv-border-strong);
+  background: var(--hv-secondary);
   color: var(--hv-text);
+
+  &:hover {
+    background: var(--hv-hover);
+  }
 }
 
 .btn-xs {
@@ -119,10 +122,10 @@ svg {
 }
 
 .chip {
-  padding: 8px 12px;
-  border: 1px solid var(--hv-border-strong);
-  border-radius: 999px;
-  background: var(--hv-surface);
+  padding: 8px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--hv-radius);
+  background: var(--hv-secondary);
   font: inherit;
   font-size: 0.85rem;
   color: var(--hv-primary);
@@ -169,6 +172,7 @@ svg {
   h4 {
     margin: 1.2em 0 0.5em;
     font-family: var(--hv-font-title);
+    font-weight: 600;
     line-height: 1.3;
     color: var(--hv-primary);
     scroll-margin-top: 16px;
@@ -205,7 +209,7 @@ svg {
   }
 
   a {
-    color: var(--hv-primary);
+    color: var(--hv-link);
   }
 
   code {
@@ -270,5 +274,9 @@ svg {
   a.cite:hover {
     background: var(--hv-accent);
     color: var(--hv-on-accent);
+  }
+
+  strong {
+    font-weight: 600;
   }
 }

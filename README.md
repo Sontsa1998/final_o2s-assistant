@@ -385,7 +385,8 @@ Dans Docker, l'agent passe en `SERVICES_MODE=http`. Si LiteLLM tourne sur la mac
 
 ### 2.8 Interface web (Angular)
 
-Le dossier `frontend/` contient l'interface de l'assistant (Angular 22, charte Harvest) :
+Le dossier `frontend/` contient l'interface de l'assistant (Angular 22, charte Harvest : bleu nuit
+`#012233`, vert `#33EE87`, police Poppins) :
 
 - **discussion en streaming** : la réponse s'écrit token par token, comme dans `o2s-chat` ;
 - **raisonnement en direct** : chaque étape du graphe (intention, recherche, rerank, évaluation du
