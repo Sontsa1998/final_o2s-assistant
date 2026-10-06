@@ -45,14 +45,14 @@ class AgentConfig:
     model_reasoning: str
     model_fast: str
     search_top_k: int = 20
-    rerank_top_n: int = 8
-    rerank_min_score: float = 0.25
+    rerank_top_n: int = 6
+    rerank_min_score: float = 0.35
     rerank_keep_top_docs: int = 2
     max_retrieval_attempts: int = 2
     history_window: int = 10
     summarize_after_messages: int = 20
     context_strategy: str = "parent_if_small"
-    parent_inline_max_tokens: int = 2000
+    parent_inline_max_tokens: int = 1200
     max_tool_iterations: int = 4
 
 

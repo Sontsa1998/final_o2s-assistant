@@ -7,16 +7,29 @@ from typing import Any
 CITATION_RE = re.compile(r"\[S(\d+)\]")
 
 
+def _squash(text: str) -> str:
+    return " ".join(text.split())
+
+
+def chunk_within_parent(chunk_text: str, parent_text: str, probe: int = 150) -> bool:
+    """Le texte du chunk figure-t-il dans celui de la section ? Les sections trop longues sont tronquées
+    à l'indexation (« […] ») : le passage utile peut alors manquer dans la section."""
+    c, p = _squash(chunk_text), _squash(parent_text)
+    return not c or (c[:probe] in p and c[-probe:] in p)
+
+
 def build_sources(context: list[dict[str, Any]], strategy: str, parent_inline_max: int) -> list[dict[str, Any]]:
     """Choisit, pour chaque chunk retenu, le texte à montrer : le chunk, ou sa section parente
-    si elle est courte (small-to-big). Les chunks partageant un parent sont fusionnés."""
+    si elle est courte et contient bien le chunk (small-to-big). Les chunks d'une même section
+    sont fusionnés."""
     sources: list[dict[str, Any]] = []
     seen_parents: dict[str, dict[str, Any]] = {}
     for c in context:
         md = c.get("metadata", {})
         parent_id = md.get("parent_id")
-        use_parent = (strategy == "parent_if_small" and c.get("parent_text")
-                      and 0 < (md.get("parent_token_count") or 0) <= parent_inline_max)
+        use_parent = bool(strategy == "parent_if_small" and c.get("parent_text")
+                          and 0 < (md.get("parent_token_count") or 0) <= parent_inline_max
+                          and chunk_within_parent(c.get("text", ""), c["parent_text"]))
         if use_parent and parent_id in seen_parents:
             seen_parents[parent_id]["chunk_ids"].append(c["id"])
             continue

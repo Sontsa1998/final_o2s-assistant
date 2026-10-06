@@ -56,7 +56,8 @@ class FakeSearch:
         md = {"doc_id": "auth", "breadcrumb": "Auth > Obtenir un jeton", "parent_id": "p1",
               "parent_token_count": 50}
         return [RetrievedChunk(id="c1", score=0.9, text="Le jeton s'obtient via POST /oauth/token",
-                               metadata=md, parent_text="## Obtenir un jeton\nLe jeton s'obtient...")], [U]
+                               metadata=md,
+                               parent_text="## Obtenir un jeton\nLe jeton s'obtient via POST /oauth/token")], [U]
 
 
 class FakeRerank:
