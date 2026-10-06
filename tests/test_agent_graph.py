@@ -112,3 +112,13 @@ async def test_memory_and_conversation_route():
     # le cheminement du 2e tour est réinitialisé (pas de cumul avec le 1er)
     assert [t["node"] for t in history["turns"][1]["trace"]][0] == "intake"
     assert "retrieve" not in [t["node"] for t in history["turns"][1]["trace"]]
+
+
+@pytest.mark.asyncio
+async def test_delete_thread_clears_memory():
+    svc = _svc()
+    await svc.ask("Comment obtenir un jeton ?", "t5")
+    await svc.delete_thread("t5")
+    history = await svc.thread_history("t5")
+    assert history["messages"] == [] and history["turns"] == []
+    await svc.delete_thread("inconnu")          # sans effet, pas d'erreur

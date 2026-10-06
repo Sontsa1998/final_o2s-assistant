@@ -91,6 +91,9 @@ class Settings(BaseSettings):
     # les microservices et le téléchargement des modèles Hugging Face (BM25, cross-encoder).
     # Les échanges ne sont alors plus protégés contre l'interception : à réserver au poste de dev.
     ssl_verify: bool = True
+    # Origines autorisées à appeler l'API agent depuis un navigateur (frontend Angular), séparées
+    # par des virgules. Vide : pas d'en-têtes CORS (cas du proxy de dev Angular ou de nginx).
+    cors_origins: str = "http://localhost:4200"
 
     # --- Cache local des appels LLM / embeddings (indexation, profilage, intention, rerank) ---
     llm_cache_enabled: bool = True

@@ -173,6 +173,7 @@ class AgentNodes:
         return {"analysis": analysis.model_dump(), "route": analysis.route, "queries": queries,
                 "tried_queries": queries, "usage": _u(usages),
                 "_details": {"intent": analysis.intent, "theme": analysis.theme, "route": analysis.route,
+                             "corpus": analysis.corpus, "reasoning": analysis.reasoning,
                              "standalone_question": q, "sub_queries": queries[1:]}}
 
     # 2a ------------------------------------------------------- recherche

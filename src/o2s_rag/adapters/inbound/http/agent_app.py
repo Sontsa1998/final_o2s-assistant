@@ -3,6 +3,7 @@
 POST /chat                       réponse complète (JSON)
 POST /chat/stream                Server-Sent Events : node_start / node_end / token / final
 GET  /threads/{id}               historique du thread : messages, résumé, tours + cheminement
+DELETE /threads/{id}             supprime la mémoire du thread
 GET  /threads/{id}/checkpoints   checkpoints LangGraph bruts (débogage)
 """
 from __future__ import annotations
@@ -11,7 +12,8 @@ import json
 import logging
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
@@ -30,6 +32,9 @@ async def lifespan(_app: FastAPI):
 
 
 app = FastAPI(title="Assistant O2S V4 — Agentic RAG", version="4.0.0", lifespan=lifespan)
+if _origins := [o.strip() for o in get_settings().cors_origins.split(",") if o.strip()]:
+    app.add_middleware(CORSMiddleware, allow_origins=_origins, allow_methods=["GET", "POST", "DELETE"],
+                       allow_headers=["*"])
 
 
 class ChatBody(BaseModel):
@@ -65,6 +70,12 @@ async def chat_stream(body: ChatBody):
 @app.get("/threads/{thread_id}")
 async def thread(thread_id: str):
     return await _state["svc"].thread_history(thread_id)
+
+
+@app.delete("/threads/{thread_id}", status_code=204)
+async def delete_thread(thread_id: str):
+    await _state["svc"].delete_thread(thread_id)
+    return Response(status_code=204)
 
 
 @app.get("/threads/{thread_id}/checkpoints")

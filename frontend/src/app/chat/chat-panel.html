@@ -1,0 +1,68 @@
+<div class="scroller" #scroller (scroll)="onScroll()">
+  <div class="thread">
+    @for (m of messages(); track m.id) {
+      @if (m.role === 'user') {
+        <div class="user-row toc-anchor" [id]="m.id">
+          <div class="user-bubble">{{ m.content }}</div>
+        </div>
+      } @else {
+        <app-assistant-message [message]="m" (ask)="send($event)" />
+      }
+    } @empty {
+      <div class="welcome">
+        <div class="welcome-mark" aria-hidden="true">O2S</div>
+        <h1>Bonjour, comment puis-je vous aider ?</h1>
+        <p>
+          Posez votre question sur O2S ou sur son API. L’assistant cherche dans l’aide en ligne et
+          la documentation, vous montre son raisonnement et cite ses sources.
+        </p>
+        <div class="welcome-suggestions">
+          @for (s of suggestions; track s) {
+            <button type="button" class="chip" (click)="send(s)">{{ s }}</button>
+          }
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+<form class="composer" (submit)="$event.preventDefault(); send()">
+  <div class="composer-box">
+    <textarea
+      #input
+      rows="1"
+      placeholder="Posez votre question sur O2S…"
+      aria-label="Votre question"
+      [value]="draft()"
+      (input)="draft.set(input.value); autosize(input)"
+      (keydown)="onKeydown($event)"
+    ></textarea>
+    @if (store.busy()) {
+      <button
+        type="button"
+        class="send stop"
+        (click)="store.stop()"
+        title="Arrêter la réponse"
+        aria-label="Arrêter la réponse"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="7" y="7" width="10" height="10" rx="1.5" />
+        </svg>
+      </button>
+    } @else {
+      <button
+        type="submit"
+        class="send"
+        [disabled]="!draft().trim()"
+        title="Envoyer"
+        aria-label="Envoyer"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+      </button>
+    }
+  </div>
+  <p class="hint">
+    Entrée pour envoyer · Maj + Entrée pour aller à la ligne · Les réponses citent leurs sources
+    [S1]
+  </p>
+</form>

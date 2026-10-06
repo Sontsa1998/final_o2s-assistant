@@ -1,0 +1,171 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+  background: var(--hv-surface-alt);
+  border-right: 1px solid var(--hv-border);
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-bottom: 1px solid var(--hv-border);
+}
+
+.new {
+  width: 100%;
+  justify-content: center;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 12px;
+  height: 40px;
+  border: 1px solid var(--hv-border);
+  border-radius: var(--hv-radius);
+  background: var(--hv-surface);
+  color: var(--hv-text-muted);
+
+  &:focus-within {
+    border-color: var(--hv-primary);
+    box-shadow: var(--hv-focus-ring);
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex: none;
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    font: inherit;
+    color: var(--hv-text);
+  }
+}
+
+.list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 8px 24px;
+}
+
+.group-label {
+  margin: 16px 8px 6px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--hv-text-muted);
+}
+
+.item,
+.hit {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 10px;
+  border: 0;
+  border-radius: var(--hv-radius);
+  background: transparent;
+  text-align: left;
+  font: inherit;
+  color: var(--hv-text);
+  cursor: pointer;
+
+  &:hover {
+    background: var(--hv-hover);
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: var(--hv-focus-ring);
+  }
+}
+
+.item.active {
+  background: var(--hv-primary-soft);
+  box-shadow: inset 3px 0 0 var(--hv-accent);
+}
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.meta {
+  font-size: 0.75rem;
+  color: var(--hv-text-muted);
+}
+
+.delete {
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.item:hover .delete,
+.item:focus-within .delete,
+.item.active .delete {
+  opacity: 1;
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--hv-danger);
+}
+
+.confirm-actions {
+  display: flex;
+  gap: 6px;
+}
+
+.hit {
+  flex-direction: column;
+  align-items: stretch;
+  gap: 4px;
+}
+
+.snippet {
+  font-size: 0.8rem;
+  color: var(--hv-text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+
+  mark {
+    background: var(--hv-accent-soft);
+    color: var(--hv-text);
+    border-radius: 2px;
+  }
+}
+
+.empty {
+  margin: 24px 8px;
+  font-size: 0.85rem;
+  color: var(--hv-text-muted);
+}

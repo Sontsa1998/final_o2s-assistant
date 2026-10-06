@@ -1,4 +1,4 @@
-# Stack complète : Qdrant + 3 services RAG (indexer, search, reranker) + agent.
+# Stack complète : Qdrant + 3 services RAG (indexer, search, reranker) + agent + frontend.
 # Le proxy LiteLLM est EXTERNE (déjà en place) : renseignez LITELLM_BASE_URL dans .env
 # (depuis un conteneur, un proxy local s'atteint via http://host.docker.internal:4000).
 services:
@@ -41,6 +41,11 @@ services:
     ports: ["8000:8000"]
     depends_on: [search, reranker]
     extra_hosts: ["host.docker.internal:host-gateway"]
+
+  frontend:
+    build: { context: ./frontend }
+    ports: ["4200:80"]          # interface : http://localhost:4200
+    depends_on: [agent]
 
 volumes:
   qdrant_data:

@@ -1,0 +1,49 @@
+/*
+ * Charte graphique Harvest — jetons de design.
+ *
+ * TOUTES les couleurs, polices et rayons de l'application sont définis ici : pour aligner
+ * l'interface sur la charte officielle (harvest.fr / guide de marque), il suffit de modifier
+ * ce fichier. Les valeurs ci-dessous sont une première approximation (bleu marine institutionnel,
+ * accent vif, typographie sans empattement) à valider avec l'équipe marketing de Harvest.
+ */
+:root {
+  /* Couleurs de marque */
+  --hv-primary: #0b2a4a; /* bleu marine Harvest : bandeau, bulles utilisateur, titres */
+  --hv-primary-soft: #e8eef6;
+  --hv-primary-border: #b9c8db;
+  --hv-on-primary: #ffffff;
+  --hv-accent: #f05a28; /* accent : bouton d'envoi, liseré, éléments actifs */
+  --hv-accent-soft: #fde4da;
+  --hv-on-accent: #ffffff;
+
+  /* Neutres */
+  --hv-surface: #ffffff;
+  --hv-surface-alt: #f5f7fa;
+  --hv-hover: #eaeef3;
+  --hv-border: #e1e6ed;
+  --hv-border-strong: #c9d2dd;
+  --hv-text: #1c2533;
+  --hv-text-muted: #5f6b7a;
+
+  /* États */
+  --hv-success: #1e7f5c;
+  --hv-success-soft: #e2f3ec;
+  --hv-warning: #9a5b00;
+  --hv-warning-soft: #fff1d6;
+  --hv-danger: #c0392b;
+  --hv-danger-soft: #fbe5e2;
+
+  /* Typographie */
+  --hv-font-title: 'Montserrat', 'Segoe UI', system-ui, sans-serif;
+  --hv-font-body: 'Open Sans', 'Segoe UI', system-ui, sans-serif;
+  --hv-font-mono: 'JetBrains Mono', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  /* Formes et mise en page */
+  --hv-radius: 8px;
+  --hv-shadow-sm: 0 1px 2px rgb(11 42 74 / 0.06);
+  --hv-shadow-lg: 0 10px 30px rgb(11 42 74 / 0.18);
+  --hv-focus-ring: 0 0 0 3px rgb(11 42 74 / 0.15);
+  --hv-topbar-height: 60px;
+  --hv-sidebar-width: 290px;
+  --hv-toc-width: 290px;
+}

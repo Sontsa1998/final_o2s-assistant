@@ -1,0 +1,140 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.topbar {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: var(--hv-topbar-height);
+  padding: 0 20px;
+  background: var(--hv-primary);
+  color: var(--hv-on-primary);
+  box-shadow: inset 0 -3px 0 var(--hv-accent);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.logo {
+  font-family: var(--hv-font-title);
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-transform: lowercase;
+
+  &::after {
+    content: '.';
+    color: var(--hv-accent);
+  }
+}
+
+.divider {
+  width: 1px;
+  height: 24px;
+  background: rgb(255 255 255 / 0.3);
+}
+
+.product {
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.drawer-toggle {
+  display: none;
+
+  &.right {
+    margin-left: auto;
+  }
+}
+
+.layout {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  display: grid;
+  grid-template-columns: var(--hv-sidebar-width) minmax(0, 1fr) var(--hv-toc-width);
+}
+
+.main {
+  min-width: 0;
+}
+
+.backdrop {
+  display: none;
+}
+
+/* Sommaire en tiroir sous 1200 px, historique en tiroir sous 860 px. */
+@media (max-width: 1200px) {
+  .layout {
+    grid-template-columns: var(--hv-sidebar-width) minmax(0, 1fr);
+  }
+
+  .drawer-toggle.right {
+    display: inline-grid;
+  }
+
+  .side.right {
+    position: absolute;
+    inset: 0 0 0 auto;
+    z-index: 20;
+    width: min(var(--hv-toc-width), 88vw);
+    transform: translateX(100%);
+    transition: transform 0.2s ease;
+    box-shadow: var(--hv-shadow-lg);
+
+    &.open {
+      transform: none;
+    }
+  }
+
+  .backdrop {
+    display: block;
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    background: rgb(0 0 0 / 0.25);
+  }
+}
+
+@media (max-width: 860px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .drawer-toggle.left {
+    display: inline-grid;
+  }
+
+  .side.left {
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 20;
+    width: min(var(--hv-sidebar-width), 88vw);
+    transform: translateX(-100%);
+    transition: transform 0.2s ease;
+    box-shadow: var(--hv-shadow-lg);
+
+    &.open {
+      transform: none;
+    }
+  }
+
+  .product,
+  .divider {
+    display: none;
+  }
+}
+
+@media (min-width: 1201px) {
+  .backdrop {
+    display: none !important;
+  }
+}

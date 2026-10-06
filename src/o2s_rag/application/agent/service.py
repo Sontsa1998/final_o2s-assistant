@@ -43,6 +43,12 @@ class AgentService:
         return {"thread_id": thread_id, "summary": values.get("summary", ""),
                 "messages": values.get("messages", []), "turns": values.get("turns", [])}
 
+    async def delete_thread(self, thread_id: str) -> None:
+        """Supprime la mémoire du thread (tous ses checkpoints). Sans effet si le thread n'existe pas."""
+        saver = getattr(self.graph, "checkpointer", None)
+        if saver is not None:
+            await saver.adelete_thread(thread_id)
+
     async def checkpoints(self, thread_id: str, limit: int = 100) -> list[dict[str, Any]]:
         """Historique brut des checkpoints LangGraph (chaque étape de chaque tour)."""
         out = []

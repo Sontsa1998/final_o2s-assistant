@@ -357,6 +357,7 @@ uvicorn o2s_rag.adapters.inbound.http.agent_app:app --port 8000
 | `POST /chat` | `{"question": "...", "thread_id": "optionnel"}` → réponse complète |
 | `POST /chat/stream` | même corps, réponse en Server-Sent Events |
 | `GET /threads/{id}` | messages, résumé, tours avec cheminement complet |
+| `DELETE /threads/{id}` | supprime la mémoire du thread (utilisé par le frontend) |
 | `GET /threads/{id}/checkpoints` | checkpoints LangGraph bruts |
 
 ```powershell
@@ -377,9 +378,34 @@ curl -X POST http://localhost:8001/index -H "Content-Type: application/json" -d 
 | search | `services/search/Dockerfile` | 8002 | `search` (Qdrant, fastembed) |
 | reranker | `services/reranker/Dockerfile` | 8003 | `reranker` (LLM ; `reranker-cross-encoder` en option) |
 | agent | `services/agent/Dockerfile` | 8000 | `agent,postgres,mcp` |
+| frontend | `frontend/Dockerfile` | 4200 | Angular compilé, servi par nginx (`/api` → agent) |
 
 Dans Docker, l'agent passe en `SERVICES_MODE=http`. Si LiteLLM tourne sur la machine hôte, utilisez
 `LITELLM_BASE_URL=http://host.docker.internal:4000`.
+
+### 2.8 Interface web (Angular)
+
+Le dossier `frontend/` contient l'interface de l'assistant (Angular 22, charte Harvest) :
+
+- **discussion en streaming** : la réponse s'écrit token par token, comme dans `o2s-chat` ;
+- **raisonnement en direct** : chaque étape du graphe (intention, recherche, rerank, évaluation du
+  contexte, reformulation, rédaction) s'affiche au fil du flux, avec ses détails et sa durée ;
+- **historique à gauche** : conversations sauvegardées dans le navigateur, recherche dans les questions
+  posées (sans tenir compte des accents), suppression (efface aussi la mémoire du thread côté API) ;
+- **sommaire à droite** : titres de la réponse et documents trouvés, regroupés par grands titres, pour
+  naviguer dans le résultat ; les citations `[S1]` mènent à la carte de la source.
+
+```powershell
+uvicorn o2s_rag.adapters.inbound.http.agent_app:app --port 8000   # API agent
+cd frontend
+npm install
+npm start                                                         # http://localhost:4200
+```
+
+Node.js 22.22.3+ ou 24.15+ est requis. En développement, `ng serve` relaie `/api` vers
+`http://localhost:8000` (`frontend/proxy.conf.json`) ; en Docker, c'est nginx. Couleurs et polices de
+la charte sont regroupées dans `frontend/src/styles/_harvest-theme.scss`. Détails :
+[`frontend/README.md`](frontend/README.md).
 
 ---
 
@@ -471,6 +497,7 @@ Les tests n'appellent aucun service externe :
 | `HISTORY_WINDOW` | 10 | Messages récents injectés dans les prompts |
 | `CHECKPOINTER` | sqlite | `sqlite`, `postgres` (prod) ou `memory` |
 | `SERVICES_MODE` | local | `local` (in-process) ou `http` (microservices) |
+| `CORS_ORIGINS` | http://localhost:4200 | Origines autorisées à appeler l'API agent depuis un navigateur |
 
 ## 6. Pistes suivantes
 

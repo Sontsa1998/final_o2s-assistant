@@ -1,0 +1,89 @@
+<div class="head">
+  <button type="button" class="btn btn-primary new" (click)="newConversation()">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+    Nouvelle conversation
+  </button>
+  <label class="search">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <circle cx="11" cy="11" r="7" />
+      <path d="m20 20-3.5-3.5" />
+    </svg>
+    <input
+      type="search"
+      placeholder="Rechercher une question…"
+      aria-label="Rechercher dans l'historique"
+      [value]="query()"
+      (input)="query.set($any($event.target).value)"
+    />
+  </label>
+</div>
+
+<nav class="list" aria-label="Historique des conversations">
+  @if (query().trim().length >= 2) {
+    <p class="group-label">{{ hits().length }} résultat{{ hits().length > 1 ? 's' : '' }}</p>
+    @for (h of hits(); track h.conversation.id) {
+      <button type="button" class="hit" (click)="open(h.conversation, h.messageId)">
+        <span class="title">{{ h.conversation.title }}</span>
+        <span class="snippet"
+          >{{ h.before }}<mark>{{ h.match }}</mark
+          >{{ h.after }}</span
+        >
+      </button>
+    } @empty {
+      <p class="empty">Aucune question ne correspond à « {{ query() }} ».</p>
+    }
+  } @else {
+    @for (g of groups(); track g.label) {
+      <p class="group-label">{{ g.label }}</p>
+      @for (c of g.items; track c.id) {
+        <div
+          class="item"
+          [class.active]="c.id === store.activeId()"
+          (click)="open(c)"
+          (keydown.enter)="open(c)"
+          tabindex="0"
+          role="button"
+          [attr.aria-current]="c.id === store.activeId()"
+        >
+          @if (confirmId() === c.id) {
+            <span class="confirm">
+              Supprimer cette conversation ?
+              <span class="confirm-actions">
+                <button
+                  type="button"
+                  class="btn btn-danger btn-xs"
+                  (click)="confirmDelete($event, c.id)"
+                >
+                  Supprimer
+                </button>
+                <button type="button" class="btn btn-ghost btn-xs" (click)="cancelDelete($event)">
+                  Annuler
+                </button>
+              </span>
+            </span>
+          } @else {
+            <span class="item-text">
+              <span class="title">{{ c.title }}</span>
+              <span class="meta">{{ questions(c) }} question{{ questions(c) > 1 ? 's' : '' }}</span>
+            </span>
+            <button
+              type="button"
+              class="icon-btn delete"
+              title="Supprimer la conversation"
+              aria-label="Supprimer la conversation"
+              (click)="askDelete($event, c.id)"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"
+                />
+              </svg>
+            </button>
+          }
+        </div>
+      }
+    } @empty {
+      <p class="empty">Vos conversations apparaîtront ici.</p>
+    }
+  }
+</nav>

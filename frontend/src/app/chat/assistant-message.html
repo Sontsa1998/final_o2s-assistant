@@ -1,0 +1,120 @@
+<div class="avatar" aria-hidden="true">O2S</div>
+
+<div class="body">
+  <!-- Raisonnement de l'agent, étape par étape, au fil du flux -->
+  <section class="reasoning" [class.live]="message().streaming">
+    <button
+      type="button"
+      class="reasoning-toggle"
+      (click)="toggleReasoning()"
+      [attr.aria-expanded]="reasoningOpen()"
+    >
+      @if (message().streaming) {
+        <span class="spinner" aria-hidden="true"></span>
+        <span>{{ currentStep() }}</span>
+      } @else {
+        <svg class="chev" [class.open]="reasoningOpen()" viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m9 6 6 6-6 6" />
+        </svg>
+        <span>Raisonnement · {{ steps().length }} étapes · {{ formatMs(totalMs()) }}</span>
+      }
+    </button>
+
+    @if (reasoningOpen()) {
+      <ol class="steps">
+        @for (s of steps(); track trackStep($index, s)) {
+          <li class="step" [class.running]="s.state === 'running'">
+            <span class="dot" aria-hidden="true"></span>
+            <div class="step-main">
+              <div class="step-head">
+                <span class="step-label">{{ stepLabel(s) }}</span>
+                @if (s.durationMs != null) {
+                  <span class="step-time">{{ formatMs(s.durationMs) }}</span>
+                }
+              </div>
+              @if (s.state === 'done') {
+                @for (line of stepDetails(s); track $index) {
+                  <div class="step-detail">{{ line }}</div>
+                }
+              }
+            </div>
+          </li>
+        }
+      </ol>
+    }
+  </section>
+
+  @if (message().warning) {
+    <div class="banner warn" role="status">{{ message().warning }}</div>
+  }
+  @if (message().error) {
+    <div class="banner error" role="alert">{{ message().error }}</div>
+  }
+
+  <!-- Réponse, affichée token par token -->
+  @if (message().content || message().streaming) {
+    <div
+      #answer
+      class="answer markdown"
+      [class.streaming]="message().streaming"
+      (click)="onAnswerClick($event)"
+      [innerHTML]="rendered().html"
+    ></div>
+  }
+
+  @if (message().reformulations?.length) {
+    <div class="suggestions">
+      @for (r of message().reformulations; track r) {
+        <button type="button" class="chip" (click)="ask.emit(r)">{{ r }}</button>
+      }
+    </div>
+  }
+
+  @if (sources().length) {
+    <section class="sources" aria-label="Sources">
+      <h4 class="sources-title">Sources</h4>
+      <div class="source-grid">
+        @for (s of sources(); track s.sid) {
+          <article class="source toc-anchor" [id]="anchor(s)" [class.cited]="cited().has(s.sid)">
+            <span class="sid">{{ s.sid }}</span>
+            <div class="source-text">
+              <span class="doc">{{ s.doc_title || s.breadcrumb }}</span>
+              @if (section(s)) {
+                <span class="section">{{ section(s) }}</span>
+              }
+            </div>
+            @if (s.source_url) {
+              <a
+                class="open"
+                [href]="s.source_url"
+                target="_blank"
+                rel="noopener"
+                title="Ouvrir la page"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                  />
+                </svg>
+              </a>
+            }
+          </article>
+        }
+      </div>
+    </section>
+  }
+
+  @if (!message().streaming && (status() || message().latencyMs)) {
+    <footer class="meta">
+      @if (status(); as st) {
+        <span class="badge" [attr.data-tone]="st.tone">{{ st.label }}</span>
+      }
+      @if (message().intent) {
+        <span>{{ message().intent!.replaceAll('_', ' ') }}</span>
+      }
+      @if (message().latencyMs) {
+        <span>{{ formatMs(message().latencyMs) }}</span>
+      }
+    </footer>
+  }
+</div>

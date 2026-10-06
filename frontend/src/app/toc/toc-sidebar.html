@@ -1,0 +1,72 @@
+<div class="head">
+  <h2>Sommaire</h2>
+  <p>Naviguez dans les réponses et les documents trouvés.</p>
+</div>
+
+<nav class="toc" aria-label="Sommaire de la conversation">
+  @for (t of turns(); track t.questionId; let i = $index) {
+    <section class="turn" [class.current]="t.questionId === currentTurn()">
+      <button
+        type="button"
+        class="question"
+        [class.active]="store.visibleAnchor() === t.questionId"
+        (click)="go(t.questionId)"
+      >
+        <span class="num">{{ i + 1 }}</span>
+        <span class="q">{{ t.question }}</span>
+      </button>
+
+      @if (t.headings.length) {
+        <p class="label">Dans la réponse</p>
+        <ul>
+          @for (h of t.headings; track h.id) {
+            <li>
+              <button
+                type="button"
+                class="link"
+                [class.active]="store.visibleAnchor() === h.id"
+                [style.padding-left.px]="8 + (h.depth - 1) * 12"
+                (click)="go(h.id)"
+              >
+                {{ h.text }}
+              </button>
+            </li>
+          }
+        </ul>
+      }
+
+      @if (t.documents.length) {
+        <p class="label">Résultats de la recherche</p>
+        @for (d of t.documents; track d.title) {
+          <div class="doc">
+            <p class="doc-title" [title]="d.title">{{ d.title }}</p>
+            <ul>
+              @for (s of d.sections; track s.anchor) {
+                <li>
+                  <button
+                    type="button"
+                    class="link section"
+                    [class.active]="store.visibleAnchor() === s.anchor"
+                    [class.cited]="s.cited"
+                    (click)="go(s.anchor)"
+                    [title]="s.label"
+                  >
+                    <span class="sid">{{ s.sid }}</span>
+                    <span>{{ s.label }}</span>
+                  </button>
+                </li>
+              }
+            </ul>
+          </div>
+        }
+      } @else if (t.streaming) {
+        <p class="pending">Recherche en cours…</p>
+      }
+    </section>
+  } @empty {
+    <p class="empty">
+      Le sommaire se construit au fil des réponses : titres de la réponse et documents utilisés,
+      regroupés par grands titres.
+    </p>
+  }
+</nav>
