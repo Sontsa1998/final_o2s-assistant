@@ -28,6 +28,9 @@ METRICS = "file://evaluation/promptfoo/retrieval_metrics.py"
 
 # Métriques de recherche ajoutées aux questions dont un document attendu est connu :
 # (fonction, nom affiché, seuil). Poids 0 : mesurées et affichées, sans faire échouer la question.
+# Seuil de réussite de chaque question : moyenne pondérée des scores des métriques de poids 1.
+TEST_THRESHOLD = 0.5
+
 RETRIEVAL_ASSERTS = [
     ("recall_at_5", "Recall@5", 0.5),
     ("recall_at_10", "Recall@10", 0.5),
@@ -57,7 +60,8 @@ HEADER = """\
 #   npx promptfoo@latest view                     # tableau de bord (scores par métrique)
 #
 # Métriques (colonne « metric » des résultats ; moyenne par métrique dans promptfoo view)
-#   Bloquantes (poids 1) : une question n'est réussie que si toutes passent
+#   Notées (poids 1) : une question est réussie si la moyenne de leurs scores >= {test_threshold}
+#   (`threshold` de chaque test)
 #     Taux de réponse    l'agent répond (pas de « {no_answer} »)
 #     Faithfulness       chaque affirmation de la réponse est soutenue par les extraits fournis
 #     Answer relevancy   la réponse répond à la question posée
@@ -107,7 +111,7 @@ defaultTest:
           apiBaseUrl: '{{{{ env.LITELLM_BASE_URL | replace("/v1", "") }}}}/v1'
           apiKeyEnvar: LITELLM_API_KEY
   assert:
-    # ---------------------------------------------------------------- bloquantes
+    # ---------------------------------------------------------------- notées (poids 1)
     - type: not-icontains
       value: "{no_answer_start}"
       metric: Taux de réponse
@@ -199,6 +203,7 @@ def build_tests(items: list[dict]) -> list[dict]:
         targets = [{k: v for k, v in t.items() if v} for t in it.get("relevant", [])]
         test: dict = {
             "description": f"{it['id'].upper()} · {q if len(q) <= 90 else q[:87] + '…'}",
+            "threshold": TEST_THRESHOLD,
             "vars": {
                 "query": q,
                 "reference": it["reference_answer"],
@@ -233,7 +238,7 @@ _Dumper.add_representer(str, _str)
 
 
 def render(items: list[dict]) -> str:
-    header = HEADER.format(n=len(items), no_answer=NO_ANSWER_SENTENCE,
+    header = HEADER.format(n=len(items), no_answer=NO_ANSWER_SENTENCE, test_threshold=TEST_THRESHOLD,
                            no_answer_start=NO_ANSWER_SENTENCE.split(" dans ")[0],
                            context=CONTEXT)
     body = yaml.dump({"tests": build_tests(items)}, Dumper=_Dumper, allow_unicode=True, sort_keys=False, width=110)

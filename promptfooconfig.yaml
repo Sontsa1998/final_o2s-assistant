@@ -17,7 +17,8 @@
 #   npx promptfoo@latest view                     # tableau de bord (scores par métrique)
 #
 # Métriques (colonne « metric » des résultats ; moyenne par métrique dans promptfoo view)
-#   Bloquantes (poids 1) : une question n'est réussie que si toutes passent
+#   Notées (poids 1) : une question est réussie si la moyenne de leurs scores >= 0.5
+#   (`threshold` de chaque test)
 #     Taux de réponse    l'agent répond (pas de « Je ne trouve pas de réponse dans le contexte qui m'est fourni. »)
 #     Faithfulness       chaque affirmation de la réponse est soutenue par les extraits fournis
 #     Answer relevancy   la réponse répond à la question posée
@@ -67,7 +68,7 @@ defaultTest:
           apiBaseUrl: '{{ env.LITELLM_BASE_URL | replace("/v1", "") }}/v1'
           apiKeyEnvar: LITELLM_API_KEY
   assert:
-    # ---------------------------------------------------------------- bloquantes
+    # ---------------------------------------------------------------- notées (poids 1)
     - type: not-icontains
       value: "Je ne trouve pas de réponse"
       metric: Taux de réponse
@@ -148,6 +149,7 @@ outputPath:
 
 tests:
 - description: T001 · Comment activer et configurer une alerte d'adéquation projet dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment activer et configurer une alerte d'adéquation projet dans O2S ?
     reference: |-
@@ -217,6 +219,7 @@ tests:
     config:
       threshold: 0.5
 - description: T002 · Que dois-je faire si le palmarès n'apparaît pas sur la page d'accueil d'O2S ?
+  threshold: 0.5
   vars:
     query: Que dois-je faire si le palmarès n'apparaît pas sur la page d'accueil d'O2S ?
     reference: |-
@@ -276,6 +279,7 @@ tests:
     config:
       threshold: 0.5
 - description: T003 · Quelle variable permet d'afficher le niveau de risque de l'allocation sous forme de val…
+  threshold: 0.5
   vars:
     query: Quelle variable permet d'afficher le niveau de risque de l'allocation sous forme de valeur (et non de
       tableau) ?
@@ -333,6 +337,7 @@ tests:
     config:
       threshold: 0.5
 - description: T004 · Comment recommander et réaliser une transaction sur un compte dans le cadre d'un projet…
+  threshold: 0.5
   vars:
     query: Comment recommander et réaliser une transaction sur un compte dans le cadre d'un projet d'investissement
       ?
@@ -403,6 +408,7 @@ tests:
     config:
       threshold: 0.5
 - description: T005 · Comment puis-je ajouter un nouveau bien détenu dans la section Patrimoine d'un contact ?
+  threshold: 0.5
   vars:
     query: Comment puis-je ajouter un nouveau bien détenu dans la section Patrimoine d'un contact ?
     reference: |-
@@ -465,6 +471,7 @@ tests:
     config:
       threshold: 0.5
 - description: T006 · Il y a t-il une anomalie d'agrégation en ce moment ?
+  threshold: 0.5
   vars:
     query: Il y a t-il une anomalie d'agrégation en ce moment ?
     reference: 'Vous pouvez retrouver toutes les anomalies d''agrégation en cours au niveau de la météo de l''agrégation
@@ -516,6 +523,7 @@ tests:
     config:
       threshold: 0.5
 - description: T007 · où trouver les variables O2S ?
+  threshold: 0.5
   vars:
     query: où trouver les variables O2S ?
     reference: Les variables O2S sont disponibles dans les documents créés dans O2S, depuis linterface de rédaction
@@ -569,6 +577,7 @@ tests:
     config:
       threshold: 0.5
 - description: T008 · Comment envoyer emailing
+  threshold: 0.5
   vars:
     query: Comment envoyer emailing
     reference: |-
@@ -625,6 +634,7 @@ tests:
     config:
       threshold: 0.5
 - description: T009 · Comment puis-je accéder directement à mes autres solutions Harvest, comme Big, depuis O…
+  threshold: 0.5
   vars:
     query: Comment puis-je accéder directement à mes autres solutions Harvest, comme Big, depuis O2S sans ressaisir
       mes identifiants ?
@@ -679,6 +689,7 @@ tests:
     config:
       threshold: 0.5
 - description: T010 · Comment puis-je accéder rapidement aux différents thèmes de la fiche d'un contact dans …
+  threshold: 0.5
   vars:
     query: Comment puis-je accéder rapidement aux différents thèmes de la fiche d'un contact dans O2S ?
     reference: |-
@@ -732,6 +743,7 @@ tests:
     config:
       threshold: 0.5
 - description: T011 · Où puis-je paramétrer les options d'impression par défaut pour les déclarations d'adéqu…
+  threshold: 0.5
   vars:
     query: Où puis-je paramétrer les options d'impression par défaut pour les déclarations d'adéquation dans O2S
       ?
@@ -789,6 +801,7 @@ tests:
     config:
       threshold: 0.5
 - description: T012 · Comment puis-je afficher la liste des opérations effectuées sur un support spécifique d…
+  threshold: 0.5
   vars:
     query: Comment puis-je afficher la liste des opérations effectuées sur un support spécifique dans O2S ?
     reference: |-
@@ -849,6 +862,7 @@ tests:
     config:
       threshold: 0.5
 - description: T013 · Comment activer ou désactiver la fonctionnalité de téléchargement des emails pour un cl…
+  threshold: 0.5
   vars:
     query: Comment activer ou désactiver la fonctionnalité de téléchargement des emails pour un client spécifique
       dans O2S ?
@@ -907,6 +921,7 @@ tests:
     config:
       threshold: 0.5
 - description: T014 · Comment mettre à jour le mot de passe d'un extranet ?
+  threshold: 0.5
   vars:
     query: Comment mettre à jour le mot de passe d'un extranet ?
     reference: |-
@@ -964,6 +979,7 @@ tests:
     config:
       threshold: 0.5
 - description: T015 · Comment créer un portefeuille modèle ?
+  threshold: 0.5
   vars:
     query: Comment créer un portefeuille modèle ?
     reference: Consultez l'aide https://o2s-help.harvest.fr/portefeuilles-modeles/
@@ -1014,6 +1030,7 @@ tests:
     config:
       threshold: 0.5
 - description: T016 · Comment O2S calcule-t-il le niveau de risque d'une allocation par rapport au SRI des su…
+  threshold: 0.5
   vars:
     query: Comment O2S calcule-t-il le niveau de risque d'une allocation par rapport au SRI des supports individuels
       ?
@@ -1071,6 +1088,7 @@ tests:
     config:
       threshold: 0.5
 - description: T017 · Que se passe-t-il si j'exclus les critères ESG du calcul du contrôle d'adéquation dans …
+  threshold: 0.5
   vars:
     query: Que se passe-t-il si j'exclus les critères ESG du calcul du contrôle d'adéquation dans O2S ?
     reference: |-
@@ -1124,6 +1142,7 @@ tests:
     config:
       threshold: 0.5
 - description: T018 · Comment puis-je afficher et filtrer toutes les activités liées à un contact dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment puis-je afficher et filtrer toutes les activités liées à un contact dans O2S ?
     reference: |-
@@ -1184,6 +1203,7 @@ tests:
     config:
       threshold: 0.5
 - description: T019 · Comment puis-je accéder à une fiche de synthèse Quantalys depuis la Bibliothèque de sup…
+  threshold: 0.5
   vars:
     query: Comment puis-je accéder à une fiche de synthèse Quantalys depuis la Bibliothèque de supports dans O2S
       ?
@@ -1243,6 +1263,7 @@ tests:
     config:
       threshold: 0.5
 - description: T020 · Comment paramétrer mes notifications ?
+  threshold: 0.5
   vars:
     query: Comment paramétrer mes notifications ?
     reference: Pour paramétrer vos notifications, vous devez vous rendre dans Services > Modules > Accueil et pilotage
@@ -1302,6 +1323,7 @@ tests:
     config:
       threshold: 0.5
 - description: T021 · Que faire avec les alertes de compte à 0 ?
+  threshold: 0.5
   vars:
     query: Que faire avec les alertes de compte à 0 ?
     reference: |-
@@ -1357,6 +1379,7 @@ tests:
     config:
       threshold: 0.5
 - description: T022 · comment est calculé la recommandation projet ?
+  threshold: 0.5
   vars:
     query: comment est calculé la recommandation projet ?
     reference: La recommandation de projet est calculée en fonction des caractéristiques du client, de son profil
@@ -1410,6 +1433,7 @@ tests:
     config:
       threshold: 0.5
 - description: T023 · que signifie la couleur affichées à gauche des comptes
+  threshold: 0.5
   vars:
     query: que signifie la couleur affichées à gauche des comptes
     reference: 'Dans les onglets Portefeuille et Comptes du module Contacts > Portefeuille, les icônes affichées
@@ -1463,6 +1487,7 @@ tests:
     config:
       threshold: 0.5
 - description: T024 · Comment accéder et gérer les projets archivés d'un contact dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment accéder et gérer les projets archivés d'un contact dans O2S ?
     reference: |-
@@ -1524,6 +1549,7 @@ tests:
     config:
       threshold: 0.5
 - description: T025 · Quelles informations sont échangées automatiquement entre Big et O2S lors de la mise à …
+  threshold: 0.5
   vars:
     query: Quelles informations sont échangées automatiquement entre Big et O2S lors de la mise à jour d'un dossier
       client ?
@@ -1583,6 +1609,7 @@ tests:
     config:
       threshold: 0.5
 - description: T026 · Comment le risque de crédit est-il pris en compte dans le calcul du SRI pour un fonds m…
+  threshold: 0.5
   vars:
     query: Comment le risque de crédit est-il pris en compte dans le calcul du SRI pour un fonds multi-asset ?
     reference: |-
@@ -1648,6 +1675,7 @@ tests:
     config:
       threshold: 0.5
 - description: T027 · peut-on exclure les critères ESG du parcours projet ?
+  threshold: 0.5
   vars:
     query: peut-on exclure les critères ESG du parcours projet ?
     reference: Oui, il est possible dexclure les critères ESG du contrôle dadéquation au niveau des projets en personnalisant
@@ -1700,6 +1728,7 @@ tests:
     config:
       threshold: 0.5
 - description: T028 · comment modifier l'évaluation d'un compte ?
+  threshold: 0.5
   vars:
     query: comment modifier l'évaluation d'un compte ?
     reference: |-
@@ -1761,6 +1790,7 @@ tests:
     config:
       threshold: 0.5
 - description: T029 · Comment traiter mes alertes techniques
+  threshold: 0.5
   vars:
     query: Comment traiter mes alertes techniques
     reference: 'Consultez ces différentes pages d''aide : https://o2s-help.harvest.fr/category/agregation/alertes_techniques/'
@@ -1811,6 +1841,7 @@ tests:
     config:
       threshold: 0.5
 - description: T030 · comment créer un projet
+  threshold: 0.5
   vars:
     query: comment créer un projet
     reference: Consulter l'aide https://o2s-help.harvest.fr/projets/
@@ -1861,6 +1892,7 @@ tests:
     config:
       threshold: 0.5
 - description: T031 · Comment puis-je paramétrer le marché cible d'un instrument financier dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment puis-je paramétrer le marché cible d'un instrument financier dans O2S ?
     reference: |-
@@ -1927,6 +1959,7 @@ tests:
     config:
       threshold: 0.5
 - description: T032 · Comment accorder à un collaborateur l'accès à la gestion de la vigilance dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment accorder à un collaborateur l'accès à la gestion de la vigilance dans O2S ?
     reference: |+
@@ -1986,6 +2019,7 @@ tests:
     config:
       threshold: 0.5
 - description: T033 · Quelle est la procédure pour transférer tous les contacts d'un conseiller vers un autre…
+  threshold: 0.5
   vars:
     query: Quelle est la procédure pour transférer tous les contacts d'un conseiller vers un autre dans O2S ?
     reference: |-
@@ -2049,6 +2083,7 @@ tests:
     config:
       threshold: 0.5
 - description: T034 · Que dois-je faire si des mouvements restent en attente sur un compte agrégé dans O2S ?
+  threshold: 0.5
   vars:
     query: Que dois-je faire si des mouvements restent en attente sur un compte agrégé dans O2S ?
     reference: |-
@@ -2114,6 +2149,7 @@ tests:
     config:
       threshold: 0.5
 - description: T035 · Comment puis-je retrouver et exporter le détail des relances effectuées par chaque cons…
+  threshold: 0.5
   vars:
     query: Comment puis-je retrouver et exporter le détail des relances effectuées par chaque conseiller dans O2S
       ?
@@ -2176,6 +2212,7 @@ tests:
     config:
       threshold: 0.5
 - description: T036 · Comment puis-je ajouter un versement programmé sur un compte dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment puis-je ajouter un versement programmé sur un compte dans O2S ?
     reference: |-
@@ -2238,6 +2275,7 @@ tests:
     config:
       threshold: 0.5
 - description: T037 · Quelle formule O2S utilise-t-il pour illustrer graphiquement l'impact annualisé des fra…
+  threshold: 0.5
   vars:
     query: Quelle formule O2S utilise-t-il pour illustrer graphiquement l'impact annualisé des frais ex ante sur
       un investissement ?
@@ -2312,6 +2350,7 @@ tests:
     config:
       threshold: 0.5
 - description: T038 · Comment puis-je créer une alerte pour l'anniversaire d'un client dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment puis-je créer une alerte pour l'anniversaire d'un client dans O2S ?
     reference: |-
@@ -2374,6 +2413,7 @@ tests:
     config:
       threshold: 0.5
 - description: T039 · Comment accéder à la fiche de synthèse Feefty pour un produit structuré présent dans le…
+  threshold: 0.5
   vars:
     query: Comment accéder à la fiche de synthèse Feefty pour un produit structuré présent dans le portefeuille
       d'un client sur O2S ?
@@ -2437,6 +2477,7 @@ tests:
     config:
       threshold: 0.5
 - description: T040 · Quelles sont les étapes pour créer et utiliser un modèle Word DCC pour une personne mor…
+  threshold: 0.5
   vars:
     query: Quelles sont les étapes pour créer et utiliser un modèle Word DCC pour une personne morale dans O2S ?
     reference: |-
@@ -2505,6 +2546,7 @@ tests:
     config:
       threshold: 0.5
 - description: T041 · Comment éviter la création de doublons lors de l'import de contacts via Excel dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment éviter la création de doublons lors de l'import de contacts via Excel dans O2S ?
     reference: |-
@@ -2569,6 +2611,7 @@ tests:
     config:
       threshold: 0.5
 - description: T042 · Quelles sont les nouveautés apportées par la nouvelle version de l'API Comptes dans O2S ?
+  threshold: 0.5
   vars:
     query: Quelles sont les nouveautés apportées par la nouvelle version de l'API Comptes dans O2S ?
     reference: |-
@@ -2622,6 +2665,7 @@ tests:
     config:
       threshold: 0.5
 - description: T043 · Est-il possible de modifier ou de supprimer une alerte déjà programmée dans O2S, et si …
+  threshold: 0.5
   vars:
     query: Est-il possible de modifier ou de supprimer une alerte déjà programmée dans O2S, et si oui, comment procéder
       ?
@@ -2692,6 +2736,7 @@ tests:
     config:
       threshold: 0.5
 - description: T044 · la signature électronique est-elle payante ?
+  threshold: 0.5
   vars:
     query: la signature électronique est-elle payante ?
     reference: Oui, la fonction de signature électronique est facturée sur O2S. Pour plus d’informations, contactez
@@ -2746,6 +2791,7 @@ tests:
     config:
       threshold: 0.5
 - description: T045 · Comment réaliser une requête contact ?
+  threshold: 0.5
   vars:
     query: Comment réaliser une requête contact ?
     reference: Cliquez sur Requêtes dans la barre supérieure de menus. Cliquez sur Ajouter. Dans la fenêtre Nouvelle
@@ -2799,6 +2845,7 @@ tests:
     config:
       threshold: 0.5
 - description: T046 · Comment ajouter un mouvement
+  threshold: 0.5
   vars:
     query: Comment ajouter un mouvement
     reference: 'Pour ajouter un mouvement manuellement dans O2S, suivez ces étapes : Accédez au portefeuille de
@@ -2853,6 +2900,7 @@ tests:
     config:
       threshold: 0.5
 - description: T047 · Comment faire figurer ma signature dans les mails que j'envoie ?
+  threshold: 0.5
   vars:
     query: Comment faire figurer ma signature dans les mails que j'envoie ?
     reference: 'Pour insérer automatiquement votre signature dans tous les mails que vous envoyez depuis O2S, suivez
@@ -2908,6 +2956,7 @@ tests:
     config:
       threshold: 0.5
 - description: T048 · Comment ajouter un compte ou un contrat ?
+  threshold: 0.5
   vars:
     query: Comment ajouter un compte ou un contrat ?
     reference: 'Pour ajouter un compte ou un contrat dans O2S, suivez ces étapes : Accédez à la fiche du client
@@ -2965,6 +3014,7 @@ tests:
     config:
       threshold: 0.5
 - description: T049 · comment modifier le risque accepté dun projet ?
+  threshold: 0.5
   vars:
     query: comment modifier le risque accepté dun projet ?
     reference: Aller dans le projet en le double-cliquant. Modifiez les caractéristiques du projet, dans l'onglet
@@ -3017,6 +3067,7 @@ tests:
     config:
       threshold: 0.5
 - description: T050 · Comment puis-je créer un nouveau rendez-vous dans le module Agenda d'O2S ?
+  threshold: 0.5
   vars:
     query: Comment puis-je créer un nouveau rendez-vous dans le module Agenda d'O2S ?
     reference: |-
@@ -3080,6 +3131,7 @@ tests:
     config:
       threshold: 0.5
 - description: T051 · Comment créer un support ?
+  threshold: 0.5
   vars:
     query: Comment créer un support ?
     reference: Pour créer un support, rendez-vous dans le module Services, puis cliquez sur l'onglet Contribution.
@@ -3134,6 +3186,7 @@ tests:
     config:
       threshold: 0.5
 - description: T052 · Comment créer des nouveaux utilisateurs ?
+  threshold: 0.5
   vars:
     query: Comment créer des nouveaux utilisateurs ?
     reference: Pour créer de nouveaux utilisateurs, rendez-vous dans l'espace Administration puis cliquez sur Utilisateurs.
@@ -3193,6 +3246,7 @@ tests:
     config:
       threshold: 0.5
 - description: T053 · comment transformer un prospect en client ?
+  threshold: 0.5
   vars:
     query: comment transformer un prospect en client ?
     reference: Consultez l'aide https://o2s-help.harvest.fr/savez-vous-que-vous-pouvez-facilement-transformer-un-prospect-en-client/
@@ -3243,6 +3297,7 @@ tests:
     config:
       threshold: 0.5
 - description: T054 · Où trouver les factures ?
+  threshold: 0.5
   vars:
     query: Où trouver les factures ?
     reference: Cliquez sur votre menu utilisateur en haut à droite (prénom nom), puis sur Espace abonnement. Cliquez
@@ -3295,6 +3350,7 @@ tests:
     config:
       threshold: 0.5
 - description: T055 · Quelles sont les conséquences de l'action 'Supprimer le compte' sur le portefeuille du …
+  threshold: 0.5
   vars:
     query: Quelles sont les conséquences de l'action 'Supprimer le compte' sur le portefeuille du client dans O2S
       ?
@@ -3351,6 +3407,7 @@ tests:
     config:
       threshold: 0.5
 - description: T056 · Comment fonctionne le calcul du SRI dans le projet
+  threshold: 0.5
   vars:
     query: Comment fonctionne le calcul du SRI dans le projet
     reference: Consultez l'aide https://o2s-help.harvest.fr/calcul-du-risque-dans-les-projets-dinvestissement/
@@ -3400,6 +3457,7 @@ tests:
     config:
       threshold: 0.5
 - description: T057 · comment personnaliser le logo de mon O2S ?
+  threshold: 0.5
   vars:
     query: comment personnaliser le logo de mon O2S ?
     reference: 'Vous devez disposer des droits nécessaires pour effectuer cette opération. Contactez votre administrateur.
@@ -3456,6 +3514,7 @@ tests:
     config:
       threshold: 0.5
 - description: T058 · comment être notifié de l'anniversaire de mon client ?
+  threshold: 0.5
   vars:
     query: comment être notifié de l'anniversaire de mon client ?
     reference: 'Dans votre page d’accueil d’O2S, rendez-vous dans l’encart Alertes commerciales. Cliquez sur la
@@ -3511,6 +3570,7 @@ tests:
     config:
       threshold: 0.5
 - description: T059 · comment est calculée la capacité à subir des pertes ?
+  threshold: 0.5
   vars:
     query: comment est calculée la capacité à subir des pertes ?
     reference: 'La capacité à subir des pertes globale est calculée en fonction de la situation patrimoniale et
@@ -3572,6 +3632,7 @@ tests:
     config:
       threshold: 0.5
 - description: T060 · Comment générer ma déclaration d'adéquation ?
+  threshold: 0.5
   vars:
     query: Comment générer ma déclaration d'adéquation ?
     reference: 'Vous pouvez générer une impression depuis la page Conformité > Projets de votre client où vous pouvez
@@ -3626,6 +3687,7 @@ tests:
     config:
       threshold: 0.5
 - description: T061 · où trouver les lettres d'aurorisation des partenaires ?
+  threshold: 0.5
   vars:
     query: où trouver les lettres d'aurorisation des partenaires ?
     reference: 'Les lettres d''autorisation sont disponibles dans cette page : https://o2s-help.harvest.fr/agreger-des-nouveaux-partenaires/#lettres_partenaires'
@@ -3678,6 +3740,7 @@ tests:
     config:
       threshold: 0.5
 - description: T062 · Comment retrouver les clients qui ont des documents en cours de signature électronique?
+  threshold: 0.5
   vars:
     query: Comment retrouver les clients qui ont des documents en cours de signature électronique?
     reference: 'Pour retrouver vos documents qui sont en cours de signatures, il convient d’abord de cocher l’option
@@ -3741,6 +3804,7 @@ tests:
     config:
       threshold: 0.5
 - description: T063 · Je souhaite connaitre la collecte de mon cabinet
+  threshold: 0.5
   vars:
     query: Je souhaite connaitre la collecte de mon cabinet
     reference: Rendez-vous dans le module Pilotage (ou Accueil) d'O2S. Dans l'encart Informations commerciales,
@@ -3793,6 +3857,7 @@ tests:
     config:
       threshold: 0.5
 - description: T064 · Que dois-je faire si je reçois une alerte indiquant que mes codes d'accès chez un dépos…
+  threshold: 0.5
   vars:
     query: Que dois-je faire si je reçois une alerte indiquant que mes codes d'accès chez un dépositaire sont erronés
       dans O2S ?
@@ -3851,6 +3916,7 @@ tests:
     config:
       threshold: 0.5
 - description: T065 · Comment personnaliser la couleur des éditions ?
+  threshold: 0.5
   vars:
     query: Comment personnaliser la couleur des éditions ?
     reference: Rendez-vous dans le module Services > Editions > Générales (1/2). Sélectionnez le thème de couleur
@@ -3902,6 +3968,7 @@ tests:
     config:
       threshold: 0.5
 - description: T066 · Comment faire une requete pour obtenir la liste de lensemble des souscriptions de mes c…
+  threshold: 0.5
   vars:
     query: Comment faire une requete pour obtenir la liste de lensemble des souscriptions de mes clients entre le
       01/01/2023 et le 31/12/2023 concernant des produits CIF ?
@@ -3958,6 +4025,7 @@ tests:
     config:
       threshold: 0.5
 - description: T067 · Comment faire une requete pour obtenir la liste des supports de lensemble des souscript…
+  threshold: 0.5
   vars:
     query: Comment faire une requete pour obtenir la liste des supports de lensemble des souscriptions de mes clients
       entre le 01/01/2023 et le 31/12/2023 concernant des produits type SCPI / Compte en nominatif ?
@@ -4015,6 +4083,7 @@ tests:
     config:
       threshold: 0.5
 - description: T068 · comment signer @ depuis la conformité
+  threshold: 0.5
   vars:
     query: comment signer @ depuis la conformité
     reference: Consultez l'aide https://o2s-help.harvest.fr/conformite/#gestion et https://o2s-help.harvest.fr/utiliser-la-signature-electronique/
@@ -4069,6 +4138,7 @@ tests:
     config:
       threshold: 0.5
 - description: T069 · Peut-on échanger des informations entre O2S et Big ?
+  threshold: 0.5
   vars:
     query: Peut-on échanger des informations entre O2S et Big ?
     reference: Consultez cette aide https://o2s-help.harvest.fr/echange-informations-entre-big-et-o2s/
@@ -4121,6 +4191,7 @@ tests:
     config:
       threshold: 0.5
 - description: T070 · comment suivre une formation O2S ?
+  threshold: 0.5
   vars:
     query: comment suivre une formation O2S ?
     reference: Rendez-vous sur le site Harvest Fidroit Academy https://www.harvestfidroitacademy.fr/categorie-produit/formation-outil/,
@@ -4176,6 +4247,7 @@ tests:
     config:
       threshold: 0.5
 - description: T071 · Comment se passe la signature électronique ?
+  threshold: 0.5
   vars:
     query: Comment se passe la signature électronique ?
     reference: 'Si vous voulez savoir comment mettre en place la signature électronique, consultez cette aide https://o2s-help.harvest.fr/mettre-en-place-la-signature-electronique/.
@@ -4232,6 +4304,7 @@ tests:
     config:
       threshold: 0.5
 - description: T072 · Comment ajouter un profil de risque ?
+  threshold: 0.5
   vars:
     query: Comment ajouter un profil de risque ?
     reference: |-
@@ -4297,6 +4370,7 @@ tests:
     config:
       threshold: 0.5
 - description: T073 · Comment demander l'agrégation d'un nouveau partenaire ?
+  threshold: 0.5
   vars:
     query: Comment demander l'agrégation d'un nouveau partenaire ?
     reference: |-
@@ -4358,6 +4432,7 @@ tests:
     config:
       threshold: 0.5
 - description: T074 · Comment fusionner 2 comptes ?
+  threshold: 0.5
   vars:
     query: Comment fusionner 2 comptes ?
     reference: |-
@@ -4421,6 +4496,7 @@ tests:
     config:
       threshold: 0.5
 - description: T075 · Comment fusionner 2 contacts ?
+  threshold: 0.5
   vars:
     query: Comment fusionner 2 contacts ?
     reference: |-
@@ -4482,6 +4558,7 @@ tests:
     config:
       threshold: 0.5
 - description: T076 · Comment insérer mes documents réglementaires dans o2s ?
+  threshold: 0.5
   vars:
     query: Comment insérer mes documents réglementaires dans o2s ?
     reference: |-
@@ -4549,6 +4626,7 @@ tests:
     config:
       threshold: 0.5
 - description: T077 · Comment paramétrer l'envoi automatique des état de compte
+  threshold: 0.5
   vars:
     query: Comment paramétrer l'envoi automatique des état de compte
     reference: |-
@@ -4616,6 +4694,7 @@ tests:
     config:
       threshold: 0.5
 - description: T078 · Configurer l'agenda O2S dans mon iphone
+  threshold: 0.5
   vars:
     query: Configurer l'agenda O2S dans mon iphone
     reference: |-
@@ -4677,6 +4756,7 @@ tests:
     config:
       threshold: 0.5
 - description: T079 · Pourquoi je ne peux pas sélectionner un compte dans le projet ?
+  threshold: 0.5
   vars:
     query: Pourquoi je ne peux pas sélectionner un compte dans le projet ?
     reference: |-
@@ -4737,6 +4817,7 @@ tests:
     config:
       threshold: 0.5
 - description: T080 · Réactiver un compte ?
+  threshold: 0.5
   vars:
     query: Réactiver un compte ?
     reference: |-
@@ -4797,6 +4878,7 @@ tests:
     config:
       threshold: 0.5
 - description: T081 · Comment puis-je intégrer un modèle de courrier ou d'email type dans O2S pour l'envoyer …
+  threshold: 0.5
   vars:
     query: Comment puis-je intégrer un modèle de courrier ou d'email type dans O2S pour l'envoyer à mes clients
       ?
@@ -4871,6 +4953,7 @@ tests:
     config:
       threshold: 0.5
 - description: T082 · Comment comparer plusieurs produits d'assurance vie et proposer différentes allocations…
+  threshold: 0.5
   vars:
     query: Comment comparer plusieurs produits d'assurance vie et proposer différentes allocations d'actifs pour
       un même projet afin de répondre aux exigences DDA dans O2S ?
@@ -4945,6 +5028,7 @@ tests:
     config:
       threshold: 0.5
 - description: T083 · Comment créer ou modifier une liste d'expert-comptables ou de notaires dans O2S pour fa…
+  threshold: 0.5
   vars:
     query: Comment créer ou modifier une liste d'expert-comptables ou de notaires dans O2S pour faciliter la saisie
       de données ?
@@ -5012,6 +5096,7 @@ tests:
     config:
       threshold: 0.5
 - description: T084 · Comment puis-je synchroniser mon agenda O2S avec Google Agenda ou Outlook ?
+  threshold: 0.5
   vars:
     query: Comment puis-je synchroniser mon agenda O2S avec Google Agenda ou Outlook ?
     reference: |-
@@ -5102,6 +5187,7 @@ tests:
     config:
       threshold: 0.5
 - description: T085 · Comment activer la synchronisation directe entre O2S et Google Agenda ?
+  threshold: 0.5
   vars:
     query: Comment activer la synchronisation directe entre O2S et Google Agenda ?
     reference: |-
@@ -5179,6 +5265,7 @@ tests:
     config:
       threshold: 0.5
 - description: T086 · Les tâches créées dans O2S sont-elles synchronisées avec le calendrier de mon iPhone ou…
+  threshold: 0.5
   vars:
     query: Les tâches créées dans O2S sont-elles synchronisées avec le calendrier de mon iPhone ou iPad ?
     reference: |-
@@ -5234,6 +5321,7 @@ tests:
     config:
       threshold: 0.5
 - description: T087 · Comment puis-je synchroniser mon agenda O2S avec Thunderbird ?
+  threshold: 0.5
   vars:
     query: Comment puis-je synchroniser mon agenda O2S avec Thunderbird ?
     reference: |-
@@ -5323,6 +5411,7 @@ tests:
     config:
       threshold: 0.5
 - description: T088 · Comment associer un nouveau client importé à un contact O2S déjà existant ?
+  threshold: 0.5
   vars:
     query: Comment associer un nouveau client importé à un contact O2S déjà existant ?
     reference: |-
@@ -5388,6 +5477,7 @@ tests:
     config:
       threshold: 0.5
 - description: T089 · Quelle est la différence entre les actions 'Ignorer ce compte' et 'Masquer' une alerte …
+  threshold: 0.5
   vars:
     query: Quelle est la différence entre les actions 'Ignorer ce compte' et 'Masquer' une alerte dans le module
       Accueil ?
@@ -5448,6 +5538,7 @@ tests:
     config:
       threshold: 0.5
 - description: T090 · Comment associer un produit à une gamme et à des supports spécifiques dans le catalogue…
+  threshold: 0.5
   vars:
     query: Comment associer un produit à une gamme et à des supports spécifiques dans le catalogue produits ?
     reference: |-
@@ -5525,6 +5616,7 @@ tests:
     config:
       threshold: 0.5
 - description: T091 · Quels sont les champs obligatoires à renseigner dans le fichier d'import pour ajouter u…
+  threshold: 0.5
   vars:
     query: Quels sont les champs obligatoires à renseigner dans le fichier d'import pour ajouter un nouveau support
       à un produit existant ?
@@ -5590,6 +5682,7 @@ tests:
     config:
       threshold: 0.5
 - description: T092 · Comment puis-je exporter le paramétrage actuel des commissions dans O2S pour le modifier ?
+  threshold: 0.5
   vars:
     query: Comment puis-je exporter le paramétrage actuel des commissions dans O2S pour le modifier ?
     reference: |-
@@ -5652,6 +5745,7 @@ tests:
     config:
       threshold: 0.5
 - description: T093 · Quels champs obligatoires dois-je renseigner lors de la création d'une demande de suppo…
+  threshold: 0.5
   vars:
     query: Quels champs obligatoires dois-je renseigner lors de la création d'une demande de support dans le module
       Contribution ?
@@ -5713,6 +5807,7 @@ tests:
     config:
       threshold: 0.5
 - description: T094 · Comment personnaliser l'affichage des modules Accueil et Pilotage selon mes besoins dan…
+  threshold: 0.5
   vars:
     query: Comment personnaliser l'affichage des modules Accueil et Pilotage selon mes besoins dans O2S ?
     reference: |-
@@ -5776,6 +5871,7 @@ tests:
     config:
       threshold: 0.5
 - description: T095 · Comment puis-je ajouter un nouveau partenaire à agréger dans O2S en utilisant une lettr…
+  threshold: 0.5
   vars:
     query: Comment puis-je ajouter un nouveau partenaire à agréger dans O2S en utilisant une lettre d'autorisation
       ?
@@ -5838,6 +5934,7 @@ tests:
     config:
       threshold: 0.5
 - description: T096 · Quelle est la différence entre la Vigilance calculée et la Vigilance retenue pour un cl…
+  threshold: 0.5
   vars:
     query: Quelle est la différence entre la Vigilance calculée et la Vigilance retenue pour un client dans le module
       Contacts > Conformité ?
@@ -5898,6 +5995,7 @@ tests:
     config:
       threshold: 0.5
 - description: T097 · Comment puis-je insérer automatiquement le nom et le prénom d'un contact dans une lettr…
+  threshold: 0.5
   vars:
     query: Comment puis-je insérer automatiquement le nom et le prénom d'un contact dans une lettre type générée
       depuis O2S ?
@@ -5961,6 +6059,7 @@ tests:
     config:
       threshold: 0.5
 - description: T098 · Comment puis-je créer et personnaliser un modèle de lettre type à envoyer à mes clients…
+  threshold: 0.5
   vars:
     query: Comment puis-je créer et personnaliser un modèle de lettre type à envoyer à mes clients dans O2S ?
     reference: |-
@@ -6036,6 +6135,7 @@ tests:
     config:
       threshold: 0.5
 - description: T099 · Quels navigateurs sont compatibles avec la fonctionnalité de signature électronique pou…
+  threshold: 0.5
   vars:
     query: Quels navigateurs sont compatibles avec la fonctionnalité de signature électronique pour mes clients
       ?
@@ -6095,6 +6195,7 @@ tests:
     config:
       threshold: 0.5
 - description: T100 · Comment puis-je faire signer électroniquement plusieurs documents à un même contact dan…
+  threshold: 0.5
   vars:
     query: Comment puis-je faire signer électroniquement plusieurs documents à un même contact dans O2S ?
     reference: |-
@@ -6160,6 +6261,7 @@ tests:
     config:
       threshold: 0.5
 - description: T101 · Quelles sont les étapes à suivre pour importer un fichier Excel de comptes dans O2S ?
+  threshold: 0.5
   vars:
     query: Quelles sont les étapes à suivre pour importer un fichier Excel de comptes dans O2S ?
     reference: |-
@@ -6239,6 +6341,7 @@ tests:
     config:
       threshold: 0.5
 - description: T102 · Pourquoi certains comptes apparaissent-ils en rouge ou en italique dans le portefeuille…
+  threshold: 0.5
   vars:
     query: Pourquoi certains comptes apparaissent-ils en rouge ou en italique dans le portefeuille et que signifient
       ces couleurs ?
@@ -6306,6 +6409,7 @@ tests:
     config:
       threshold: 0.5
 - description: T103 · Comment le questionnaire O2S permet-il de vérifier la connaissance effective d'un clien…
+  threshold: 0.5
   vars:
     query: Comment le questionnaire O2S permet-il de vérifier la connaissance effective d'un client sur les différentes
       classes d'actifs ?
@@ -6366,6 +6470,7 @@ tests:
     config:
       threshold: 0.5
 - description: T104 · De quelle manière O2S m'aide-t-il à vérifier l'adéquation entre le profil d'investisseu…
+  threshold: 0.5
   vars:
     query: De quelle manière O2S m'aide-t-il à vérifier l'adéquation entre le profil d'investisseur d'un client
       et un projet d'investissement ?
@@ -6436,6 +6541,7 @@ tests:
     config:
       threshold: 0.5
 - description: T105 · Comment modifier les informations d'un intervenant (notaire, gestionnaire, etc.) lié à …
+  threshold: 0.5
   vars:
     query: Comment modifier les informations d'un intervenant (notaire, gestionnaire, etc.) lié à un bien immobilier
       déjà enregistré ?
@@ -6496,6 +6602,7 @@ tests:
     config:
       threshold: 0.5
 - description: T106 · Quels sont les différents statuts possibles pour une opération commerciale et comment p…
+  threshold: 0.5
   vars:
     query: Quels sont les différents statuts possibles pour une opération commerciale et comment puis-je les filtrer
       dans O2S ?
@@ -6557,6 +6664,7 @@ tests:
     config:
       threshold: 0.5
 - description: T107 · Comment modifier les droits d'accès d'un collaborateur pour la gestion des modèles d'af…
+  threshold: 0.5
   vars:
     query: Comment modifier les droits d'accès d'un collaborateur pour la gestion des modèles d'affaires dans O2S
       ?
@@ -6618,6 +6726,7 @@ tests:
     config:
       threshold: 0.5
 - description: T108 · Quelle est la procédure pour enregistrer une requête afin qu'elle soit accessible à mes…
+  threshold: 0.5
   vars:
     query: Quelle est la procédure pour enregistrer une requête afin qu'elle soit accessible à mes collaborateurs
       ?
@@ -6680,6 +6789,7 @@ tests:
     config:
       threshold: 0.5
 - description: T109 · Comment puis-je filtrer les encours gérés d'un client pour obtenir une analyse spécifiq…
+  threshold: 0.5
   vars:
     query: Comment puis-je filtrer les encours gérés d'un client pour obtenir une analyse spécifique dans la page
       Structure des avoirs ?
@@ -6734,6 +6844,7 @@ tests:
     config:
       threshold: 0.5
 - description: T110 · Comment activer le mode expert pour le calcul de la performance dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment activer le mode expert pour le calcul de la performance dans O2S ?
     reference: |-
@@ -6792,6 +6903,7 @@ tests:
     config:
       threshold: 0.5
 - description: T111 · Que se passe-t-il si un fonds en euros ne dispose pas de données PRIIPs dans O2S ?
+  threshold: 0.5
   vars:
     query: Que se passe-t-il si un fonds en euros ne dispose pas de données PRIIPs dans O2S ?
     reference: |-
@@ -6844,6 +6956,7 @@ tests:
     config:
       threshold: 0.5
 - description: T112 · Pourquoi la performance cumulée peut-elle être différente du gain brut en pourcentage a…
+  threshold: 0.5
   vars:
     query: Pourquoi la performance cumulée peut-elle être différente du gain brut en pourcentage après plusieurs
       mouvements sur un compte ?
@@ -6904,6 +7017,7 @@ tests:
     config:
       threshold: 0.5
 - description: T113 · Comment ajouter un nouvel utilisateur et lui attribuer un profil dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment ajouter un nouvel utilisateur et lui attribuer un profil dans O2S ?
     reference: |-
@@ -6968,6 +7082,7 @@ tests:
     config:
       threshold: 0.5
 - description: T114 · Est-il possible d'exporter les résultats d'une comparaison de fonds au format PDF et co…
+  threshold: 0.5
   vars:
     query: Est-il possible d'exporter les résultats d'une comparaison de fonds au format PDF et comment procéder
       ?
@@ -7029,6 +7144,7 @@ tests:
     config:
       threshold: 0.5
 - description: T115 · Comment puis-je ajouter un nouveau fonds à une catégorie dans mes fonds préférés sur O2S ?
+  threshold: 0.5
   vars:
     query: Comment puis-je ajouter un nouveau fonds à une catégorie dans mes fonds préférés sur O2S ?
     reference: |-
@@ -7093,6 +7209,7 @@ tests:
     config:
       threshold: 0.5
 - description: T116 · Comment puis-je envoyer un email personnalisé à plusieurs clients en utilisant les vari…
+  threshold: 0.5
   vars:
     query: Comment puis-je envoyer un email personnalisé à plusieurs clients en utilisant les variables O2S ?
     reference: |-
@@ -7168,6 +7285,7 @@ tests:
     config:
       threshold: 0.5
 - description: T117 · Que faut-il faire pour que le portefeuille modèle Quantalys soit utilisable dans les pr…
+  threshold: 0.5
   vars:
     query: Que faut-il faire pour que le portefeuille modèle Quantalys soit utilisable dans les projets O2S ?
     reference: |-
@@ -7221,6 +7339,7 @@ tests:
     config:
       threshold: 0.5
 - description: T118 · Comment puis-je modifier le questionnaire du profil investisseur d'un client déjà exist…
+  threshold: 0.5
   vars:
     query: Comment puis-je modifier le questionnaire du profil investisseur d'un client déjà existant dans O2S ?
     reference: |-
@@ -7279,6 +7398,7 @@ tests:
     config:
       threshold: 0.5
 - description: T119 · Comment puis-je afficher l'ensemble des flux RSS dans O2S ?
+  threshold: 0.5
   vars:
     query: Comment puis-je afficher l'ensemble des flux RSS dans O2S ?
     reference: |-
@@ -7337,6 +7457,7 @@ tests:
     config:
       threshold: 0.5
 - description: T120 · Quels types de paramétrages peuvent être abordés lors d'une session CSM dédiée à la ges…
+  threshold: 0.5
   vars:
     query: Quels types de paramétrages peuvent être abordés lors d'une session CSM dédiée à la gestion des fonctionnalités
       réglementaires dans O2S ?
@@ -7399,6 +7520,7 @@ tests:
     config:
       threshold: 0.5
 - description: T121 · Quels droits et accès un membre du back-office administratif possède-t-il par rapport a…
+  threshold: 0.5
   vars:
     query: Quels droits et accès un membre du back-office administratif possède-t-il par rapport aux autres profils
       utilisateurs dans O2S ?
@@ -7468,6 +7590,7 @@ tests:
     config:
       threshold: 0.5
 - description: T122 · Quels critères d'éligibilité puis-je paramétrer pour qu'un produit soit proposé lors de…
+  threshold: 0.5
   vars:
     query: Quels critères d'éligibilité puis-je paramétrer pour qu'un produit soit proposé lors de la constitution
       d'un projet dans O2S ?
@@ -7533,6 +7656,7 @@ tests:
     config:
       threshold: 0.5
 - description: T123 · Comment puis-je activer et personnaliser la signature électronique pour mes clients dan…
+  threshold: 0.5
   vars:
     query: Comment puis-je activer et personnaliser la signature électronique pour mes clients dans O2S ?
     reference: |-
@@ -7609,6 +7733,7 @@ tests:
     config:
       threshold: 0.5
 - description: T124 · Comment configurer les notifications pour être alerté des évolutions sur les comptes de…
+  threshold: 0.5
   vars:
     query: Comment configurer les notifications pour être alerté des évolutions sur les comptes de mes clients ?
     reference: |-
@@ -7689,6 +7814,7 @@ tests:
     config:
       threshold: 0.5
 - description: T125 · Comment importer un portefeuille modèle Quantalys dans O2S et l'utiliser dans un projet ?
+  threshold: 0.5
   vars:
     query: Comment importer un portefeuille modèle Quantalys dans O2S et l'utiliser dans un projet ?
     reference: |-

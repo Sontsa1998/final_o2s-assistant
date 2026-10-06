@@ -41,6 +41,7 @@ def test_generated_config_keeps_business_answers_verbatim(tmp_path, monkeypatch)
     cfg = yaml.safe_load(build_config.render(items))
     rows = list(csv.DictReader(build_config.DATASET.open(encoding="utf-8-sig")))
     assert len(cfg["tests"]) == len(rows) == 125
+    assert all(t["threshold"] == 0.5 for t in cfg["tests"])
     assert all(t["vars"]["reference"] == r["reponse_ideale"] for t, r in zip(cfg["tests"], rows))
     metrics = {a["metric"] for a in cfg["defaultTest"]["assert"]}
     assert {"Faithfulness", "Answer relevancy", "Completeness", "Context recall", "Latence"} <= metrics

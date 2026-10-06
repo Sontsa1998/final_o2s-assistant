@@ -450,11 +450,11 @@ calculées en Python (`python` sur le PATH, ou `PROMPTFOO_PYTHON`). Rapports :
 
 | Métrique (promptfoo) | Type | Rôle |
 |---|---|---|
-| Taux de réponse | `not-icontains` | bloquante : l'agent ne refuse pas de répondre |
-| Faithfulness | `context-faithfulness` (≥ 0,8) | bloquante : chaque affirmation est soutenue par les extraits fournis |
-| Answer relevancy | `answer-relevance` (≥ 0,7) | bloquante : la réponse traite la question |
-| Completeness | `llm-rubric` (≥ 0,7) | bloquante : part des informations clés de la réponse métier présentes |
-| Exactitude | `factuality` | bloquante : pas de contradiction avec la réponse métier |
+| Taux de réponse | `not-icontains` | notée : l'agent ne refuse pas de répondre |
+| Faithfulness | `context-faithfulness` (≥ 0,8) | notée : chaque affirmation est soutenue par les extraits fournis |
+| Answer relevancy | `answer-relevance` (≥ 0,7) | notée : la réponse traite la question |
+| Completeness | `llm-rubric` (≥ 0,7) | notée : part des informations clés de la réponse métier présentes |
+| Exactitude | `factuality` | notée : pas de contradiction avec la réponse métier |
 | Context relevance / Context recall | `context-relevance` / `context-recall` | diagnostic : qualité du contexte retrouvé |
 | Similarité sémantique | `similar` (embeddings) | diagnostic |
 | Citations | `regex` `[S\d+]` | diagnostic : la réponse cite ses sources |
@@ -462,7 +462,8 @@ calculées en Python (`python` sur le PATH, ou `PROMPTFOO_PYTHON`). Rapports :
 | Recall@5, Recall@10, MRR, nDCG@5 | `python` (`evaluation/promptfoo/retrieval_metrics.py`) | diagnostic : recherche hybride vs liens attendus |
 | Recall@5, MRR (après rerank) | `python` | diagnostic : contexte réellement donné au générateur |
 
-Une question est réussie si les métriques bloquantes passent ; les métriques de diagnostic (poids 0)
+Une question est réussie si la moyenne des scores des métriques notées (poids 1) atteint **0,5**
+(`threshold: 0.5` sur chaque test, `TEST_THRESHOLD` dans le générateur) ; les métriques de diagnostic (poids 0)
 sont mesurées et moyennées dans `promptfoo view` sans faire échouer la question. Les liens possibles
 sont rattachés aux documents du corpus comme pour `run_eval` (3 liens ne sont pas dans le corpus).
 
