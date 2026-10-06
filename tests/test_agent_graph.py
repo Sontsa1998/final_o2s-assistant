@@ -83,6 +83,7 @@ async def test_answered_with_citation_and_stream():
     path = [t["node"] for t in final["trace"]]
     assert path == ["intake", "analyze_intent", "retrieve", "rerank", "grade_context", "generate", "finalize"]
     assert final["cost_usd"] > 0
+    assert final["source_texts"][0]["sid"] == "S1" and "jeton" in final["source_texts"][0]["text"]
 
 
 @pytest.mark.asyncio

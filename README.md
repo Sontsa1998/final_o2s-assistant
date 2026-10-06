@@ -428,6 +428,44 @@ python -m evaluation.run_eval --concurrency 1                # latences sans con
 Le cache LLM est désactivé pendant l'évaluation, pour mesurer les coûts et latences réels (`--use-cache`
 pour le réactiver lors d'itérations rapides).
 
+### Évaluation avec promptfoo
+
+`promptfooconfig.yaml` (racine) évalue l'agent sur les 125 questions du jeu métier, via l'API
+(`POST /chat` avec `include_context: true`, qui renvoie aussi les extraits fournis au modèle et le
+journal de recherche). Le fichier est **généré** depuis le CSV : modifiez le générateur, pas le YAML.
+
+```powershell
+uvicorn o2s_rag.adapters.inbound.http.agent_app:app --port 8000     # API agent
+python -m evaluation.promptfoo.build_config                         # (re)génère promptfooconfig.yaml
+npx promptfoo@latest eval --no-cache                                # 125 questions
+npx promptfoo@latest eval --no-cache --filter-first-n 5             # essai rapide
+npx promptfoo@latest view                                           # tableau de bord
+```
+
+Le juge (`gpt-5.1`) et les embeddings passent par LiteLLM avec `LITELLM_BASE_URL` / `LITELLM_API_KEY`,
+lus dans `.env` : aucune clé dans le fichier. `--no-cache` est indispensable pour mesurer les vraies
+latences et les vrais coûts (promptfoo met sinon les réponses en cache). Les métriques de recherche sont
+calculées en Python (`python` sur le PATH, ou `PROMPTFOO_PYTHON`). Rapports :
+`evaluation/results/promptfoo/latest.{json,html}`.
+
+| Métrique (promptfoo) | Type | Rôle |
+|---|---|---|
+| Taux de réponse | `not-icontains` | bloquante : l'agent ne refuse pas de répondre |
+| Faithfulness | `context-faithfulness` (≥ 0,8) | bloquante : chaque affirmation est soutenue par les extraits fournis |
+| Answer relevancy | `answer-relevance` (≥ 0,7) | bloquante : la réponse traite la question |
+| Completeness | `llm-rubric` (≥ 0,7) | bloquante : part des informations clés de la réponse métier présentes |
+| Exactitude | `factuality` | bloquante : pas de contradiction avec la réponse métier |
+| Context relevance / Context recall | `context-relevance` / `context-recall` | diagnostic : qualité du contexte retrouvé |
+| Similarité sémantique | `similar` (embeddings) | diagnostic |
+| Citations | `regex` `[S\d+]` | diagnostic : la réponse cite ses sources |
+| Latence / Coût | `latency` (30 s) / `cost` (0,05 $) | diagnostic, par question |
+| Recall@5, Recall@10, MRR, nDCG@5 | `python` (`evaluation/promptfoo/retrieval_metrics.py`) | diagnostic : recherche hybride vs liens attendus |
+| Recall@5, MRR (après rerank) | `python` | diagnostic : contexte réellement donné au générateur |
+
+Une question est réussie si les métriques bloquantes passent ; les métriques de diagnostic (poids 0)
+sont mesurées et moyennées dans `promptfoo view` sans faire échouer la question. Les liens possibles
+sont rattachés aux documents du corpus comme pour `run_eval` (3 liens ne sont pas dans le corpus).
+
 ### Ancien jeu technique (API)
 
 ```powershell

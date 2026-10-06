@@ -74,4 +74,6 @@ class AgentService:
             "latency_ms": turn.get("latency_ms"),
             # utiles pour l'évaluation
             "retrieved_log": state.get("retrieved_log", []), "context": state.get("context", []),
+            "source_texts": [{"sid": s.get("sid"), "breadcrumb": s.get("breadcrumb", ""), "text": s.get("text", "")}
+                             for s in state.get("sources", [])],
         }
