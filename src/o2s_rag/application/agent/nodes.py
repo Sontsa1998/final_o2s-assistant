@@ -45,13 +45,14 @@ class AgentConfig:
     model_reasoning: str
     model_fast: str
     search_top_k: int = 20
-    rerank_top_n: int = 6
-    rerank_min_score: float = 0.35
+    rerank_top_n: int = 8
+    rerank_min_score: float = 0.25
+    rerank_keep_top_docs: int = 2
     max_retrieval_attempts: int = 2
     history_window: int = 10
     summarize_after_messages: int = 20
     context_strategy: str = "parent_if_small"
-    parent_inline_max_tokens: int = 900
+    parent_inline_max_tokens: int = 2000
     max_tool_iterations: int = 4
 
 
@@ -229,10 +230,33 @@ class AgentNodes:
         docs = [RetrievedChunk.model_validate(c) for c in state.get("candidates", [])]
         kept, usages = await self.d.reranker.rerank(RerankRequest(
             query=question, documents=docs, top_n=self.cfg.rerank_top_n, min_score=self.cfg.rerank_min_score))
+        rescued = self._rescue_top_documents(docs, kept)
+        kept = list(kept) + rescued
         context = [_dump_chunk(c) for c in kept] + list(state.get("tool_results", []))
         return {"context": context, "usage": _u(usages),
                 "_details": {"kept": [{"id": c.id, "breadcrumb": c.breadcrumb, "rerank_score": c.rerank_score}
-                                      for c in kept], "input": len(docs)}}
+                                      for c in kept], "input": len(docs),
+                             "rescued": [c.id for c in rescued]}}
+
+    def _rescue_top_documents(self, docs: list[RetrievedChunk], kept: list[RetrievedChunk]) -> list[RetrievedChunk]:
+        """Meilleur extrait (score de recherche) des N premiers documents absents du résultat du rerank."""
+        n = self.cfg.rerank_keep_top_docs
+        if n <= 0 or not docs:
+            return []
+        kept_docs = {c.metadata.get("doc_id") for c in kept}
+        kept_ids = {c.id for c in kept}
+        rescued: list[RetrievedChunk] = []
+        seen_docs: list[str] = []
+        for c in sorted(docs, key=lambda d: d.score, reverse=True):
+            doc = c.metadata.get("doc_id")
+            if not doc or doc in seen_docs:
+                continue
+            seen_docs.append(doc)
+            if doc not in kept_docs and c.id not in kept_ids:
+                rescued.append(c)
+            if len(seen_docs) >= n:
+                break
+        return rescued
 
     # 2c ---------------------------------------------------------- outils MCP
     @traced("tools_agent")

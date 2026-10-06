@@ -123,3 +123,17 @@ async def test_delete_thread_clears_memory():
     history = await svc.thread_history("t5")
     assert history["messages"] == [] and history["turns"] == []
     await svc.delete_thread("inconnu")          # sans effet, pas d'erreur
+
+
+def test_rerank_rescues_best_chunk_of_top_search_documents():
+    from o2s_rag.application.agent.nodes import AgentNodes
+    nodes = AgentNodes(AgentDeps(
+        llm=FakeLLM(), search=FakeSearch(), reranker=FakeRerank(), tools=NoTools(), taxonomy=Taxonomy(),
+        config=AgentConfig(model_generation="g", model_reasoning="r", model_fast="f", rerank_keep_top_docs=2)))
+    docs = [RetrievedChunk(id=i, score=s, text="t", metadata={"doc_id": d})
+            for i, s, d in [("a1", 0.9, "A"), ("a2", 0.8, "A"), ("b1", 0.7, "B"), ("c1", 0.6, "C")]]
+    kept = [docs[2]]                                  # le rerank n'a gardé que le document B
+    assert [c.id for c in nodes._rescue_top_documents(docs, kept)] == ["a1"]
+    assert nodes._rescue_top_documents(docs, [docs[0], docs[2]]) == []
+    nodes.cfg.rerank_keep_top_docs = 0
+    assert nodes._rescue_top_documents(docs, kept) == []

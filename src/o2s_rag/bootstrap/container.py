@@ -144,6 +144,7 @@ def build_agent_deps(s: Settings):
     cfg = AgentConfig(
         model_generation=s.model_generation, model_reasoning=s.model_reasoning, model_fast=s.model_fast,
         search_top_k=s.search_top_k, rerank_top_n=s.rerank_top_n, rerank_min_score=s.rerank_min_score,
+        rerank_keep_top_docs=s.rerank_keep_top_docs,
         max_retrieval_attempts=s.max_retrieval_attempts, history_window=s.history_window,
         summarize_after_messages=s.summarize_after_messages, context_strategy=s.context_strategy,
         parent_inline_max_tokens=s.parent_inline_max_tokens, max_tool_iterations=s.max_tool_iterations)

@@ -61,12 +61,17 @@ class Settings(BaseSettings):
 
     # --- Recherche / rerank ---
     search_top_k: int = 20
-    rerank_top_n: int = 6
-    rerank_min_score: float = 0.35
+    rerank_top_n: int = 8
+    rerank_min_score: float = 0.25
+    # Garde le meilleur extrait des N premiers documents de la recherche même si le reranker l'écarte
+    # (le bon document était trouvé en recherche mais perdu au rerank : recall@5 0,97 → 0,85).
+    rerank_keep_top_docs: int = 2
     reranker_backend: Literal["llm", "cross-encoder"] = "llm"
     cross_encoder_model: str = "BAAI/bge-reranker-v2-m3"
     context_strategy: Literal["chunk", "parent_if_small"] = "parent_if_small"
-    parent_inline_max_tokens: int = 900
+    # Section parente donnée en entier au modèle jusqu'à cette taille (≥ parent_max_tokens : toujours) :
+    # une procédure découpée en plusieurs chunks arrive complète au générateur.
+    parent_inline_max_tokens: int = 2000
 
     # --- Communication entre services ---
     services_mode: Literal["local", "http"] = "local"   # local = in-process, http = microservices

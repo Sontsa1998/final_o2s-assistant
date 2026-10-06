@@ -534,9 +534,10 @@ Les tests n'appellent aucun service externe :
 | `PARENT_HEADING_LEVELS` | 3 | Titres H1..Hn qui deviennent des sections |
 | `ENABLE_SPARSE` | true | Recherche hybride BM25 + dense |
 | `SEARCH_TOP_K` | 20 | Candidats par requête avant rerank |
-| `RERANK_TOP_N` / `RERANK_MIN_SCORE` | 6 / 0.35 | Chunks gardés pour la génération |
+| `RERANK_TOP_N` / `RERANK_MIN_SCORE` | 8 / 0.25 | Chunks gardés pour la génération |
+| `RERANK_KEEP_TOP_DOCS` | 2 | Meilleur extrait des N premiers documents de la recherche gardé même si le rerank l'écarte |
 | `RERANKER_BACKEND` | llm | `llm` (gpt-5-mini) ou `cross-encoder` (local) |
-| `CONTEXT_STRATEGY` | parent_if_small | Utiliser la section parente quand elle est courte |
+| `CONTEXT_STRATEGY` / `PARENT_INLINE_MAX_TOKENS` | parent_if_small / 2000 | Donner la section parente entière (jusqu'à 2000 tokens) plutôt que le seul chunk |
 | `MAX_RETRIEVAL_ATTEMPTS` | 2 | Réécritures avant « pas de réponse » |
 | `HISTORY_WINDOW` | 10 | Messages récents injectés dans les prompts |
 | `CHECKPOINTER` | sqlite | `sqlite`, `postgres` (prod) ou `memory` |
