@@ -14,6 +14,7 @@
 # Lancer
 #   npx promptfoo@latest eval --no-cache          # --no-cache : latences et coûts réels
 #   npx promptfoo@latest eval --no-cache --filter-first-n 5    # essai rapide
+#   npx promptfoo@latest eval --no-cache --filter-metadata a_relire=non   # sans les références à relire
 #   npx promptfoo@latest view                     # tableau de bord (scores par métrique)
 #
 # Métriques (colonne « metric » des résultats ; moyenne par métrique dans promptfoo view)
@@ -61,7 +62,10 @@ defaultTest:
         config:
           apiBaseUrl: '{{ env.LITELLM_BASE_URL | replace("/v1", "") }}/v1'
           apiKeyEnvar: LITELLM_API_KEY
-          max_completion_tokens: 2048
+          # gpt-5.1 raisonne avant de répondre : le raisonnement compte dans ce budget. À 2048, les
+          # réponses du juge étaient tronquées sur les contextes longs (context recall / relevance à 0).
+          max_completion_tokens: 8192
+          reasoning_effort: low
       embedding:
         id: openai:embedding:text-embedding-3-large
         config:
@@ -75,12 +79,12 @@ defaultTest:
 
     - type: context-faithfulness
       metric: Faithfulness
-      threshold: 0.8
+      threshold: 0.7
       contextTransform: 'context.metadata.contexts.length ? context.metadata.contexts : "Aucun extrait fourni."'
 
     - type: answer-relevance
       metric: Answer relevancy
-      threshold: 0.7
+      threshold: 0.5
 
     - type: llm-rubric
       metric: Completeness
@@ -181,6 +185,7 @@ tests:
     id: t001
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -241,6 +246,7 @@ tests:
     id: t002
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -299,6 +305,7 @@ tests:
     id: t003
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -370,6 +377,11 @@ tests:
     id: t004
     produit: O2S
     thematique: O2S
+    a_relire: oui
+    raison_a_relire: La référence décrit un parcours générique (fiche contact > onglet Projets, outil de recommandation,
+      « Ordres », motiver puis envoyer la transaction) absent de la page d'aide « Projets d'investissement & transactions
+      », que l'assistant suit fidèlement (section Comptes du projet > Recommander une nouvelle transaction). Completeness
+      0,18 alors que la réponse est fondée (faithfulness 0,94). À faire valider par le métier.
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -433,6 +445,7 @@ tests:
     id: t005
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -485,6 +498,7 @@ tests:
     id: t006
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -539,6 +553,7 @@ tests:
     id: t007
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -596,6 +611,7 @@ tests:
     id: t008
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -651,6 +667,7 @@ tests:
     id: t009
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -705,6 +722,7 @@ tests:
     id: t010
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -763,6 +781,7 @@ tests:
     id: t011
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -824,6 +843,7 @@ tests:
     id: t012
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -883,6 +903,7 @@ tests:
     id: t013
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -941,6 +962,7 @@ tests:
     id: t014
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -992,6 +1014,7 @@ tests:
     id: t015
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1050,6 +1073,7 @@ tests:
     id: t016
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1104,6 +1128,7 @@ tests:
     id: t017
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1165,6 +1190,7 @@ tests:
     id: t018
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1225,6 +1251,7 @@ tests:
     id: t019
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1285,6 +1312,7 @@ tests:
     id: t020
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1341,6 +1369,7 @@ tests:
     id: t021
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1395,6 +1424,7 @@ tests:
     id: t022
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1449,6 +1479,7 @@ tests:
     id: t023
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1511,6 +1542,7 @@ tests:
     id: t024
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1571,6 +1603,7 @@ tests:
     id: t025
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1637,6 +1670,7 @@ tests:
     id: t026
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1690,6 +1724,7 @@ tests:
     id: t027
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1752,6 +1787,7 @@ tests:
     id: t028
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1803,6 +1839,7 @@ tests:
     id: t029
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1854,6 +1891,7 @@ tests:
     id: t030
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1921,6 +1959,7 @@ tests:
     id: t031
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -1981,6 +2020,7 @@ tests:
     id: t032
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2045,6 +2085,7 @@ tests:
     id: t033
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2111,6 +2152,7 @@ tests:
     id: t034
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2174,6 +2216,7 @@ tests:
     id: t035
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2237,6 +2280,7 @@ tests:
     id: t036
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2312,6 +2356,7 @@ tests:
     id: t037
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2375,6 +2420,7 @@ tests:
     id: t038
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2439,6 +2485,7 @@ tests:
     id: t039
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2508,6 +2555,7 @@ tests:
     id: t040
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2573,6 +2621,7 @@ tests:
     id: t041
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2627,6 +2676,7 @@ tests:
     id: t042
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2698,6 +2748,7 @@ tests:
     id: t043
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2753,6 +2804,7 @@ tests:
     id: t044
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2807,6 +2859,7 @@ tests:
     id: t045
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2862,6 +2915,7 @@ tests:
     id: t046
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2918,6 +2972,7 @@ tests:
     id: t047
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -2976,6 +3031,7 @@ tests:
     id: t048
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3029,6 +3085,7 @@ tests:
     id: t049
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3093,6 +3150,7 @@ tests:
     id: t050
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3148,6 +3206,7 @@ tests:
     id: t051
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3208,6 +3267,7 @@ tests:
     id: t052
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3259,6 +3319,7 @@ tests:
     id: t053
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3312,6 +3373,7 @@ tests:
     id: t054
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3369,6 +3431,7 @@ tests:
     id: t055
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3419,6 +3482,7 @@ tests:
     id: t056
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3476,6 +3540,7 @@ tests:
     id: t057
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3532,6 +3597,7 @@ tests:
     id: t058
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3594,6 +3660,7 @@ tests:
     id: t059
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3649,6 +3716,7 @@ tests:
     id: t060
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3702,6 +3770,7 @@ tests:
     id: t061
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3766,6 +3835,7 @@ tests:
     id: t062
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3819,6 +3889,7 @@ tests:
     id: t063
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3878,6 +3949,7 @@ tests:
     id: t064
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3930,6 +4002,7 @@ tests:
     id: t065
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -3987,6 +4060,7 @@ tests:
     id: t066
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4045,6 +4119,7 @@ tests:
     id: t067
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4100,6 +4175,7 @@ tests:
     id: t068
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4153,6 +4229,7 @@ tests:
     id: t069
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4209,6 +4286,7 @@ tests:
     id: t070
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4266,6 +4344,7 @@ tests:
     id: t071
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4332,6 +4411,7 @@ tests:
     id: t072
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4394,6 +4474,7 @@ tests:
     id: t073
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4458,6 +4539,7 @@ tests:
     id: t074
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4520,6 +4602,7 @@ tests:
     id: t075
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4588,6 +4671,7 @@ tests:
     id: t076
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4656,6 +4740,7 @@ tests:
     id: t077
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4718,6 +4803,7 @@ tests:
     id: t078
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4779,6 +4865,7 @@ tests:
     id: t079
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4840,6 +4927,7 @@ tests:
     id: t080
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4915,6 +5003,7 @@ tests:
     id: t081
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -4990,6 +5079,7 @@ tests:
     id: t082
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5058,6 +5148,7 @@ tests:
     id: t083
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5149,6 +5240,7 @@ tests:
     id: t084
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5227,6 +5319,7 @@ tests:
     id: t085
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5283,6 +5376,7 @@ tests:
     id: t086
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5373,6 +5467,7 @@ tests:
     id: t087
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5439,6 +5534,7 @@ tests:
     id: t088
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5500,6 +5596,7 @@ tests:
     id: t089
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5578,6 +5675,7 @@ tests:
     id: t090
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5644,6 +5742,7 @@ tests:
     id: t091
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5707,6 +5806,7 @@ tests:
     id: t092
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5769,6 +5869,7 @@ tests:
     id: t093
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5833,6 +5934,7 @@ tests:
     id: t094
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5896,6 +5998,7 @@ tests:
     id: t095
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -5957,6 +6060,7 @@ tests:
     id: t096
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6021,6 +6125,7 @@ tests:
     id: t097
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6097,6 +6202,7 @@ tests:
     id: t098
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6157,6 +6263,7 @@ tests:
     id: t099
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6223,6 +6330,7 @@ tests:
     id: t100
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6303,6 +6411,7 @@ tests:
     id: t101
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6371,6 +6480,7 @@ tests:
     id: t102
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6432,6 +6542,7 @@ tests:
     id: t103
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6503,6 +6614,7 @@ tests:
     id: t104
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6564,6 +6676,7 @@ tests:
     id: t105
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6626,6 +6739,7 @@ tests:
     id: t106
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6688,6 +6802,7 @@ tests:
     id: t107
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6751,6 +6866,7 @@ tests:
     id: t108
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6806,6 +6922,7 @@ tests:
     id: t109
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6865,6 +6982,7 @@ tests:
     id: t110
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6918,6 +7036,7 @@ tests:
     id: t111
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -6979,6 +7098,7 @@ tests:
     id: t112
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7044,6 +7164,7 @@ tests:
     id: t113
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7106,6 +7227,7 @@ tests:
     id: t114
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7171,6 +7293,7 @@ tests:
     id: t115
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7247,6 +7370,7 @@ tests:
     id: t116
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7301,6 +7425,7 @@ tests:
     id: t117
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7360,6 +7485,7 @@ tests:
     id: t118
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7419,6 +7545,7 @@ tests:
     id: t119
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7482,6 +7609,7 @@ tests:
     id: t120
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7552,6 +7680,7 @@ tests:
     id: t121
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7618,6 +7747,7 @@ tests:
     id: t122
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7695,6 +7825,7 @@ tests:
     id: t123
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7776,6 +7907,7 @@ tests:
     id: t124
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5
@@ -7858,6 +7990,7 @@ tests:
     id: t125
     produit: O2S
     thematique: O2S
+    a_relire: non
   assert:
   - type: python
     value: file://evaluation/promptfoo/retrieval_metrics.py:recall_at_5

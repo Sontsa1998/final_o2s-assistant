@@ -42,7 +42,14 @@ def retrieval_metrics(results: list[dict[str, Any]], targets: list[dict[str, Any
         out[f"recall@{k}"] = len(covered) / len(targets)
         out[f"precision@{k}"] = (sum(1 for r in top if r) / len(top)) if top else 0.0
         out[f"hit@{k}"] = 1.0 if covered else 0.0
-        dcg = sum(1 / math.log2(i + 2) for i, r in enumerate(top) if r)
+        # gain uniquement pour le premier résultat qui couvre une cible : plusieurs extraits du même
+        # document attendu ne comptent qu'une fois (sinon nDCG > 1)
+        seen: set[int] = set()
+        dcg = 0.0
+        for i, r in enumerate(top):
+            if set(r) - seen:
+                dcg += 1 / math.log2(i + 2)
+                seen.update(r)
         idcg = sum(1 / math.log2(i + 2) for i in range(min(k, len(targets))))
         out[f"ndcg@{k}"] = dcg / idcg if idcg else 0.0
     first = next((i for i, r in enumerate(rel) if r), None)

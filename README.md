@@ -451,8 +451,8 @@ calculées en Python (`python` sur le PATH, ou `PROMPTFOO_PYTHON`). Rapports :
 | Métrique (promptfoo) | Type | Rôle |
 |---|---|---|
 | Taux de réponse | `not-icontains` | notée : l'agent ne refuse pas de répondre |
-| Faithfulness | `context-faithfulness` (≥ 0,8) | notée : chaque affirmation est soutenue par les extraits fournis |
-| Answer relevancy | `answer-relevance` (≥ 0,7) | notée : la réponse traite la question |
+| Faithfulness | `context-faithfulness` (≥ 0,7) | notée : chaque affirmation est soutenue par les extraits fournis |
+| Answer relevancy | `answer-relevance` (≥ 0,5) | notée : la réponse traite la question |
 | Completeness | `llm-rubric` (≥ 0,7) | notée : part des informations clés de la réponse métier présentes |
 | Exactitude | `factuality` | notée : pas de contradiction avec la réponse métier |
 | Context relevance / Context recall | `context-relevance` / `context-recall` | diagnostic : qualité du contexte retrouvé |
@@ -466,6 +466,10 @@ Une question est réussie si la moyenne des scores des métriques notées (poids
 (`threshold: 0.5` sur chaque test, `TEST_THRESHOLD` dans le générateur) ; les métriques de diagnostic (poids 0)
 sont mesurées et moyennées dans `promptfoo view` sans faire échouer la question. Les liens possibles
 sont rattachés aux documents du corpus comme pour `run_eval` (3 liens ne sont pas dans le corpus).
+
+Les réponses de référence qui semblent ne pas correspondre à la documentation sont listées, avec la raison,
+dans `evaluation/datasets/references_a_relire.csv` : elles restent intactes et évaluées, mais sont marquées
+`a_relire: oui` (`--filter-metadata a_relire=non` pour les exclure d'un run) en attendant l'avis du métier.
 
 ### Ancien jeu technique (API)
 

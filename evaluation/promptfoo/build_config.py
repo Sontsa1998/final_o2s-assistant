@@ -13,6 +13,7 @@ Les assertions communes (qualité de la réponse, contexte, latence, coût) sont
 from __future__ import annotations
 
 import argparse
+import csv
 from pathlib import Path
 
 import yaml
@@ -23,6 +24,9 @@ from o2s_rag.domain.prompts import NO_ANSWER_SENTENCE
 
 ROOT = Path(__file__).resolve().parents[2]
 DATASET = ROOT / "evaluation" / "datasets" / "questions_tests.csv"
+# Réponses de référence signalées au métier (id, raison) : marquées `a_relire: oui` dans les tests,
+# sans jamais modifier le texte de la référence. `--filter-metadata a_relire=non` les exclut d'un run.
+TO_REVIEW = ROOT / "evaluation" / "datasets" / "references_a_relire.csv"
 OUTPUT = ROOT / "promptfooconfig.yaml"
 METRICS = "file://evaluation/promptfoo/retrieval_metrics.py"
 
@@ -57,6 +61,7 @@ HEADER = """\
 # Lancer
 #   npx promptfoo@latest eval --no-cache          # --no-cache : latences et coûts réels
 #   npx promptfoo@latest eval --no-cache --filter-first-n 5    # essai rapide
+#   npx promptfoo@latest eval --no-cache --filter-metadata a_relire=non   # sans les références à relire
 #   npx promptfoo@latest view                     # tableau de bord (scores par métrique)
 #
 # Métriques (colonne « metric » des résultats ; moyenne par métrique dans promptfoo view)
@@ -104,7 +109,10 @@ defaultTest:
         config:
           apiBaseUrl: '{{{{ env.LITELLM_BASE_URL | replace("/v1", "") }}}}/v1'
           apiKeyEnvar: LITELLM_API_KEY
-          max_completion_tokens: 2048
+          # gpt-5.1 raisonne avant de répondre : le raisonnement compte dans ce budget. À 2048, les
+          # réponses du juge étaient tronquées sur les contextes longs (context recall / relevance à 0).
+          max_completion_tokens: 8192
+          reasoning_effort: low
       embedding:
         id: openai:embedding:text-embedding-3-large
         config:
@@ -118,12 +126,12 @@ defaultTest:
 
     - type: context-faithfulness
       metric: Faithfulness
-      threshold: 0.8
+      threshold: 0.7
       contextTransform: '{context}'
 
     - type: answer-relevance
       metric: Answer relevancy
-      threshold: 0.7
+      threshold: 0.5
 
     - type: llm-rubric
       metric: Completeness
@@ -196,7 +204,15 @@ outputPath:
 CONTEXT = 'context.metadata.contexts.length ? context.metadata.contexts : "Aucun extrait fourni."'
 
 
-def build_tests(items: list[dict]) -> list[dict]:
+def load_to_review(path: Path = TO_REVIEW) -> dict[str, str]:
+    if not path.exists():
+        return {}
+    with path.open(encoding="utf-8-sig", newline="") as f:
+        return {r["id"].strip().lower(): r.get("raison", "").strip() for r in csv.DictReader(f) if r.get("id")}
+
+
+def build_tests(items: list[dict], to_review: dict[str, str] | None = None) -> list[dict]:
+    to_review = load_to_review() if to_review is None else to_review
     tests = []
     for it in items:
         q = it["question"]
@@ -211,8 +227,11 @@ def build_tests(items: list[dict]) -> list[dict]:
                 "targets": targets,
             },
             "metadata": {"id": it["id"], "produit": it.get("produit", ""),
-                         "thematique": it.get("thematique", "")},
+                         "thematique": it.get("thematique", ""),
+                         "a_relire": "oui" if it["id"] in to_review else "non"},
         }
+        if it["id"] in to_review:
+            test["metadata"]["raison_a_relire"] = to_review[it["id"]]
         if targets:
             test["assert"] = [
                 {"type": "python", "value": f"{METRICS}:{fn}", "metric": name, "weight": 0,

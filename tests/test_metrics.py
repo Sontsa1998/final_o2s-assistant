@@ -13,6 +13,18 @@ def test_retrieval_metrics():
     assert abs(m["precision@3"] - 1 / 3) < 1e-9 and 0 < m["ndcg@3"] < 1
 
 
+def test_ndcg_counts_each_expected_document_once():
+    """Plusieurs extraits du même document attendu (cas réel : nDCG@5 à 1,5 avant correction)."""
+    targets = [{"doc_id": "a"}]
+    results = [{"metadata": {"doc_id": "a"}}, {"metadata": {"doc_id": "x"}}, {"metadata": {"doc_id": "a"}}]
+    m = M.retrieval_metrics(results, targets, ks=(5,))
+    assert m["ndcg@5"] == 1.0 and m["mrr"] == 1.0
+    late = M.retrieval_metrics(results[1:], targets, ks=(5,))
+    assert 0 < late["ndcg@5"] < 1
+    two = M.retrieval_metrics([{"metadata": {"doc_id": "a"}}] * 3, [{"doc_id": "a"}, {"doc_id": "b"}], ks=(5,))
+    assert two["ndcg@5"] <= 1 and two["recall@5"] == 0.5
+
+
 def test_refusal_and_language():
     assert M.is_refusal("Je ne trouve pas de réponse dans le contexte qui m'est fourni.")
     assert M.is_french("Le jeton est valable pour une durée de une heure.")
