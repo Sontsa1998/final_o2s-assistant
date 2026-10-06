@@ -1,0 +1,2376 @@
+# ============================================================
+# promptfoo config — Évaluation de l'agent RAG Kiss My Agent V3
+# ============================================================
+# Généré depuis questions_tests.csv (125 questions)
+# Usage :
+#   npx promptfoo eval              (évaluation complète)
+#   npx promptfoo eval --no-cache   (forcer une nouvelle évaluation)
+#   npx promptfoo view              (interface web des résultats)
+# ============================================================
+
+description: Évaluation de l'Assistant O2S — 125 questions (questions_tests.csv)
+providers:
+- id: http
+  config:
+    url: http://127.0.0.1:8000/chat
+    method: POST
+    headers:
+      Content-Type: application/json
+    body:
+      question: '{{question}}'
+    responseParser: "json.answer || json.detail || ''"
+prompts:
+- '{{question}}'
+tests:
+- description: Comment activer et configurer une alerte d'adéquation projet dans O2S
+  vars:
+    question: Comment activer et configurer une alerte d'adéquation projet dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour activer et configurer une alerte d''adéquation projet dans O2S, suivez ces étapes :
+
+      - 1. Accéder au paramétrage des alertes
+
+      - Rendez-vous dans le menu :
+
+      - Services > Modules > Accueil et pilotage > Alertes > Notifications contacts
+
+      - 2. Activer l''alerte d''adéquation projet
+
+      - Cochez l''option Alertes adéquation projet avec fréquence de contrôle.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Que dois-je faire si le palmarès n'apparaît pas sur la page d'accue...
+  vars:
+    question: Que dois-je faire si le palmarès n'apparaît pas sur la page d'accueil d'O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Si le palmarès n''apparaît pas sur la page d''accueil d''O2S, procédez ainsi :
+
+      - 1. Rendez-vous dans le module Services.
+
+      - 2. Accédez à Modules > Accueil et pilotage > Organisation.
+
+      - 3. Dans l''onglet de votre choix, cochez l''option Palmarès.
+
+      - Cela permettra d''afficher le palmarès sur la page d''accueil ou dans l''onglet Pilotage selon votre sélection.
+
+      - Source : *Palmarès* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelle variable permet d'afficher le niveau de risque ...
+  vars:
+    question: Quelle variable permet d'afficher le niveau de risque de l'allocation sous forme de valeur (et non de tableau) ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : C''est la variable $RISQUE_ALLOCATION$.
+
+
+      Source: https://o2s-help.harvest.fr/liste-des-variables-declaration-dadequation-format-word/#recommandation'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment recommander et réaliser une transaction sur un compte dans ...
+  vars:
+    question: Comment recommander et réaliser une transaction sur un compte dans le cadre d'un projet d'investissement ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour recommander et réaliser une transaction sur un compte dans le cadre d''un projet d''investissement dans O2S,
+      il faut suivre ces étapes principales :
+
+      - 1. Créer ou ouvrir le projet d''investissement : Accédez à la fiche du contact, puis à l''onglet « Projets ». Créez
+      un nouveau projet ou ouvrez un projet existant.
+
+      - 2. Réaliser la recommandation : Dans le projet, sélectionnez les produits ou supports à recommander. Vous pouvez utiliser
+      l''outil de recommandation pour choisir les fonds ou supports adaptés au profil du client.
+
+      - 3. Générer la déclaration d''adéquation : Une fois la recommandation finalisée, générez la déclaration d''adéquation
+      pour valider la cohérence entre le profil du client et la recommandation.
+
+      - 4. Réaliser la transaction : Après validation, accédez à la partie « Transactions » ou « Ordres » du projet pour saisir
+      l''opération (versement, arbitrage, rachat, etc.) sur le compte concerné.
+
+      - 5. Motiver la transaction et l''envoyer au client : Vous pouvez ajouter une motivation à la transaction et transmettre
+      le document au client directement depuis O2S.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je ajouter un nouveau bien détenu dans la section Patr...
+  vars:
+    question: Comment puis-je ajouter un nouveau bien détenu dans la section Patrimoine d'un contact ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour ajouter un nouveau bien immobilier dans la section Patrimoine d''un contact sur O2S, procédez ainsi :
+
+      - 1. Rendez-vous dans l''espace Autres > Immobilier du module Contacts du client concerné.
+
+      - 2. Cliquez sur Ajouter un immeuble dans la barre de menus.
+
+      - 3. Remplissez le formulaire avec les informations du bien (adresse, mode d''acquisition, etc.).
+
+      - 4. Cliquez sur Enregistrer pour valider l''ajout du bien au patrimoine géré du client.
+
+      - Le bien sera alors visible dans le tableau récapitulatif du patrimoine immobilier du contact.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Il y a t-il une anomalie d'agrégation en ce moment
+  vars:
+    question: Il y a t-il une anomalie d'agrégation en ce moment ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Vous pouvez retrouver toutes les anomalies d''agrégation en cours au niveau de la météo de l''agrégation : https://o2s-help.harvest.fr/meteo-agregation/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: où trouver les variables O2S
+  vars:
+    question: où trouver les variables O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Les variables O2S sont disponibles dans les documents créés dans O2S, depuis linterface de rédaction de vos courriers.
+      Vous pouvez les insérer en plaçant le curseur de la souris à lendroit souhaité, puis en cliquant sur la liste déroulante
+      Variables O2S et en sélectionnant la variable de votre choix. Vous pouvez également les insérer manuellement en les
+      saisissant avec les 2 signes $.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment envoyer emailing
+  vars:
+    question: Comment envoyer emailing
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour envoyer un emailing avec O2S, vous devez exécuter une requête en fonction de la cible de votre e-mail.
+
+      - Quand vous avez le résultat de votre requête, vous devez cliquer sur le menu « burger » et Email puis « Faire un emailing
+      ».
+
+      - Vous pouvez aussi accéder à la fenêtre Emails et messages MoneyPitch en cliquant sur l’icône dédiée dans la partie
+      supérieure d’O2S. Ensuite, dans l’onglet Emails envoyés, cliquez sur Envoyer un email. Sélectionnez-le ou les destinataires
+      en cliquant sur A / Cc / Cci, ajoutez-les et rédigez votre message en saisissant l''objet et le texte. Vous pouvez également
+      joindre des fichiers ou demander un accusé de réception. Enfin, cliquez sur envoyer pour finaliser l''envoi.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je accéder directement à mes autres solutions Harvest,...
+  vars:
+    question: Comment puis-je accéder directement à mes autres solutions Harvest, comme Big, depuis O2S sans ressaisir mes identifiants ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour accéder directement à vos autres solutions Harvest, telles que Big, depuis O2S sans ressaisir vos identifiants,
+      utilisez le portail Harvest Connect. Cliquez sur l''icône Harvest Connect située en haut à gauche de votre application
+      O2S. Cela vous permet d''accéder à vos autres solutions Harvest sans avoir à saisir à nouveau vos identifiants.
+
+      - Source : *Votre portail Harvest Connect* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je accéder rapidement aux différents thèmes de la fich...
+  vars:
+    question: Comment puis-je accéder rapidement aux différents thèmes de la fiche d'un contact dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour accéder rapidement aux différents thèmes de la fiche d''un contact dans O2S, ouvrez la fiche du contact (en double-cliquant
+      sur son nom dans la liste des contacts). Ensuite, cliquez sur le bouton « Tout parcourir ». Ce bouton est disponible
+      où que vous soyez dans la fiche du contact et vous permet de naviguer rapidement d''un thème à l''autre au sein des
+      différents espaces de la fiche.
+
+      - Source : *Le contact* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Où puis-je paramétrer les options d'impression par défaut pour les ...
+  vars:
+    question: Où puis-je paramétrer les options d'impression par défaut pour les déclarations d'adéquation dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour paramétrer les options d''impression par défaut des déclarations d''adéquation dans O2S, rendez-vous dans le
+      menu :
+
+      - Services > Editions > Projet > Déclaration d''adéquation des projets.
+
+      - C''est à cet endroit que vous pouvez définir les paramètres d''impression qui seront utilisés par défaut lors de l''édition
+      des déclarations d''adéquation.
+
+      - Source : *Déclaration d''adéquation* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je afficher la liste des opérations effectuées sur un ...
+  vars:
+    question: Comment puis-je afficher la liste des opérations effectuées sur un support spécifique dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour afficher la liste des opérations effectuées sur un support spécifique dans O2S, procédez ainsi :
+
+      - 1. Rendez-vous dans l''onglet Portefeuille > Comptes du client concerné.
+
+      - 2. Repérez le compte contenant le support souhaité.
+
+      - 3. À droite de la ligne du support, cliquez sur l''icône représentant 3 points horizontaux dans un cercle.
+
+      - 4. Sélectionnez Voir les mouvements du support.
+
+      - Vous verrez alors la liste de toutes les opérations associées à ce support.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment activer ou désactiver la fonctionnalité de téléchargement d...
+  vars:
+    question: Comment activer ou désactiver la fonctionnalité de téléchargement des emails pour un client spécifique dans
+      O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour activer ou désactiver la fonctionnalité de téléchargement des emails pour un client spécifique dans O2S, procédez
+      ainsi :
+
+      - 1. Rendez-vous dans la liste des contacts.
+
+      - 2. Cliquez sur les 3 points à droite du client concerné.
+
+      - 3. Cliquez sur l''option Activer / Désactiver le téléchargement des emails.                                                              4.
+      Dans la liste qui apparait, cochez ou non l''option Télécharger. Puis cliquez sur OK.
+
+      - Cette action permet de choisir précisément pour quels clients les emails reçus seront automatiquement copiés dans
+      leur suivi O2S.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment mettre à jour le mot de passe d'un extranet
+  vars:
+    question: Comment mettre à jour le mot de passe d'un extranet ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour mettre à jour le mot de passe dun extranet, vous devez vous connecter à lextranet Cardif, puis suivre les étapes
+      suivantes :
+
+      - 1. Sélectionnez un produit et saisissez un libellé identifiant celui-ci.
+
+      - 2. Cliquez sur Poursuivre sur l’extranet Cardif.
+
+      - 3. Sur la page de connexion à l’extranet Cardif, cliquez sur Utiliser un autre fournisseur.
+
+      - 4. Choisissez HARVEST O2S – RECETTE.
+
+      - 5. Sélectionnez Se connecter avec un compte existant et saisissez votre identifiant et votre mot de passe Finagora.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment créer un portefeuille modèle
+  vars:
+    question: Comment créer un portefeuille modèle ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : Consultez l''aide https://o2s-help.harvest.fr/portefeuilles-modeles/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment O2S calcule-t-il le niveau de risque d'une allocation par r...
+  vars:
+    question: Comment O2S calcule-t-il le niveau de risque d'une allocation par rapport au SRI des supports individuels ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - O2S calcule le niveau de risque d''une allocation en utilisant sa propre méthode, qui peut différer du SRI (Summary
+      Risk Indicator) des supports individuels. Même si chaque support (fonds, produit financier, etc.) possède un SRI spécifique
+      (généralement sur une échelle de 1 à 7), O2S ne fait pas simplement une moyenne ou une addition de ces SRI pour déterminer
+      le risque global de l''allocation.
+
+      - Le SRI d''une allocation dans O2S prend en compte plusieurs facteurs, notamment la volatilité des prix, la stabilité
+      des actifs sous-jacents et d''autres éléments liés au marché financier. Ainsi, il est possible que l''allocation, composée
+      de supports avec un SRI de 3, se voie attribuer un SRI global de 5 par O2S. Cela s''explique par la méthode de calcul
+      propre à O2S, qui vise à refléter le risque réel de l''ensemble de l''allocation, et non uniquement la somme des risques
+      individuels.
+
+      - En résumé, le niveau de risque d''une allocation dans O2S est calculé de façon indépendante à partir des caractéristiques
+      globales de l''allocation, ce qui peut entraîner des écarts avec les SRI des supports individuels.
+
+      - Source : *Calcul du risque dans les projets d''investissement* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Que se passe-t-il si j'exclus les critères ESG du calcul du contrôl...
+  vars:
+    question: Que se passe-t-il si j'exclus les critères ESG du calcul du contrôle d'adéquation dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Si vous excluez les critères ESG du calcul du contrôle d''adéquation dans O2S, l''adéquation du projet de votre client
+      sera évaluée uniquement sur la base de ses connaissances/expériences et de son profil de risque. Les préférences ESG
+      resteront toutefois visibles dans le projet, mais elles ne seront pas prises en compte dans le calcul de l''adéquation.
+
+      - Source : *L''ESG pour prendre en compte des critères extra-financiers dans les projets d''investissement* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je afficher et filtrer toutes les activités liées à un...
+  vars:
+    question: Comment puis-je afficher et filtrer toutes les activités liées à un contact dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour afficher et filtrer toutes les activités liées à un contact dans O2S :
+
+      - 1. Depuis la liste de vos contacts, cliquez sur l''icône située à droite de la ligne du contact concerné.
+
+      - 2. Sélectionnez « Afficher les activités ».
+
+      - 3. La liste des activités du contact s''affiche.
+
+      - 4. Utilisez la liste déroulante « Afficher » pour filtrer les activités (par exemple : tâches, rendez-vous, suivis,
+      etc.).
+
+      - Vous pouvez ensuite gérer chaque activité en cliquant sur l''icône crayon pour modifier ou sur la croix pour supprimer.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je accéder à une fiche de synthèse Quantalys depuis la...
+  vars:
+    question: Comment puis-je accéder à une fiche de synthèse Quantalys depuis la Bibliothèque de supports dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour accéder à une fiche de synthèse Quantalys depuis la Bibliothèque de supports dans O2S, procédez ainsi :
+
+      - 1. Rendez-vous dans le menu Outils > Bibliothèque > Supports.
+
+      - 2. Recherchez et double-cliquez sur le support de votre choix.
+
+      - 3. Une fenêtre de gestion électronique des documents (GED) s''ouvre.
+
+      - 4. Dans cette GED, vous pouvez accéder à la fiche de synthèse Quantalys du support sélectionné.
+
+      - Source : *Fiches de synthèse Quantalys : depuis le Palmarès et la Bibliothèque de supports aussi !* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment paramétrer mes notifications
+  vars:
+    question: Comment paramétrer mes notifications ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour paramétrer vos notifications, vous devez vous rendre dans Services > Modules > Accueil et pilotage > Alertes.
+      Vous y trouverez toutes les alertes et notifications paramétrables sur O2S comme la mise en place d’une alerte anniversaire
+      d’un client ou alors une notification sur l’expiration à venir de votre profil de risque ou RIC'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Que faire avec les alertes de compte à 0
+  vars:
+    question: Que faire avec les alertes de compte à 0 ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour les alertes de compte à zéro, vous avez plusieurs actions possibles :
+
+      - 1. Supprimer le compte : cela clôture définitivement le compte, le retirant du portefeuille du client.
+
+      - 2. Mettre le compte à 0 et le conserver : cela passe le solde du compte à zéro tout en le conservant.
+
+      - 3. Garder la dernière situation : conserve le compte avec la situation antérieure à zéro, bien que cela fausse la
+      réalité.
+
+      - 4. Reporter le traitement de lalerte : le compte continuera à apparaître dans les alertes tant quune action définitive
+      nest pas choisie. Vous pouvez également accéder aux détails du compte dans le module Portefeuille en cliquant sur le
+      numéro de compte.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment est calculé la recommandation projet
+  vars:
+    question: comment est calculé la recommandation projet ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - La recommandation de projet est calculée en fonction des caractéristiques du client, de son profil dinvestisseur,
+      de son horizon dinvestissement, de sa capacité à subir des pertes, et des objectifs patrimoniaux. Elle est matérialisée
+      par une allocation type proposée avec différents scénarios et indicateurs de risque et de perte maximale. Si nécessaire,
+      une allocation différente peut être sélectionnée.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: que signifie la couleur affichées à gauche des comptes
+  vars:
+    question: que signifie la couleur affichées à gauche des comptes
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Dans les onglets Portefeuille et Comptes du module Contacts > Portefeuille, les icônes affichées à gauche des comptes
+      permettent d’identifier le type de gestion de ces derniers dans O2S (manuelle ou agrégée) et la fraicheur des informations
+      issues de l’agrégation (rouge pour les comptes qui ne sont plus à jour et vert / orange pour les comptes à jour).'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment accéder et gérer les projets archivés d'un contact dans O2S
+  vars:
+    question: Comment accéder et gérer les projets archivés d'un contact dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour accéder et gérer les projets archivés d''un contact dans O2S, procédez ainsi :
+
+      - 1. Rendez-vous dans l''onglet Conformité > Projets > Projets du contact.
+
+      - 2. Cliquez sur l''en-tête de la colonne Statut pour trier les projets.
+
+      - 3. Les projets archivés apparaîtront alors en première position.
+
+      - Remarques importantes :
+
+      - Un projet archivé ne peut pas être réactivé.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelles informations sont échangées automatiquement entre Big et O2...
+  vars:
+    question: Quelles informations sont échangées automatiquement entre Big et O2S lors de la mise à jour d'un dossier client
+      ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Lors de la mise à jour d''un dossier client entre Big et O2S, les informations suivantes sont échangées automatiquement
+      :
+
+      - Client et conjoint : nom, prénom, date de naissance, situation patrimoniale, profession.
+
+      - Actifs : nature, valeur estimée (ou capital assuré pour les actifs de prévoyance), libellé, détenteur, mode de détention
+      (pleine propriété, usufruit, nue-propriété).
+
+      - Passifs : nature, type (amortissable ou in fine), libellé, souscripteur, montant du prêt, durée, taux d''intérêt,
+      taux d''assurance, périodicité des échéances, date de début.
+
+      - Revenus et charges : nature, libellé, bénéficiaire ou débiteur, montant, périodicité, date.
+
+      - Source : *Echange d''informations entre Big et O2S* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment le risque de crédit est-il pris en compte dans le calcul du...
+  vars:
+    question: Comment le risque de crédit est-il pris en compte dans le calcul du SRI pour un fonds multi-asset ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour un fonds multi-asset, le risque de crédit (MRC) est pris en compte dans le calcul du SRI (Indicateur Synthétique
+      de Risque) en complément du risque de marché (MRM). Voici comment cela fonctionne :
+      - 1. Évaluation du risque de crédit :
+      - Le risque de crédit est déterminé à partir des notations de crédit attribuées à l''émetteur par un ou plusieurs organismes
+      externes d''évaluation du crédit (OEEC), certifiés ou enregistrés auprès de l''Autorité européenne des marchés financiers
+      (AEMF). Si plusieurs notations existent, la notation médiane est retenue (ou la plus faible des deux valeurs centrales
+      si le nombre est pair). Le MRC est alors attribué sur une échelle de 1 à 6.
+      - 2. Combinaison avec le risque de marché :
+      - Une fois le MRC (risque de crédit) et le MRM (risque de marché) déterminés, le SRI global du fonds multi-asset est
+     obtenu en combinant ces deux valeurs selon un tableau de correspondance défini par la réglementation PRIIPs.
+      - Pour un fonds multi-asset avec un risque de crédit (MRC) de 3 et un risque de marché (MRM) de 4, le SRI final sera
+      de 4.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: peut-on exclure les critères ESG du parcours projet
+  vars:
+    question: peut-on exclure les critères ESG du parcours projet ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Oui, il est possible dexclure les critères ESG du contrôle dadéquation au niveau des projets en personnalisant les
+      paramètres du projet. En désactivant les critères ESG, ils seront grisés dans le contrôle dadéquation, ce qui signifie
+      quils ne seront pas pris en compte dans lévaluation de ladéquation ESG du projet.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment modifier l'évaluation d'un compte
+  vars:
+    question: comment modifier l'évaluation d'un compte ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour modifier l''évaluation d''un compte dans O2S :
+
+      - 1. Depuis le portefeuille de votre client, cliquez sur l''icône « valise » à gauche du compte à modifier.
+
+      - 2. Dans la fenêtre « Compte », cliquez sur l''onglet Situations.
+
+      - 3. La modification de la situation du compte n''est possible que si son statut est En cours.
+
+      - 4. Dans l''onglet Situations, cliquez sur Saisie rapide puis indiquez le montant de la situation du compte.
+
+      - 5. Cliquez sur OK pour valider.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment traiter mes alertes techniques
+  vars:
+    question: Comment traiter mes alertes techniques
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : Consultez ces différentes pages d''aide : https://o2s-help.harvest.fr/category/agregation/alertes_techniques/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment créer un projet
+  vars:
+    question: comment créer un projet
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : Consulter l''aide https://o2s-help.harvest.fr/projets/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je paramétrer le marché cible d'un instrument financie...
+  vars:
+    question: Comment puis-je paramétrer le marché cible d'un instrument financier dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour paramétrer le marché cible d''un instrument financier dans O2S, suivez ces étapes :
+
+      - 1. Accédez à Services > Personnalisation > Catalogue produits > Gouvernance.
+
+      - 2. Cliquez sur le lien Paramétrer la gouvernance MIF2.
+
+      - 3. Après avoir cliqué sur Rechercher, dans la fenêtre qui s''ouvre, vous verrez les informations « producteur » pour
+      chaque instrument financier.
+
+      - 4. Pour chaque instrument, cliquez sur le bouton [menu burger] pour l''ajouter à votre gouvernance produits.
+
+      - 5. Cliquez à nouveau sur [menu burger], puis sur l''icône [crayon noir] pour voir les marchés attribués par le producteur
+      à chaque caractéristique de l''instrument.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment accorder à un collaborateur l'accès à la gestion de la vigi...
+  vars:
+    question: Comment accorder à un collaborateur l'accès à la gestion de la vigilance dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Selon les autorisation que vous souhaitez accorder à l''utilisateur, cochez les options suivantes dans le module d''administration
+      :
+
+      - Cliquez sur l''icône loupe dans Profils utilisateur.
+
+      - Dans Gestion des profils, double-cliquez le profil du collaborateur. Si vous souhaitez n''attribuer ces droits qu''à
+      une seule personne, cliquez sur la loupe dans l''encart Utilisateurs de l''administration, puis double-cliquez le nom
+      de l''utilisateur, puis au niveau de Profil de droit d''utilisation, sélectionnez Personnalisé tout en bas de la liste
+      déroulante. Cliquez alors sur le lien Personnaliser les droits d''utilisation puis effectuez les paramétrages ci-dessous.
+
+      - Dans Gestion des droits :
+
+      - cliquez sur l''onglet Configuration de l''application et cochez l''option Gestion des critères Vigilance.
+
+      - cliquez sur l''onglet Contact, et cochez les options Permettre la modification de la vigilance retenue et Permettre
+      l''ajout, la modification et la suppression de la vigilance client et opérations.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelle est la procédure pour transférer tous les contacts d'un cons...
+  vars:
+    question: Quelle est la procédure pour transférer tous les contacts d'un conseiller vers un autre dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour transférer tous les contacts d''un conseiller vers un autre dans O2S, suivez ces étapes :
+
+      - 1. Rendez-vous dans le module Requêtes.
+
+      - 2. Cliquez sur +Ajouter puis sur Nouvelle requête contacts, puis cliquez sur OK.
+
+      - 3. Dans la fenêtre Requête contacts, allez dans l''onglet Conseiller.
+
+      - 4. À droite de la ligne Conseiller, cochez le conseiller dont vous souhaitez transférer les contacts, puis cliquez
+      sur Rechercher contacts.
+
+      - 5. Dans les résultats, cochez la case tout en haut à gauche pour sélectionner tous les contacts.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Que dois-je faire si des mouvements restent en attente sur un compt...
+  vars:
+    question: Que dois-je faire si des mouvements restent en attente sur un compte agrégé dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Si des mouvements restent en attente sur un compte agrégé dans O2S, voici les étapes à suivre :
+
+      - 1. Vérification de la validation par le dépositaire : Les mouvements restent en attente tant que le dépositaire ne
+      les a pas validés. Une fois la validation effectuée, vous recevez une alerte dans le module Accueil d''O2S.
+
+      - 2. Traitement de l''alerte : Après réception de l''alerte (nouveaux comptes ou mouvements en attente), vous devez
+      rapprocher le mouvement en attente avec le mouvement importé. Cela permet de lier le mouvement en attente à celui validé
+      par le dépositaire.
+
+      - 3. Modification du statut : Pour les mouvements non agrégés, après réception de la notification (par exemple, une
+      lettre envoyée au client), il est nécessaire de modifier manuellement le statut du mouvement en attente afin qu''il
+      devienne actif.
+
+      - 4. Fusion ou liaison : Sélectionnez le mouvement en attente dans O2S pour le lier avec le mouvement importé correspondant.
+
+      - En résumé, il faut surveiller les alertes, rapprocher ou lier les mouvements en attente avec ceux validés/importés,
+      puis modifier leur statut pour qu''ils deviennent actifs dans O2S.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je retrouver et exporter le détail des relances effect...
+  vars:
+    question: Comment puis-je retrouver et exporter le détail des relances effectuées par chaque conseiller dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour retrouver et exporter le détail des relances effectuées par chaque conseiller dans O2S, procédez ainsi :
+
+      - 1. Rendez-vous dans l''onglet Pilotage, puis dans l''encart Informations commerciales.
+
+      - 2. Repérez le nombre de relances effectuées (données sur les 31 derniers jours).
+
+      - 3. Cliquez sur l''icône loupe à côté de cette information pour accéder au détail des relances.
+
+      - 4. Utilisez la liste déroulante Regrouper par… Conseiller pour afficher la répartition des relances par conseiller.
+
+      - 5. Pour exporter ces relances, cochez celles que vous souhaitez exporter puis cliquez sur l''icône PDF.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je ajouter un versement programmé sur un compte dans O2S
+  vars:
+    question: Comment puis-je ajouter un versement programmé sur un compte dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour ajouter un versement programmé sur un compte dans O2S, suivez ces étapes :
+
+      - 1. Accédez au compte concerné depuis la fiche du contact, puis ouvrez la page Portefeuille.
+
+      - 2. Cliquez sur le compte souhaité pour l''ouvrir.
+
+      - 3. Dans l''onglet « Général », activez l''option « Versements programmés » en cliquant sur le bouton radio correspondant.
+
+      - 4. Un nouvel onglet « Versements programmés » apparaît alors.
+
+      - 5. Rendez-vous dans cet onglet, puis cliquez sur « Ajouter » pour saisir les informations du versement programmé (montant,
+      périodicité, etc.).'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelle formule O2S utilise-t-il pour illustrer graphiquement l'impa...
+  vars:
+    question: Quelle formule O2S utilise-t-il pour illustrer graphiquement l'impact annualisé des frais ex ante sur un investissement
+      ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - O2S utilise la formule suivante pour illustrer graphiquement l''impact annualisé des frais ex ante sur un investissement
+      :
+
+      - Les frais annuels sont multipliés par le nombre d''années de détention.
+
+      - La somme de l''ensemble des frais est ensuite annualisée puis ramenée en pourcentage de l''investissement net.
+
+      - La formule est la suivante :
+
+      - Impact annualisé des frais = [(FU + (FR + FrTS + FrTI + CA + CM - PRT) × n) / n] / K
+
+      - FU = Frais uniques'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je créer une alerte pour l'anniversaire d'un client da...
+  vars:
+    question: Comment puis-je créer une alerte pour l'anniversaire d'un client dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour créer une alerte pour l''anniversaire d''un client dans O2S, suivez ces étapes :
+
+      - 1. Accédez au module Accueil.
+
+      - 2. Cliquez sur le bouton Gestion des alertes dans le bloc « Alertes commerciales ».
+
+      - 3. Cliquez sur Ajouter pour créer une nouvelle alerte.
+
+      - 4. Sélectionnez l''option Alerte sur l''anniversaire du client.
+
+      - 5. Renseignez les informations demandées (âge, date, etc.) dans les différents écrans, en cliquant sur Suivant pour
+      passer d''un écran à l''autre.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment accéder à la fiche de synthèse Feefty pour un produit struc...
+  vars:
+    question: Comment accéder à la fiche de synthèse Feefty pour un produit structuré présent dans le portefeuille d'un client
+      sur O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour accéder à la fiche de synthèse Feefty pour un produit structuré dans le portefeuille d''un client sur O2S, procédez
+      ainsi :
+
+      - 1. Rendez-vous dans le compte du client où le produit structuré est présent.
+
+      - 2. Dans la colonne "Synthèse", repérez le logo Feefty (un "F" bleu) à côté du produit structuré (ce logo apparaît
+      si le produit est présent à la fois dans la base O2S et dans la base Feefty).
+
+      - 3. Cliquez sur ce logo Feefty : la fiche de synthèse s''ouvre et vous donne accès à de nombreux indicateurs (courbes
+      d''évolution du sous-jacent, valeur liquidative, dates de détachement de coupon, remboursements anticipés, etc.).
+
+      - Remarque : Même si les logos sont désactivés, vous pouvez accéder à la fiche via le menu (3 points horizontaux) >
+      Synthèse.
+
+      - Vous pouvez également retrouver ces fiches depuis :'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelles sont les étapes pour créer et utiliser un modèle Word DCC p...
+  vars:
+    question: Quelles sont les étapes pour créer et utiliser un modèle Word DCC pour une personne morale dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour créer et utiliser un modèle Word DCC pour une personne morale dans O2S, suivez ces étapes :
+
+      - ### 1. Créer le modèle Word DCC
+
+      - Préparez un document Word contenant le texte et les variables O2S nécessaires (vous pouvez utiliser les variables
+      spécifiques aux personnes morales).
+
+      - Accédez à Services > Personnalisation > Modèles Word.
+
+      - Cliquez sur Ajouter un modèle.
+
+      - Importez votre document Word (glisser-déposer ou sélection manuelle).'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment éviter la création de doublons lors de l'import de contacts...
+  vars:
+    question: Comment éviter la création de doublons lors de l'import de contacts via Excel dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour éviter la création de doublons lors de l''import de contacts via Excel dans O2S, vous devez utiliser les options
+      de paramétrage d''import disponibles dans la zone « Paramètres » lors de l''import :
+
+      - 1. Choisissez la méthode d''import :
+
+      - « Importer les nouveaux contacts sans mettre à jour les contacts existant dans O2S » permet d''ajouter uniquement
+      les nouveaux contacts sans modifier les existants.
+
+      - 2. Cochez au moins une des options d''identification :
+
+      - Nom et prénom du contact : O2S fera le lien si un contact avec le même nom et prénom existe déjà.
+
+      - Code dossier du contact : O2S fera le lien si un contact avec le même code dossier existe déjà.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelles sont les nouveautés apportées par la nouvelle version de l'...
+  vars:
+    question: Quelles sont les nouveautés apportées par la nouvelle version de l'API Comptes dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - La documentation disponible ne mentionne pas de nouveautés spécifiques concernant une "nouvelle version de l''API
+      Comptes" dans O2S. Si vous souhaitez des informations sur les dernières évolutions générales liées à la gestion des
+      comptes ou à l''API, merci de préciser votre demande ou de consulter l''historique des mises à jour pour plus de détails.
+
+      - Source : *O2S – Historique des mises à jour* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Est-il possible de modifier ou de supprimer une alerte déjà program...
+  vars:
+    question: Est-il possible de modifier ou de supprimer une alerte déjà programmée dans O2S, et si oui, comment procéder
+      ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Oui, il est possible de modifier ou de supprimer une alerte déjà programmée dans O2S.
+
+      - Pour modifier une alerte :
+
+      - 1. Dans le bloc « Alertes commerciales » du module Accueil, cliquez sur le bouton (gestion des alertes).
+
+      - 2. Dans la fenêtre qui s''ouvre, sélectionnez l''alerte de votre choix.
+
+      - 3. Cliquez sur le bouton Modifier et confirmez en cliquant sur Oui.
+
+      - 4. Effectuez les changements souhaités dans la fenêtre de modification, puis cliquez sur Suivant pour passer d''un
+      écran à l''autre si nécessaire.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: la signature électronique est-elle payante
+  vars:
+    question: la signature électronique est-elle payante ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : Oui, la fonction de signature électronique est facturée sur O2S.
+      Pour plus d’informations, contactez l’Assistance O2S.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment réaliser une requête contact
+  vars:
+    question: Comment réaliser une requête contact ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Cliquez sur Requêtes dans la barre supérieure de menus. Cliquez sur Ajouter. Dans la fenêtre Nouvelle requête, cliquez
+      sur le type de requêtes de votre choix (contacts, comptes, immeubles, établissement), puis sur OK. Dans la fenêtre,
+      paramétrez les données se trouvant sur les différents onglets. Cliquez sur Rechercher pour lancer la requête.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment ajouter un mouvement
+  vars:
+    question: Comment ajouter un mouvement
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour ajouter un mouvement manuellement dans O2S, suivez ces étapes : Accédez au portefeuille de votre client, puis
+      allez dans l’onglet "Comptes". Cliquez sur l''icône de la valise à gauche de la ligne du compte concerné. Dans la fenêtre
+      qui s''ouvre, sélectionnez l''onglet "Mouvements". Cliquez sur le bouton "+ Ajouter". Choisissez le type de mouvement
+      à renseigner. Remplissez toutes les données nécessaires en utilisant les trois onglets disponibles. Validez en cliquant
+      sur "OK".'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment faire figurer ma signature dans les mails que j'envoie
+  vars:
+    question: Comment faire figurer ma signature dans les mails que j'envoie ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour insérer automatiquement votre signature dans tous les mails que vous envoyez depuis O2S, suivez ces étapes :
+      Cliquez sur votre nom situé en haut à droite de la fenêtre d''O2S. Sélectionnez "Voir ma fiche" dans le menu contextuel.
+      Rendez-vous dans la section "Dossier > Coordonnées". Dans l''encart "Signature", placez le curseur à l''endroit souhaité
+      et collez votre signature. Cliquez sur "Enregistrer". Votre signature sera désormais ajoutée automatiquement à tous
+      les emails envoyés depuis O2S. Source : FAQ – Communiquer avec le client'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment ajouter un compte ou un contrat
+  vars:
+    question: Comment ajouter un compte ou un contrat ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour ajouter un compte ou un contrat dans O2S, suivez ces étapes : Accédez à la fiche du client à qui vous souhaitez
+      ajouter un compte ou un contrat. Rendez-vous dans l''onglet "Portefeuille". Cliquez sur le bouton "+ Ajouter" situé
+      en haut à droite de l''écran. Sélectionnez le type d''entité que vous souhaitez ajouter (compte ou contrat). Remplissez
+      les informations demandées pour le nouveau compte ou contrat. Validez vos saisies en cliquant sur "Enregistrer". Le
+      compte ou contrat sera ainsi ajouté au portefeuille du client. Source : FAQ – Portefeuille et comptes'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment modifier le risque accepté dun projet
+  vars:
+    question: comment modifier le risque accepté dun projet ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Aller dans le projet en le double-cliquant. Modifiez les caractéristiques du projet, dans l''onglet Recommandation
+      projet. Puis sélectionnez le niveau de risque à l''aide des flèches en haut au centre de la fenêtre "Allocation équilibrée…dynamique…"'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je créer un nouveau rendez-vous dans le module Agenda ...
+  vars:
+    question: Comment puis-je créer un nouveau rendez-vous dans le module Agenda d'O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour créer un nouveau rendez-vous dans le module Agenda d''O2S, suivez ces étapes :
+
+      - 1. Accédez au module Agenda.
+
+      - 2. Cliquez sur le bouton + Créer.
+
+      - 3. Renseignez obligatoirement le champ « Objet ».
+
+      - 4. Sélectionnez au minimum un participant dans l''onglet Affectation.
+
+      - 5. Choisissez la date et l''heure du rendez-vous.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment créer un support
+  vars:
+    question: Comment créer un support ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour créer un support, rendez-vous dans le module Services, puis cliquez sur l''onglet Contribution. Notez que l''accès
+      à cette fonctionnalité nécessite un droit ; si besoin contactez votre administrateur. Dans la page Demande de création
+      de support, remplissez les informations obligatoires telles que le gestionnaire, le type de support, le libellé, la
+      devise de cotation, etc. Une fois les champs renseignés, cliquez sur Envoyer pour soumettre votre demande au back-office
+      O2S.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment créer des nouveaux utilisateurs
+  vars:
+    question: Comment créer des nouveaux utilisateurs ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour créer de nouveaux utilisateurs, rendez-vous dans l''espace Administration puis cliquez sur Utilisateurs. Ensuite,
+      cliquez sur Ajouter puis renseignez les champs obligatoires comme le nom, l''email professionnel, l''identifiant de
+      connexion, et le mot de passe. Enfin, affectez un profil à chaque utilisateur en sélectionnant le profil désiré dans
+      la liste déroulante Profil de droit d''utilisation et validez en cliquant sur OK.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment transformer un prospect en client
+  vars:
+    question: comment transformer un prospect en client ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : Consultez l''aide https://o2s-help.harvest.fr/savez-vous-que-vous-pouvez-facilement-transformer-un-prospect-en-client/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Où trouver les factures
+  vars:
+    question: Où trouver les factures ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Cliquez sur votre menu utilisateur en haut à droite (prénom nom), puis sur Espace abonnement. Cliquez sur l''onglet
+      Factures. Notez que l''accès à cette fonctionnalité nécessite un droit ; si besoin contactez votre administrateur.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelles sont les conséquences de l'action 'Supprimer le compte' sur...
+  vars:
+    question: Quelles sont les conséquences de l'action 'Supprimer le compte' sur le portefeuille du client dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Lorsque vous sélectionnez l''action « Supprimer le compte » dans O2S, le compte concerné est définitivement retiré
+      du portefeuille du client. Cela signifie qu''il n''apparaîtra plus dans la liste des comptes du client, ni dans les
+      états de compte, les historiques ou les analyses du portefeuille. Cette action est à privilégier si le compte n''a plus
+      d''intérêt à être conservé dans O2S.
+
+      - Attention : La suppression est définitive et le compte ne pourra plus être consulté ou restauré par la suite.
+
+      - Source : *Alerte sur les situations de comptes à zéro* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment fonctionne le calcul du SRI dans le projet
+  vars:
+    question: Comment fonctionne le calcul du SRI dans le projet
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : Consultez l''aide https://o2s-help.harvest.fr/calcul-du-risque-dans-les-projets-dinvestissement/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment personnaliser le logo de mon O2S
+  vars:
+    question: comment personnaliser le logo de mon O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Vous devez disposer des droits nécessaires pour effectuer cette opération. Contactez votre administrateur. Dans Services,
+      cliquez sur l’onglet Personnalisation puis allez dans Logos > Logo de l’application. A droite, cochez l’option Logo
+      de l’application puis cliquez sur le bouton Parcourir à droite de « Nouvelle image ». Sélectionnez le fichier image
+      du logo. Cliquez sur Enregistrer. Votre logo figure alors en haut à gauche de l’interface. La taille du logo de l’application
+      ne doit pas excéder 175 x 50 pixels. Le poids de l’image ne doit pas excéder 1 Mo. Le format de fichier (extension)
+      peut être les suivants : JPG, JPEG, GIF, J2K, JP2, BMP ou PNG.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment être notifié de l'anniversaire de mon client
+  vars:
+    question: comment être notifié de l'anniversaire de mon client ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Dans votre page d’accueil d’O2S, rendez-vous dans l’encart Alertes commerciales. Cliquez sur la clé (Gestion des alertes).
+      Ajouter une alerte : Cliquez sur « Ajouter » pour créer une nouvelle alerte. Cliquez sur le bouton-radio Alerte sur
+      l''anniversaire du client. Cliquez sur Suivant. Donnez un titre à votre alerte, par exemple « Mon alerte Etats de comptes
+      automatiques ». Réglez les paramètres de l''anniversaire. Cliquez sur Suivant. Cliquez sur OK pour valider votre alerte.
+      Si vous souhaitez déclencher immédiatement votre alerte, sélectionnez votre alerte dans la liste, puis cliquez sur Générer.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment est calculée la capacité à subir des pertes
+  vars:
+    question: comment est calculée la capacité à subir des pertes ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - La capacité à subir des pertes globale est calculée en fonction de la situation patrimoniale et financière du client
+      (évaluée dans le questionnaire de capacité à subir des pertes). Elle est ensuite modulée dans le parcours projet en
+      fonction de 2 éléments : -La part du patrimoine consacré au projet - Le risque de désinvestissement Plus ils sont élevés,
+      plus la capacité à subir des pertes sera réduite. Ces éléments sont ensuite agrégés dans une matrice afin d’obtenir
+      une capacité à subir des pertes, quantitative : -Aucune perte tolérée -Perte financière limitée (moins de 10%) -Perte
+      financière significative (entre 10% et 25%) -Perte financière importante (entre 25% et 50%) -Perte financière jusqu’à
+      concurrence des montants investis -Perte financière au-delà des montants investis Cette capacité à subir des pertes
+      quantitative permet ainsi de moduler la recommandation d’allocation du projet et à contrôler le marché cible des instruments
+      financiers. https://o2s-help.harvest.fr/faq-projets/#calcul_capsubpertes'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment générer ma déclaration d'adéquation
+  vars:
+    question: Comment générer ma déclaration d'adéquation ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Vous pouvez générer une impression depuis la page Conformité > Projets de votre client où vous pouvez soit : -Imprimer
+      la déclarations d’adéquation de votre choix en cliquant sur le bouton en haut à droite, puis sur Imprimer la déclaration
+      d’adéquation d’un projet. Enfin, à l’aide de la liste déroulante Projet, sélectionnez le projet, puis cliquez sur OK.
+      -Cliquer sur les 3 points à droite d’un projet, puis sur Imprimer la déclaration d’adéquation de la proposition ou Imprimer
+      la déclaration d’adéquation du projet. https://o2s-help.harvest.fr/declaration-dadequation/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: où trouver les lettres d'aurorisation des partenaires
+  vars:
+    question: où trouver les lettres d'aurorisation des partenaires ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : Les lettres d''autorisation sont disponibles dans cette page : https://o2s-help.harvest.fr/agreger-des-nouveaux-partenaires/#lettres_partenaires'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment retrouver les clients qui ont des documents en cours de sig...
+  vars:
+    question: Comment retrouver les clients qui ont des documents en cours de signature électronique?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour retrouver vos documents qui sont en cours de signatures, il convient d’abord de cocher l’option « Signature »
+      dans Services > Modules > Accueil et Pilotage > Organisation. Vous pourrez ensuite définir dans Services > Modules >
+      Accueil et Pilotage > Alertes > Notifications signatures électronique, les statuts des signatures à suivre ainsi que
+      le délai d’affichage de ces documents. Pour connaitre l’état d’avancement de la signature au niveau de tous vos clients,
+      consultez l’encart Signature électronique dans votre page d’accueil O2S. Cliquez sur le chevron sur la ligne Signatures
+      en cours : tous les clients concernés par des signatures en cours sont listés ici. Pour connaitre l’état d’avancement
+      des signatures d’un client en particulier, à l’instar de la fenêtre sur les données de la signature, vous pouvez y accéder
+      en cliquant sur l’icône "3 points" située à droite des contacts de votre module Contacts ou, depuis la fiche contact
+      du client, en cliquant sur le menu "burger". Le suivi regroupe l’ensemble des signatures électroniques avec le document
+      signé accessible en cliquant sur, ainsi que le statut et la date de la signature et le nom du conseiller ayant émis
+      la demande de signature. La colonne DP donne accès au dossier de preuve (documents signés et pièces justificatives des
+      signataires), une fois que la signature possède l’état « signé ». Enfin le menu "3 points" à droite permet d’effectuer
+      des actions.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Je souhaite connaitre la collecte de mon cabinet
+  vars:
+    question: Je souhaite connaitre la collecte de mon cabinet
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Rendez-vous dans le module Pilotage (ou Accueil) d''O2S. Dans l''encart Informations commerciales, consultez la ligne
+      Collecte brute (€). Le montant figure à droite. Pour plus d''informations, cliquez sur l''icône loupe.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Que dois-je faire si je reçois une alerte indiquant que mes codes d...
+  vars:
+    question: Que dois-je faire si je reçois une alerte indiquant que mes codes d'accès chez un dépositaire sont erronés dans
+      O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Cette alerte apparaît lorsqu''un l''identifiant et/ou le mot de passe d''un accès chez un dépositaire n''est plus
+      valable. Elle ne s''affiche que pour les utilisateurs disposant du droit de modifier les codes d''accès des extranets
+      servant à l''agrégation . Elle ne s''affiche que pour les utilisateurs disposant du droit de modifier les codes d''accès
+      des extranets servant à l''agrégation Traitement de l''alerte. Traitement de l''alerte En cliquant sur l''alerte, une
+      fenêtre s''ouvre et vous pouvez indiquer le nouvel identifiant et/ou mot de passe et confirmer ce dernier. Validez en
+      cliquant sur le bouton Activer .
+
+      - Source : https://o2s-help.harvest.fr/alerte-sur-les-codes-errones et https://o2s-help.harvest.fr/faq-agregation/#maj_mdp_extranet'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment personnaliser la couleur des éditions
+  vars:
+    question: Comment personnaliser la couleur des éditions ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Rendez-vous dans le module Services > Editions > Générales (1/2). Sélectionnez le thème de couleur à l''aide des listes
+      déroulantes dans Les thèmes des éditions.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment faire une requete pour obtenir la liste de lensemble des so...
+  vars:
+    question: Comment faire une requete pour obtenir la liste de lensemble des souscriptions de mes clients entre le 01/01/2023
+      et le 31/12/2023 concernant des produits CIF ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour obtenir la liste des souscriptions de vos clients entre le 01/01/2023 et le 31/12/2023 concernant des produits
+      CIF, vous devez suivre les étapes suivantes : 1. Créez une nouvelle requête en cliquant sur Ajouter puis Nouvelle requête
+      cabinet. 2. Choisissez Détails de l’encours par type de produits dans la liste déroulante au niveau de la Requête. 3.
+      Cliquez sur Rechercher. 4. Une fois les résultats affichés, vous pourrez filtrer par date de souscription entre le 01/01/2023
+      et le 31/12/2023 et par type de produit CIF pour obtenir la liste des souscriptions concernées.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment faire une requete pour obtenir la liste des supports de len...
+  vars:
+    question: Comment faire une requete pour obtenir la liste des supports de lensemble des souscriptions de mes clients entre
+      le 01/01/2023 et le 31/12/2023 concernant des produits type SCPI / Compte en nominatif ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour obtenir la liste des supports de l''ensemble des souscriptions de vos clients entre le 01/01/2023 et le 31/12/2023
+      concernant des produits type SCPI / Compte en nominatif, vous devez suivre les étapes suivantes : 1. Créez une nouvelle
+      requête comptes en sélectionnant l''onglet Comptes 1/2. 2. Dans le champ Type de produit, choisissez égal à et cochez
+      SCPI dans la liste déroulante. 3. Ajoutez une condition supplémentaire en cliquant sur Ajouter et en sélectionnant Compte
+      en nominatif. 4. Indiquez la période entre le 01/01/2023 et le 31/12/2023 pour la recherche. 5. Lancez la requête pour
+      obtenir la liste des supports des souscriptions de vos clients concernant les produits SCPI / Compte en nominatif sur
+      la période spécifiée.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment signer @ depuis la conformité
+  vars:
+    question: comment signer @ depuis la conformité
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : Consultez l''aide https://o2s-help.harvest.fr/conformite/#gestion
+      et https://o2s-help.harvest.fr/utiliser-la-signature-electronique/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Peut-on échanger des informations entre O2S et Big
+  vars:
+    question: Peut-on échanger des informations entre O2S et Big ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir le contenu suivant : Consultez cette aide https://o2s-help.harvest.fr/echange-informations-entre-big-et-o2s/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: comment suivre une formation O2S
+  vars:
+    question: comment suivre une formation O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Rendez-vous sur le site Harvest Fidroit Academy https://www.harvestfidroitacademy.fr/categorie-produit/formation-outil/,
+      sélectionnez l''outil O2S, et parcourez les différentes formations mises à votre disposition. Vous pouvez également
+      assister à des Customer Success Meeting https://o2s-help.harvest.fr/csm-sessions/. Nous vous invitons à contacter votre
+      responsable afin de vérifier votre éligibilité à ces formations.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment se passe la signature électronique
+  vars:
+    question: Comment se passe la signature électronique ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Si vous voulez savoir comment mettre en place la signature électronique, consultez cette aide https://o2s-help.harvest.fr/mettre-en-place-la-signature-electronique/.
+      Si vous souhaitez savoir comment utiliser la signature électronique avec vos clients, consultez cette aide https://o2s-help.harvest.fr/utiliser-la-signature-electronique/.
+      Enfin, consultez la FAQ dédiée : https://o2s-help.harvest.fr/faq-signature-electronique/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment ajouter un profil de risque
+  vars:
+    question: Comment ajouter un profil de risque ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour ajouter un profil de risque dans O2S, suivez ces étapes :
+
+      - Accédez à la fiche contact du client.
+
+      - Rendez-vous dans le menu Conformité > Profil d''investisseur.
+
+      - Cliquez sur Ajouter un nouveau profil pour accéder au questionnaire.
+
+      - Remplissez le questionnaire, qui comporte plusieurs séries de questions :
+
+      - Connaissance et expérience sur les marchés et produits financiers.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment demander l'agrégation d'un nouveau partenaire
+  vars:
+    question: Comment demander l'agrégation d'un nouveau partenaire ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour demander l''agrégation d''un nouveau partenaire dans O2S, suivez ces étapes :
+
+      - 1. Vérifiez vos droits : Vous devez disposer du droit « Gestion des dépositaires » dans le module Administration >
+      Gestion des droits > Administration.
+
+      - 2. Accédez à la gestion de l''agrégation : Rendez-vous dans le module Administration > Gestion de l''agrégation >
+      Source d''agrégation.
+
+      - 3. Créez une nouvelle demande : Cliquez sur « Nouvelle demande ».
+
+      - 4. Renseignez les informations requises : Complétez les champs concernant le fournisseur, le code apporteur, le conseiller
+      concerné et joignez la lettre d''autorisation.
+
+      - 5. Validez la demande.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment fusionner 2 comptes
+  vars:
+    question: Comment fusionner 2 comptes ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour fusionner deux comptes dans O2S, suivez ces étapes :
+
+      - 1. Accédez à la page Portefeuille.
+
+      - 2. Cliquez sur l''icône [menu burger] en haut à droite de la fenêtre.
+
+      - 3. Sélectionnez l''option « Fusionner ».
+
+      - 4. Dans la fenêtre qui s''ouvre :
+
+      - Cliquez sur le compte à fusionner (à gauche).'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment fusionner 2 contacts
+  vars:
+    question: Comment fusionner 2 contacts ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour fusionner deux contacts dans O2S, procédez comme suit :
+
+      - 1. Depuis l''onglet Contacts, sélectionnez le contact source (celui qui sera supprimé).
+
+      - 2. À droite, ouvrez le menu Actions.
+
+      - 3. Cliquez sur Fusionner avec un autre contact.
+
+      - 4. Sélectionnez le contact cible (celui qui sera conservé) à l''aide de l''icône Rechercher un contact.
+
+      - 5. Cliquez sur Fusionner.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment insérer mes documents réglementaires dans o2s
+  vars:
+    question: Comment insérer mes documents réglementaires dans o2s ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour insérer vos documents réglementaires (lettre de mission, document d''entrée en relation, etc.) dans O2S afin
+      de les utiliser avec vos clients, procédez ainsi :
+
+      - 1. Accédez à la bibliothèque de modèles :
+
+      - Rendez-vous dans le menu Services.
+
+      - Cliquez sur l''onglet Personnalisation puis sur Modèles Word.
+
+      - 2. Ajoutez vos modèles :
+
+      - Cliquez sur Ajouter un modèle.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment paramétrer l'envoi automatique des état de compte
+  vars:
+    question: Comment paramétrer l'envoi automatique des état de compte
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour paramétrer l''envoi automatique des états de compte dans O2S, suivez ces étapes :
+
+      - 1. Depuis la page d''accueil d''O2S, allez dans l''encart Alertes commerciales.
+
+      - 2. Cliquez sur la clé (Gestion des alertes).
+
+      - 3. Dans la liste déroulante Filtrer le type d''alerte, sélectionnez Mise en place des états de comptes.
+
+      - 4. Cliquez sur Ajouter pour créer une nouvelle alerte.
+
+      - 5. Cliquez sur Suivant.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Configurer l'agenda O2S dans mon iphone
+  vars:
+    question: Configurer l'agenda O2S dans mon iphone
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour configurer l''agenda O2S sur votre iPhone, vous devez utiliser le protocole CalDAV. Voici les étapes générales
+      à suivre :
+
+      - 1. Rendez-vous dans les Réglages de votre iPhone.
+
+      - 2. Sélectionnez Mots de passe et comptes (ou Mail, Contacts, Calendrier selon la version iOS).
+
+      - 3. Appuyez sur Ajouter un compte puis choisissez Autre.
+
+      - 4. Sélectionnez Ajouter un compte CalDAV.
+
+      - 5. Renseignez les informations du serveur CalDAV fournies par O2S (adresse du serveur, identifiant, mot de passe).'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Pourquoi je ne peux pas sélectionner un compte dans le projet
+  vars:
+    question: Pourquoi je ne peux pas sélectionner un compte dans le projet ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Vous ne pouvez pas sélectionner un compte dans un projet O2S pour plusieurs raisons principales :
+
+      - 1. Aucun compte n''est disponible ou compatible : Seuls les comptes compatibles avec les caractéristiques du projet
+      (profil d''investisseur, horizon, objectif, etc.) sont proposés. Si aucun compte n''apparaît, cela signifie qu''aucun
+      compte existant ne répond aux critères d''éligibilité définis pour le projet.
+
+      - 2. Le compte est déjà affecté à un autre projet : Un compte ne peut être affecté qu''à un seul projet à la fois. Si
+      le compte est déjà utilisé dans un autre projet, il ne sera pas sélectionnable.
+
+      - 3. Critères d''éligibilité non paramétrés : Si les critères d''éligibilité ne sont pas correctement paramétrés dans
+      le catalogue produit ou sur les portefeuilles modèles, O2S ne peut pas proposer le compte pour le projet.
+
+      - 4. Droits utilisateurs restreints : Il se peut que votre profil utilisateur ne dispose pas des droits nécessaires
+      pour sélectionner ou modifier les comptes dans les projets. Vérifiez vos droits dans le menu de gestion des droits.
+
+      - Pour résoudre ce problème :'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Réactiver un compte
+  vars:
+    question: Réactiver un compte ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour réactiver un compte dans O2S, suivez ces étapes :
+
+      - 1. Cliquez sur votre nom (menu utilisateur).
+
+      - 2. Allez dans Services > Modules > Contacts > Contacts et comptes supprimés > Comptes désactivés.
+
+      - 3. Cochez le compte que vous souhaitez réactiver.
+
+      - 4. Cliquez sur Réactiver.
+
+      - Remarque : Un compte ne peut pas être archivé, il peut uniquement être désactivé ou supprimé.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je intégrer un modèle de courrier ou d'email type dans...
+  vars:
+    question: Comment puis-je intégrer un modèle de courrier ou d'email type dans O2S pour l'envoyer à mes clients ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour intégrer un modèle de courrier ou d''email type dans O2S et l''envoyer à vos clients, suivez ces étapes :
+
+      - 1. Accédez à la fonctionnalité d''envoi d''emails :
+
+      - Cliquez sur l''icône [enveloppe] en haut d''O2S pour ouvrir la fenêtre « Emails et messages MoneyPitch ».
+
+      - Dans l''onglet « Emails envoyés », cliquez sur « Envoyer un email ».
+
+      - 2. Sélectionnez les destinataires :
+
+      - Cliquez sur « A / Cc / Cci » pour choisir un ou plusieurs destinataires, puis cliquez sur « Ajouter » et « OK ».'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment comparer plusieurs produits d'assurance vie et proposer dif...
+  vars:
+    question: Comment comparer plusieurs produits d'assurance vie et proposer différentes allocations d'actifs pour un même
+      projet afin de répondre aux exigences DDA dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour répondre aux exigences DDA dans O2S, vous pouvez comparer plusieurs produits d''assurance vie et proposer différentes
+      allocations d''actifs pour un même projet en suivant ces étapes :
+
+      - 1. Création du projet d''investissement : Créez un projet pour votre client en précisant ses objectifs, son profil
+      de risque et son horizon d''investissement.
+
+      - 2. Comparaison des produits :
+
+      - Lors de la préconisation, O2S vous permet de comparer les caractéristiques des produits d''assurance vie adaptés aux
+      objectifs du client.
+
+      - Vous pouvez sélectionner plusieurs produits similaires et comparer leurs caractéristiques (frais, options de gestion,
+      etc.) directement dans le parcours projet.
+
+      - 3. Propositions d''allocations distinctes :'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment créer ou modifier une liste d'expert-comptables ou de notai...
+  vars:
+    question: Comment créer ou modifier une liste d'expert-comptables ou de notaires dans O2S pour faciliter la saisie de
+      données ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour créer ou modifier une liste d''expert-comptables ou de notaires dans O2S, suivez ces étapes :
+
+      - 1. Rendez-vous dans le module Services.
+
+      - 2. Cliquez sur l''onglet Personnalisation, puis allez dans Paramétrage.
+
+      - 3. Cliquez sur la page Immobilier.
+
+      - 4. Dans le panneau de droite, double-cliquez sur l''élément des paramètres dont vous souhaitez modifier la liste (par
+      exemple, expert-comptable ou notaire).
+
+      - 5. Dans la fenêtre qui s''affiche, vous pouvez :'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je synchroniser mon agenda O2S avec Google Agenda ou O...
+  vars:
+    question: Comment puis-je synchroniser mon agenda O2S avec Google Agenda ou Outlook ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour synchroniser votre agenda O2S avec Google Agenda ou Outlook, voici les étapes à suivre selon l''application :
+
+      - ### 1. Synchronisation avec Google Agenda
+
+      - O2S prend en charge la synchronisation via le protocole CalDAV, compatible avec Google Agenda. Vous devez intégrer
+      l''agenda O2S dans Google Agenda en utilisant l''URL CalDAV fournie par O2S. Pour plus de détails, consultez la documentation
+      spécifique à Google Agenda.
+
+      - Lien utile : Synchroniser O2S avec Google Agenda
+
+      - ### 2. Synchronisation avec Outlook
+
+      - Outlook ne prend pas en charge CalDAV nativement. Vous devez donc installer un plugin gratuit appelé Outlook CalDav
+      Synchronizer :'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment activer la synchronisation directe entre O2S et Google Agenda
+  vars:
+    question: Comment activer la synchronisation directe entre O2S et Google Agenda ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour activer la synchronisation directe entre O2S et Google Agenda, suivez ces étapes :
+
+      - 1. Prérequis : Assurez-vous de disposer d''une adresse email Google (ex : jean.durand@gmail.com).
+
+      - 2. Accès au paramétrage :
+
+      - Dans O2S, allez dans Services > Synchronisation > Google.
+
+      - 3. Saisie des informations :
+
+      - Renseignez votre adresse email Google.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Les tâches créées dans O2S sont-elles synchronisées avec le calendr...
+  vars:
+    question: Les tâches créées dans O2S sont-elles synchronisées avec le calendrier de mon iPhone ou iPad ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Oui, les tâches créées dans O2S peuvent être synchronisées avec le calendrier de votre iPhone ou iPad grâce à l''intégration
+      du protocole CalDAV. Cela permet de partager et synchroniser les événements et tâches de l''agenda O2S avec votre appareil
+      iOS. Cependant, veuillez noter que la synchronisation n''est pas instantanée : la récupération des données se fait automatiquement
+      toutes les 15 minutes. Pour voir immédiatement les modifications, il est nécessaire d''actualiser manuellement l''agenda
+      O2S sur votre appareil.
+
+      - Source : *Synchroniser vos agendas avec O2S – Présentation* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je synchroniser mon agenda O2S avec Thunderbird
+  vars:
+    question: Comment puis-je synchroniser mon agenda O2S avec Thunderbird ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour synchroniser votre agenda O2S avec Thunderbird, suivez ces étapes :
+
+      - 1. Installer le module Lightning
+
+      - Ouvrez Thunderbird.
+
+      - Allez dans Outils > Modules complémentaires.
+
+      - Recherchez et installez le module « Lightning » si ce n''est pas déjà fait.
+
+      - 2. Ajouter l''agenda O2S'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment associer un nouveau client importé à un contact O2S déjà ex...
+  vars:
+    question: Comment associer un nouveau client importé à un contact O2S déjà existant ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour associer un nouveau client importé à un contact O2S déjà existant, procédez ainsi :
+
+      - 1. Rendez-vous dans le module Accueil, puis cliquez sur l''alerte « Nouveaux clients détectés » dans le bloc Alertes
+      techniques.
+
+      - 2. Dans la liste des nouveaux clients, repérez le client à associer.
+
+      - 3. Dans la colonne « Actions », sélectionnez l''option Associer le client importé au client O2S via la liste déroulante.
+
+      - 4. Cliquez sur l''icône de modification pour choisir le contact O2S existant auquel associer le client importé.
+
+      - 5. Validez votre choix en cliquant sur OK.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelle est la différence entre les actions 'Ignorer ce compte' et '...
+  vars:
+    question: Quelle est la différence entre les actions 'Ignorer ce compte' et 'Masquer' une alerte dans le module Accueil
+      ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - La différence principale entre les actions « Ignorer ce compte » et « Masquer » une alerte dans le module Accueil
+      est la suivante :
+
+      - Ignorer ce compte : Cette action signifie que vous choisissez de ne pas importer définitivement le compte concerné.
+      Le compte ne sera plus proposé lors des prochaines alertes et ne sera pas ajouté à la base de données O2S.
+
+      - Masquer une alerte : Cette action ne concerne que l''affichage de l''alerte sur votre tableau de bord. L''alerte disparaît
+      de votre vue (ou de celle de tous les utilisateurs si vous choisissez « Masquer pour tous »), mais cela n''a aucun impact
+      sur le traitement du compte lui-même. L''alerte pourra réapparaître si elle est régénérée, et le compte n''est pas ignoré
+      pour autant.
+
+      - En résumé, « Ignorer ce compte » agit sur le traitement du compte, tandis que « Masquer » agit uniquement sur l''affichage
+      de l''alerte.
+
+      - Source : *Alerte sur les nouveaux comptes* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment associer un produit à une gamme et à des supports spécifiqu...
+  vars:
+    question: Comment associer un produit à une gamme et à des supports spécifiques dans le catalogue produits ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour associer un produit à une gamme et à des supports spécifiques dans le catalogue produits O2S, suivez ces étapes :
+
+      - 1. Accédez à la gestion du catalogue produits
+
+      - Rendez-vous dans :
+
+      - Services > Personnalisation > Catalogue produits > Association gamme – produit – support
+
+      - 2. Ajoutez le produit
+
+      - Cliquez sur Ajouter un produit.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quels sont les champs obligatoires à renseigner dans le fichier d'i...
+  vars:
+    question: Quels sont les champs obligatoires à renseigner dans le fichier d'import pour ajouter un nouveau support à un
+      produit existant ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour ajouter un nouveau support à un produit existant via le fichier d''import dans O2S, les champs obligatoires à
+      renseigner dans l''onglet « supports » sont :
+
+      - Identifiant ou nom du dépositaire (il est recommandé d''utiliser l''identifiant, qui est un code unique et stable
+      dans le temps)
+
+      - Identifiant ou nom du produit (il est recommandé d''utiliser l''identifiant du produit)
+
+      - Identifiant ou nom du support (il est recommandé d''utiliser l''identifiant du support, comme le code ISIN ou le code
+      interne)
+
+      - Attention :
+
+      - Si vous utilisez les noms (libellés), vous devez respecter strictement l''orthographe proposée dans O2S.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je exporter le paramétrage actuel des commissions dans...
+  vars:
+    question: Comment puis-je exporter le paramétrage actuel des commissions dans O2S pour le modifier ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour exporter le paramétrage actuel des commissions dans O2S afin de le modifier, suivez ces étapes :
+
+      - 1. Rendez-vous dans le menu Services > Personnalisation > Catalogue produits > Commissions perçues.
+
+      - 2. Cliquez sur le lien Exporter le paramétrage des commissions.
+
+      - 3. Un fichier Excel sera généré. Ce fichier contiendra l''ensemble des produits et supports présents dans votre catalogue
+      produits, avec leur paramétrage de commissionnement.
+
+      - Remarques importantes :
+
+      - Il n''existe pas de fichier modèle vierge pour cette opération. Vous devez impérativement passer par l''export de
+      votre paramétrage actuel.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quels champs obligatoires dois-je renseigner lors de la création d'...
+  vars:
+    question: Quels champs obligatoires dois-je renseigner lors de la création d'une demande de support dans le module Contribution
+      ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Lors de la création d''une demande de support dans le module Contribution d''O2S, vous devez obligatoirement renseigner
+      les champs suivants :
+
+      - Gestionnaire
+
+      - Type de support
+
+      - Libellé (ce champ dispose d''une loupe pour vérifier si le support existe déjà dans O2S)
+
+      - Devise de cotation
+
+      - Plus votre demande sera précise, plus elle sera traitée rapidement. Il est également recommandé de renseigner d''autres
+      champs si possible (code ISIN, date de commercialisation, valorisation, documents, etc.), mais ils ne sont pas obligatoires.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment personnaliser l'affichage des modules Accueil et Pilotage s...
+  vars:
+    question: Comment personnaliser l'affichage des modules Accueil et Pilotage selon mes besoins dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour personnaliser l''affichage des modules Accueil et Pilotage dans O2S selon vos besoins, procédez ainsi :
+
+      - 1. Rendez-vous dans le menu : Services > Accueil et pilotage > Organisation.
+
+      - 2. Cochez les encarts que vous souhaitez faire figurer dans l''un ou l''autre des deux modules (Accueil ou Pilotage).
+
+      - 3. Validez votre sélection en cliquant sur Enregistrer.
+
+      - Vous pouvez également :
+
+      - Réduire le contenu de chaque encart en cliquant sur le bouton chevron vers le bas (et le développer avec le chevron
+      vers la droite).'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je ajouter un nouveau partenaire à agréger dans O2S en...
+  vars:
+    question: Comment puis-je ajouter un nouveau partenaire à agréger dans O2S en utilisant une lettre d'autorisation ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour ajouter un nouveau partenaire à agréger dans O2S en utilisant une lettre d''autorisation, suivez ces étapes :
+
+      - 1. Vérifiez vos droits : Assurez-vous de disposer du droit « Gestion des dépositaires » dans le module Administration
+      > Gestion des droits > Administration.
+
+      - 2. Accédez à l''agrégation : Rendez-vous dans le module Administration > Gestion de l''agrégation > Source d''agrégation.
+
+      - 3. Nouvelle demande : Cliquez sur le bouton « Nouvelle demande ».
+
+      - 4. Renseignez les informations : Remplissez les champs demandés concernant le fournisseur, le code apporteur, le conseiller
+      concerné et joignez la lettre d''autorisation.
+
+      - 5. Validez : Finalisez la demande pour que le partenaire soit pris en compte.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelle est la différence entre la Vigilance calculée et la Vigilanc...
+  vars:
+    question: Quelle est la différence entre la Vigilance calculée et la Vigilance retenue pour un client dans le module Contacts
+      > Conformité ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Dans O2S, la Vigilance calculée correspond au niveau de vigilance déterminé automatiquement par le système à partir
+      des réponses au questionnaire de vigilance (cartographie LAB-FT) du client. Ce niveau est défini selon la vigilance
+      la plus « élevée » parmi les réponses, selon l''ordre suivant : Non définie, Dispense, Allégée, Standard, Complémentaire,
+      Renforcée, Interdiction.
+
+      - La Vigilance retenue, quant à elle, est le niveau de vigilance que vous choisissez d''appliquer effectivement au client.
+      Elle peut être identique ou différente de la vigilance calculée, selon votre appréciation professionnelle ou des éléments
+      complémentaires non pris en compte dans le questionnaire.
+
+      - En résumé :
+
+      - Vigilance calculée : résultat automatique basé sur les réponses au questionnaire.
+
+      - Vigilance retenue : niveau final appliqué, validé ou ajusté par l''utilisateur.
+
+      - Source : *Vigilance* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je insérer automatiquement le nom et le prénom d'un co...
+  vars:
+    question: Comment puis-je insérer automatiquement le nom et le prénom d'un contact dans une lettre type générée depuis
+      O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour insérer automatiquement le nom et le prénom d''un contact dans une lettre type générée depuis O2S, procédez ainsi
+      :
+
+      - 1. Rendez-vous dans le module Contacts.
+
+      - 2. Faites un clic droit sur le contact concerné et choisissez Imprimer un courrier (Word ou PDF).
+
+      - 3. Sélectionnez la lettre type souhaitée.
+
+      - 4. Modifiez la lettre si nécessaire en ajoutant les variables correspondantes pour le nom et le prénom.
+
+      - Utilisez la liste déroulante « Variables O2S » pour insérer facilement les variables dans le document.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je créer et personnaliser un modèle de lettre type à e...
+  vars:
+    question: Comment puis-je créer et personnaliser un modèle de lettre type à envoyer à mes clients dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour créer et personnaliser un modèle de lettre type dans O2S, suivez ces étapes :
+
+      - 1. Accédez à la gestion des lettres types
+
+      - Rendez-vous dans le menu :
+
+      - `Services > Personnalisation > Lettres types`.
+
+      - 2. Ajoutez un nouveau modèle
+
+      - Dans la liste des lettres types, cliquez sur Ajouter pour ouvrir la fenêtre de configuration d''un nouveau courrier
+      type.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quels navigateurs sont compatibles avec la fonctionnalité de signat...
+  vars:
+    question: Quels navigateurs sont compatibles avec la fonctionnalité de signature électronique pour mes clients ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - La fonctionnalité de signature électronique pour vos clients sur O2S est compatible avec les navigateurs suivants
+      :
+
+      - Sur PC (et Mac) : Chrome, Firefox, Safari, Internet Explorer 11, et Edge.
+
+      - Sur mobile (smartphones et tablettes) : Chrome, Safari, Internet Explorer, et Edge.
+
+      - Source : https://o2s-help.harvest.fr/pre-requis-techniques-pour-utiliser-o2s/'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je faire signer électroniquement plusieurs documents à...
+  vars:
+    question: Comment puis-je faire signer électroniquement plusieurs documents à un même contact dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour faire signer électroniquement plusieurs documents à un même contact dans O2S, suivez ces étapes :
+
+      - 1. Accédez à la rubrique Contacts depuis la page d''accueil d''O2S.
+
+      - 2. Sélectionnez le client concerné dans la liste.
+
+      - 3. Cliquez sur le menu Actions puis sur Signer électroniquement.
+
+      - 4. Dans la fenêtre Données pour la signature qui s''ouvre, sélectionnez le ou les documents à faire signer en cliquant
+      sur les icônes Document et le menu burger.
+
+      - 5. Ajoutez tous les documents souhaités à la liste des documents à signer.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelles sont les étapes à suivre pour importer un fichier Excel de ...
+  vars:
+    question: Quelles sont les étapes à suivre pour importer un fichier Excel de comptes dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour importer un fichier Excel de comptes dans O2S, suivez ces étapes :
+
+      - 1. Téléchargez le fichier modèle
+
+      - Rendez-vous dans :
+
+      - Services > Modules > Portefeuille > Import comptes (xls)
+
+      - Téléchargez le fichier Excel modèle (o2s_modele_import_comptes.xls) et enregistrez-le sur votre ordinateur.
+
+      - 2. Renseignez le fichier d''import'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Pourquoi certains comptes apparaissent-ils en rouge ou en italique ...
+  vars:
+    question: Pourquoi certains comptes apparaissent-ils en rouge ou en italique dans le portefeuille et que signifient ces
+      couleurs ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Dans O2S, l''apparence des comptes dans le portefeuille a une signification précise :
+
+      - Comptes en italique et en gris clair :
+
+      - Cela indique que le contrat n''est pas pris en compte dans l''évaluation du portefeuille. Ce paramétrage se fait en
+      décochant le compte dans la colonne « Retenir pour l''évaluation » via l''icône outil portefeuille.
+
+      - Comptes en rouge :
+
+      - Les comptes ou contrats apparaissent en rouge lorsqu''ils sont :
+
+      - en gestion sous mandat,'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment le questionnaire O2S permet-il de vérifier la connaissance ...
+  vars:
+    question: Comment le questionnaire O2S permet-il de vérifier la connaissance effective d'un client sur les différentes
+      classes d'actifs ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Le questionnaire O2S permet de vérifier la connaissance effective d''un client sur les différentes classes d''actifs
+      grâce à des questions « tests » spécifiques et discriminantes. Ces questions sont adaptées au niveau de difficulté propre
+      à chaque classe d''actifs et visent à évaluer concrètement la connaissance du client, sans recourir à l''autoévaluation
+      (qui est explicitement prohibée).
+
+      - En fonction des réponses, le client est identifié comme Novice, Informé ou Expérimenté pour chaque type de produit.
+      L''interface affiche des coches vertes (connaissance vérifiée), des croix rouges (méconnaissance) ou des croix grises
+      (connaissance non vérifiée) pour chaque produit. Le conseiller peut également, si nécessaire, marquer manuellement la
+      connaissance d''un produit comme vérifiée.
+
+      - Ce dispositif permet ainsi de s''assurer que le client possède effectivement les connaissances requises avant de souscrire
+      à un instrument financier donné.
+
+      - Source : *Profil investisseur* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: De quelle manière O2S m'aide-t-il à vérifier l'adéquation entre le ...
+  vars:
+    question: De quelle manière O2S m'aide-t-il à vérifier l'adéquation entre le profil d'investisseur d'un client et un projet
+      d'investissement ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - O2S vous aide à vérifier l''adéquation entre le profil d''investisseur d''un client et un projet d''investissement
+      grâce à plusieurs fonctionnalités intégrées :
+
+      - 1. Détermination du profil d''investisseur : Avant de créer un projet, vous devez impérativement avoir renseigné la
+      classification MIF du client et déterminé son profil d''investisseur (niveau de connaissance, expérience, profil de
+      risque).
+
+      - 2. Création du projet d''investissement : Dans l''espace Projets d''O2S, vous définissez les caractéristiques du projet
+      (objectif patrimonial, horizon, capacité à subir des pertes, exclusions éventuelles).
+
+      - 3. Sélection des comptes et allocation : Vous associez des comptes existants ou recommandez de nouveaux comptes (comptes
+      titres, PEA, assurance-vie, etc.) au projet, puis vous définissez une allocation d''actifs.
+
+      - 4. Contrôle d''adéquation : O2S vérifie automatiquement si le niveau de risque de l''allocation proposée correspond
+      au profil d''investisseur du client. Un indicateur global vous signale si l''adéquation est respectée ou non, en prenant
+      en compte la connaissance par instruments financiers et le profil de risque.
+
+      - 5. Alertes : O2S vous alerte si l''exposition au risque du projet dépasse les limites définies avec le client, afin
+      de garantir la conformité réglementaire.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment modifier les informations d'un intervenant (notaire, gestio...
+  vars:
+    question: Comment modifier les informations d'un intervenant (notaire, gestionnaire, etc.) lié à un bien immobilier déjà
+      enregistré ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour modifier les informations d''un intervenant (notaire, gestionnaire, etc.) lié à un bien immobilier déjà enregistré
+      dans O2S, procédez ainsi :
+
+      - 1. Via le menu Tout parcourir > Autres > Immobilier, accédez au module Immobilier du dossier du client.
+
+      - 2. Sélectionnez le bien immobilier concerné.
+
+      - 3. Rendez-vous dans l''onglet Acquisition.
+
+      - 4. Dans la zone dédiée aux intervenants (promotion, gestion, notaire, expert-comptable), sélectionnez l''intervenant
+      à modifier.
+
+      - 5. Modifiez directement les informations nécessaires ou sélectionnez un autre intervenant dans la liste déroulante
+      si besoin.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quels sont les différents statuts possibles pour une opération comm...
+  vars:
+    question: Quels sont les différents statuts possibles pour une opération commerciale et comment puis-je les filtrer dans
+      O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Dans O2S, une opération commerciale peut avoir quatre statuts différents :
+
+      - 1. Non démarrée : l''opération a été créée mais la date de démarrage n''a pas encore été atteinte.
+
+      - 2. En cours : l''opération est active, entre la date de début et la date de fin définies.
+
+      - 3. Terminée : l''opération est terminée, la date de fin a été atteinte.
+
+      - 4. Archivée : l''opération est terminée et a été archivée.
+
+      - Pour filtrer les opérations commerciales selon leur statut, utilisez la liste déroulante située en haut de la fenêtre
+      de gestion des opérations commerciales (accessible via le menu : Services > Affaires et opérations > Opérations commerciales).
+      Sélectionnez le statut souhaité pour n''afficher que les opérations correspondantes.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment modifier les droits d'accès d'un collaborateur pour la gest...
+  vars:
+    question: Comment modifier les droits d'accès d'un collaborateur pour la gestion des modèles d'affaires dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour modifier les droits d''accès d''un collaborateur pour la gestion des modèles d''affaires dans O2S, suivez ces
+      étapes :
+
+      - 1. Rendez-vous dans le menu **Services > Administration > Gestion des droits .
+
+      - 2. Sélectionnez le profil utilisateur du collaborateur concerné.
+
+      - 3. Dans la fenêtre de gestion des droits, onglet  Configuration de l''application, cochez l''option Gestion des modèles
+      d''affaires (publics / privés) (création, suppression, modification).
+
+      - 4. Enregistrez les modifications.
+
+      - Ce paramétrage s''appuie sur la hiérarchie de votre structure et permet de définir précisément qui peut créer, modifier
+      ou supprimer des modèles d''affaires.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quelle est la procédure pour enregistrer une requête afin qu'elle s...
+  vars:
+    question: Quelle est la procédure pour enregistrer une requête afin qu'elle soit accessible à mes collaborateurs ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour enregistrer une requête et la rendre accessible à vos collaborateurs dans O2S, suivez ces étapes :
+
+      - 1. Depuis l''onglet où s''affiche le résultat de votre requête, cliquez sur l''icône [menu burger] en haut à droite.
+
+      - 2. Sélectionnez « Enregistrer sous… ».
+
+      - 3. Donnez un titre à votre requête.
+
+      - 4. Choisissez l''option « Publique » pour que la requête soit accessible à vos collaborateurs.
+
+      - 5. Cliquez sur OK pour valider l''enregistrement.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je filtrer les encours gérés d'un client pour obtenir ...
+  vars:
+    question: Comment puis-je filtrer les encours gérés d'un client pour obtenir une analyse spécifique dans la page Structure
+      des avoirs ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour filtrer les encours gérés d''un client et obtenir une analyse spécifique dans la page Structure des avoirs d''O2S,
+      utilisez la zone située en haut à gauche de la page. Cette zone permet d''appliquer des filtres, seuls ou combinés,
+      selon différents critères. Deux listes déroulantes vous permettent également de choisir le type de représentation graphique
+      et d''exprimer les résultats en pourcentage ou en euros. Après avoir sélectionné vos filtres et options, cliquez sur
+      le bouton Actualiser le graphe pour afficher la représentation graphique correspondante.
+
+      - Source : *Structure des avoirs* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment activer le mode expert pour le calcul de la performance dan...
+  vars:
+    question: Comment activer le mode expert pour le calcul de la performance dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour activer le mode expert pour le calcul de la performance dans O2S, suivez ces étapes :
+
+      - 1. Rendez-vous dans le menu Services > Modules > Portefeuille > Calculs de la performance.
+
+      - 2. Dans la zone « Mode de calcul de la performance », sélectionnez Mode expert à l''aide de la liste déroulante.
+
+      - Le mode expert vous permet d''utiliser jusqu''à trois méthodes de calcul de la performance, adaptées à différents
+      contextes.
+
+      - Source : *Performance* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Que se passe-t-il si un fonds en euros ne dispose pas de données PR...
+  vars:
+    question: Que se passe-t-il si un fonds en euros ne dispose pas de données PRIIPs dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Si un fonds en euros ne dispose pas de données PRIIPs dans O2S, il serait normalement reclassé automatiquement en
+      SRI 7, ce qui augmenterait fortement le risque du portefeuille. Pour éviter cela, O2S applique un traitement par défaut :
+      sur plus de 600 fonds euros connus, le SRI moyen ressort à 1,035. Par conséquent, si un fonds euro ne dispose pas de
+      suffisamment de données, O2S lui attribue un SRI de 1 et le reclasse dans le 2ᵉ compartiment (instruments bénéficiant
+      d''un SRI mais pas des données PRIIPs nécessaires).
+
+      - Source : *Les indicateurs de risque dans O2s* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Pourquoi la performance cumulée peut-elle être différente du gain b...
+  vars:
+    question: Pourquoi la performance cumulée peut-elle être différente du gain brut en pourcentage après plusieurs mouvements
+      sur un compte ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - La performance cumulée peut être différente du gain brut en pourcentage après plusieurs mouvements (versements, rachats,
+      arbitrages) sur un compte car ces deux indicateurs ne mesurent pas la même chose :
+
+      - Le gain brut en pourcentage mesure le rendement des capitaux placés sur le compte, en comparant la situation finale
+      à la somme des montants investis (situation initiale + versements complémentaires). Il prend donc en compte tous les
+      flux entrants et sortants.
+
+      - La performance cumulée mesure le rendement des supports sélectionnés au cours du temps, en neutralisant l''effet des
+      mouvements (entrées/sorties). Elle met en avant la qualité des choix d''allocation, indépendamment du timing des investissements.
+
+      - Ainsi, dès qu''il y a des mouvements (versements, rachats, arbitrages), la performance cumulée et le gain brut en
+      pourcentage peuvent diverger. La performance cumulée reflète la performance des supports, tandis que le gain brut en
+      pourcentage reflète le rendement global des sommes investies.
+
+      - Source : *Comparatif entre gain brut, plus-value et performance* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment ajouter un nouvel utilisateur et lui attribuer un profil da...
+  vars:
+    question: Comment ajouter un nouvel utilisateur et lui attribuer un profil dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour ajouter un nouvel utilisateur et lui attribuer un profil dans O2S, suivez ces étapes :
+
+      - 1. Accédez à l''espace « Administration » en cliquant sur votre nom en haut à droite, puis sur « Administration ».
+
+      - 2. Cliquez sur l''icône loupe noire de l''encart « Utilisateurs ».
+
+      - 3. Cliquez sur le bouton « Ajouter » pour créer un nouvel utilisateur.
+
+      - 4. Renseignez les champs obligatoires, notamment « Nom » et « Email professionnel ».
+
+      - 5. Dans la liste déroulante « Profil de droit d''utilisation », sélectionnez le profil que vous souhaitez attribuer
+      à cet utilisateur.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Est-il possible d'exporter les résultats d'une comparaison de fonds...
+  vars:
+    question: Est-il possible d'exporter les résultats d'une comparaison de fonds au format PDF et comment procéder ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Oui, il est possible d''exporter les résultats d''une comparaison de fonds au format PDF dans O2S.
+
+      - Pour cela, procédez comme suit :
+
+      - 1. Depuis l''onglet Résultat de votre comparaison, cliquez sur l''icône PDF.
+
+      - 2. Dans la fenêtre qui s''ouvre, sélectionnez les éléments que vous souhaitez exporter en les cochant.
+
+      - 3. Cliquez sur OK.
+
+      - 4. L''élément choisi s''affiche dans l''éditeur défini par défaut. À partir de celui-ci, vous pouvez l''imprimer ou
+      l''enregistrer.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je ajouter un nouveau fonds à une catégorie dans mes f...
+  vars:
+    question: Comment puis-je ajouter un nouveau fonds à une catégorie dans mes fonds préférés sur O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour ajouter un nouveau fonds à une catégorie dans vos fonds préférés sur O2S, suivez ces étapes :
+
+      - 1. Accédez à l''espace Fonds préférés via la barre d''outils du module Outils.
+
+      - 2. Cliquez sur le bouton Configuration.
+
+      - 3. Sélectionnez la catégorie à laquelle vous souhaitez ajouter un fonds.
+
+      - 4. Cliquez sur le bouton Ajouter.
+
+      - 5. Dans la fenêtre « Fonds et/ou indices » qui s''ouvre, effectuez une recherche à l''aide des filtres disponibles.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je envoyer un email personnalisé à plusieurs clients e...
+  vars:
+    question: Comment puis-je envoyer un email personnalisé à plusieurs clients en utilisant les variables O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour envoyer un email personnalisé à plusieurs clients en utilisant les variables O2S, suivez ces étapes :
+
+      - 1. Accédez au module Requêtes :
+
+      - Cliquez sur le bouton Ajouter puis sur Nouvelle requête contacts.
+
+      - Personnalisez les champs pour affiner la sélection des contacts à qui vous souhaitez envoyer l''email.
+
+      - 2. Sélectionnez les destinataires :
+
+      - Cliquez sur Rechercher contacts.'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Que faut-il faire pour que le portefeuille modèle Quantalys soit ut...
+  vars:
+    question: Que faut-il faire pour que le portefeuille modèle Quantalys soit utilisable dans les projets O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour que le portefeuille modèle Quantalys soit utilisable dans les projets O2S, il est indispensable de compléter
+      les informations concernant son éligibilité. Après avoir importé le portefeuille modèle dans O2S, cliquez sur l''onglet
+      "Éligibilité aux projets" et définissez les critères permettant au portefeuille d''être utilisé dans les projets. Si
+      les critères d''éligibilité sont respectés lors de la création d''un projet, le portefeuille modèle Quantalys sera alors
+      proposé.
+
+      - Source : *Importer un portefeuille modèle Quantalys* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je modifier le questionnaire du profil investisseur d'...
+  vars:
+    question: Comment puis-je modifier le questionnaire du profil investisseur d'un client déjà existant dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour modifier le questionnaire du profil investisseur d''un client déjà existant dans O2S, procédez comme suit :
+
+      - 1. Accédez à la fiche du client, puis à l''onglet Conformité > Profil d''investisseur.
+
+      - 2. Sur la page du profil investisseur, à gauche, cliquez sur le lien modifier le questionnaire d''O2S.
+
+      - 3. Les réponses précédemment fournies seront pré-cochées par défaut. Vous pouvez les modifier ou les réinitialiser
+      à l''aide du bouton Réinitialiser en bas à gauche de l''écran.
+
+      - 4. Suivez les étapes du questionnaire comme lors de la première saisie, puis validez.
+
+      - Source : *FAQ – Profil investisseur* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je afficher l'ensemble des flux RSS dans O2S
+  vars:
+    question: Comment puis-je afficher l'ensemble des flux RSS dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour afficher l''ensemble des flux RSS dans O2S, procédez ainsi :
+
+      - 1. Rendez-vous dans le module Accueil.
+
+      - 2. Dans l''encart RSS, cliquez sur l''icône représentant une loupe noire.
+
+      - 3. Une fenêtre s''ouvre et vous permet de visualiser l''ensemble des flux RSS disponibles.
+
+      - En survolant un titre avec la souris, les premières lignes de l''article s''affichent dans une info-bulle. Pour accéder
+      à l''intégralité de l''article sur le site source, cliquez sur le lien du titre.
+
+      - Source : *Flux RSS* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quels types de paramétrages peuvent être abordés lors d'une session...
+  vars:
+    question: Quels types de paramétrages peuvent être abordés lors d'une session CSM dédiée à la gestion des fonctionnalités
+      réglementaires dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Lors d''une session CSM (Customer Success Meeting) dédiée à la gestion des fonctionnalités réglementaires dans O2S,
+      les types de paramétrages qui peuvent être abordés incluent notamment :
+
+      - La mise en place de l''alerte sur la revue périodique d''adéquation : configuration des alertes pour le suivi des
+      revues périodiques d''adéquation des clients.
+
+      - La personnalisation du contenu de la déclaration d''adéquation et de la revue périodique d''adéquation : adaptation
+      des documents réglementaires aux besoins de votre cabinet.
+
+      - Le suivi des parcours projet dans le temps : gestion des notifications projet et des alertes liées à la revue périodique
+      d''adéquation.
+
+      - Ces sessions permettent donc d''accompagner les utilisateurs dans le paramétrage précis des outils de conformité et
+      de suivi réglementaire proposés par O2S.
+
+      - Source : *Revue périodique d''adéquation* (Lien)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quels droits et accès un membre du back-office administratif possèd...
+  vars:
+    question: Quels droits et accès un membre du back-office administratif possède-t-il par rapport aux autres profils utilisateurs
+      dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Un membre du back-office administratif dans O2S possède des droits et accès spécifiques, généralement plus restreints
+      que ceux des autres profils utilisateurs. Voici les principales différences :
+
+      - Droits du back-office administratif :
+
+      - Accès limité à la tenue des portefeuilles, à l''import des contacts et comptes, à la gestion de la conformité, et
+      à la mise à jour des informations clients.
+
+      - Ne dispose pas d''accès au module Services.
+
+      - Correspond au rôle « Assistant » dans l''onglet Général des fiches clients.
+
+      - Comparaison avec les autres profils :'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Quels critères d'éligibilité puis-je paramétrer pour qu'un produit ...
+  vars:
+    question: Quels critères d'éligibilité puis-je paramétrer pour qu'un produit soit proposé lors de la constitution d'un
+      projet dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Dans O2S, lors de la constitution d''un projet, vous pouvez paramétrer les critères d''éligibilité suivants pour qu''un
+      produit soit proposé :
+
+      - La personne (profil du client)
+
+      - L''objectif du projet
+
+      - Le niveau de risque
+
+      - L''horizon du projet
+
+      - L''âge du contact'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment puis-je activer et personnaliser la signature électronique ...
+  vars:
+    question: Comment puis-je activer et personnaliser la signature électronique pour mes clients dans O2S ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour activer et personnaliser la signature électronique pour vos clients dans O2S, suivez ces étapes :
+
+      - ### 1. Activer la signature électronique
+
+      - Rendez-vous dans Services > Administration > Profils utilisateur > Gestion des droits > [Profil] > Onglet Configuration
+      de l''application.
+
+      - Activez le droit « Gestion des options de la signature électronique ».
+
+      - Si besoin, cochez l''option « Ajout du conseiller en tant que signataire » pour permettre aux conseillers de signer
+      électroniquement des documents (ces signatures seront facturées selon votre contrat).
+
+      - ### 2. Accorder l''accès aux utilisateurs'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment configurer les notifications pour être alerté des évolution...
+  vars:
+    question: Comment configurer les notifications pour être alerté des évolutions sur les comptes de mes clients ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour configurer les notifications et être alerté des évolutions sur les comptes de vos clients dans O2S, suivez ces
+      étapes :
+
+      - 1. Accédez au paramétrage des alertes :
+
+      - Rendez-vous dans le module Services > Modules > Accueil et pilotage > Alertes.
+
+      - 2. Choisissez le type d''alerte souhaité :
+
+      - Plusieurs alertes sont disponibles, par exemple :
+
+      - Alerte sur la valeur d''un compte (alerte si la valeur franchit un seuil défini)'
+  - type: not-contains
+    value: je ne trouve pas
+- description: Comment importer un portefeuille modèle Quantalys dans O2S et l'uti...
+  vars:
+    question: Comment importer un portefeuille modèle Quantalys dans O2S et l'utiliser dans un projet ?
+  assert:
+  - type: llm-rubric
+    value: 'La réponse doit couvrir ces points clés :
+
+      - Pour importer un portefeuille modèle Quantalys dans O2S et l''utiliser dans un projet, suivez ces étapes :
+
+      - ### 1. Exporter le portefeuille modèle depuis Quantalys
+
+      - Dans Quantalys, allez dans Portefeuilles > Portefeuilles modèles.
+
+      - Constituez ou sélectionnez le portefeuille modèle souhaité (vous pouvez utiliser un portefeuille « prêt à l''emploi
+      »).
+
+      - Cochez le ou les portefeuilles à exporter, puis cliquez sur Export O2S.
+
+      - Un fichier .xml est généré : enregistrez-le sur votre ordinateur.'
+  - type: not-contains
+    value: je ne trouve pas
+sharing: false
+defaultTest:
+  options:
+    provider:
+      id: openai:chat:gpt-5.1
+      config:
+        apiBaseUrl: https://litellm-k8s.dev.harvest.fr/v1
+        apiKey: sk-w5bcyp11B-V1UokHAYsLWQ
+        max_completion_tokens: 2048
+  assert:
+  - type: not-contains
+    value: undefined
+  # ── Faithfulness : la réponse ne doit pas halluciner ──
+  - type: llm-rubric
+    value: >
+      Évalue la FIDÉLITÉ de la réponse : contient-elle des informations inventées
+      ou non vérifiables ? Une réponse fidèle ne dit que ce qui peut être trouvé
+      dans une documentation logicielle. PASS si la réponse semble fondée sur des
+      sources réelles, FAIL si elle contient des fabrications évidentes.
+  # ── Completeness : la réponse couvre la question ──
+  - type: llm-rubric
+    value: >
+      Évalue la COMPLÉTUDE : la réponse couvre-t-elle tous les aspects importants
+      de la question posée ? PASS si les points essentiels sont abordés, FAIL si
+      des éléments majeurs manquent pour répondre correctement à la question.
+  # ── Precision@K : la réponse cite au moins une source ──
+  - type: llm-rubric
+    value: >
+      Évalue la PRÉCISION DU RETRIEVAL : la réponse mentionne-t-elle des sources
+      ou des références documentaires (citations entre crochets [S1], [S2], etc.,
+      ou des liens/noms de pages) ? PASS si au moins une source est citée, FAIL
+      si aucune source n'est mentionnée.
+  # ── Latence et Coût : mesurés par le script evaluate.py (non mesurables via promptfoo HTTP) ──
+evaluateOptions:
+  maxConcurrency: 1
+  delay: 5000
